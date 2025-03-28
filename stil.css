@@ -1,0 +1,208 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f2f2f2;
+  color: #333;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ff69b4 #f0f0f0;
+}
+
+/* SCROLL PERSONALIZAT pentru Chrome */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #ff69b4;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+}
+
+#start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #fce4ec, #e0f7fa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.start-content {
+  text-align: center;
+}
+
+.start-content h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.start-content button {
+  background-color: #1976d2;
+  color: white;
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-content button:hover {
+  background-color: #125ea5;
+}
+
+header {
+  background: url('imagini/fundal-bijou.png') no-repeat 40px center;
+  background-size: 60px;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  height: 100px;
+  padding: 0 0 0 120px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+}
+
+.logo-box img {
+  height: 60px;
+  width: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+nav ul.menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+nav ul.menu li {
+  position: relative;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+nav ul.menu li a {
+  text-decoration: none;
+  color: #0d0d0d;
+  transition: color 0.3s;
+}
+
+nav ul.menu li a:hover {
+  color: #0077cc;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 10px 0;
+  min-width: 180px;
+  z-index: 10;
+}
+
+.submenu li {
+  padding: 10px 20px;
+  white-space: nowrap;
+}
+
+.submenu li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+.submenu li a:hover {
+  background-color: #f5f5f5;
+  color: #0077cc;
+}
+
+.submenu.show {
+  display: block;
+}
+
+.platforma-button a {
+  background: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.platforma-button a:hover {
+  background: #125ea5;
+}
+
+.intro {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
+
+.intro h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.intro p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.btn-music {
+  background-color: #ffca28;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-music:hover {
+  background-color: #f4b400;
+}
