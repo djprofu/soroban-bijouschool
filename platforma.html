@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platforma de lucru - Bijou School</title>
+  <link rel="stylesheet" href="stil.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #e3f2fd, #fce4ec);
+      padding: 40px 20px;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin-bottom: 10px;
+      color: #555;
+    }
+    p#ultima-autentificare {
+      margin-bottom: 30px;
+      font-style: italic;
+      color: #666;
+    }
+    .buton-exercitiu {
+      display: inline-block;
+      margin: 20px;
+      padding: 30px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background-color: #42a5f5;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: background 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .buton-exercitiu:hover {
+      background-color: #1e88e5;
+    }
+    .logout-button {
+      margin-top: 40px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background: #ef5350;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .logout-button:hover {
+      background: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔐 Platforma de lucru</h1>
+  <h2>Bun venit, <span id="nume-utilizator"></span>!</h2>
+  <p id="ultima-autentificare"></p>
+
+  <a href="#" class="buton-exercitiu">Exerciții Soroban</a>
+  <a href="#" class="buton-exercitiu">Micii & Marii prieteni</a>
+  <a href="#" class="buton-exercitiu">Labirint logic</a>
+  <a href="#" class="buton-exercitiu">Tabel Shuttle</a>
+  <a href="#" class="buton-exercitiu">Fișe printabile</a>
+  <a href="#" class="buton-exercitiu">Exerciții 2 mâini</a>
+
+  <br>
+  <button class="logout-button" onclick="logout()">Ieșire din platformă</button>
+
+  <script>
+    const nume = localStorage.getItem("utilizator") || "Utilizator";
+    const ultima = localStorage.getItem("ultimaAutentificare") || "necunoscută";
+
+    document.getElementById("nume-utilizator").textContent = nume.charAt(0).toUpperCase() + nume.slice(1);
+    document.getElementById("ultima-autentificare").textContent = `Ultima autentificare: ${ultima}`;
+
+    function logout() {
+      localStorage.removeItem("utilizator");
+      localStorage.removeItem("ultimaAutentificare");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
