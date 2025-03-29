@@ -2,61 +2,25 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Autentificare - Bijou School</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stil.css">
-  <style>
-    body {
-      background: linear-gradient(to right, #e1f5fe, #fce4ec);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .login-box {
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-    }
-    .login-box h2 {
-      margin-bottom: 20px;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    button {
-      background: #1976d2;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      border-radius: 25px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:hover {
-      background: #125ea5;
-    }
-  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <div class="login-box">
-    <h2>Autentificare Platformă</h2>
-    <input type="text" id="username" placeholder="Nume utilizator">
-    <input type="password" id="parola" placeholder="Parolă (ex: 1986 / xxxx)">
-    <button onclick="verificaLogin()">Intră în platformă</button>
+
+  <div class="login-container">
+    <h2>Autentificare</h2>
+    <form action="platforma.html" method="post" class="login-form">
+      <label for="username">Utilizator:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Parolă:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Intră în platformă</button>
+    </form>
   </div>
 
-  <script src="login.js"></script>
 </body>
 </html>
