@@ -3,18 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Platforma de lucru - Bijou School</title>
+  <title>Platforma Bijou School</title>
   <link rel="stylesheet" href="stil.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <header class="platform-header">
-    <h1>Bine ai venit pe Platforma Bijou School!</h1>
-    <a href="index.html" class="logout-button">Ieși din platformă</a>
+
+  <!-- Header cu logo și buton logout -->
+  <header>
+    <div class="container">
+      <div class="logo-box">
+        <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="#">Acasă</a></li>
+          <li><a href="#">Exerciții</a></li>
+          <li><a href="#">Teme</a></li>
+          <li><a href="#">Progres</a></li>
+          <li><a href="#" onclick="logout()">Ieșire</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main class="platform-content">
-    <p>Aici vor apărea lecțiile, testele și activitățile educaționale.</p>
-    <p>Îți dorim succes și spor la învățat! 📚✨</p>
+  <!-- Mesaj de întâmpinare -->
+  <main>
+    <section class="intro" style="text-align: center;">
+      <h1>🎉 Bun venit pe platforma Bijou School!</h1>
+      <p>Salut, <span id="numeElev">elev</span>! 👋</p>
+      <p>Suntem bucuroși să te avem aici. Succes la antrenamente! 🧠✨</p>
+    </section>
   </main>
+
+  <!-- Script pentru preluarea numelui elevului -->
+  <script>
+    const elev = localStorage.getItem('elev_curent');
+    if (elev) {
+      document.getElementById("numeElev").textContent = elev;
+    }
+
+    function logout() {
+      localStorage.removeItem('elev_curent');
+      window.location.href = "login.html";
+    }
+  </script>
+
 </body>
 </html>
