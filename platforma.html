@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Platforma Bijou School</title>
-  <link rel="stylesheet" href="stil.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="stil.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
-<!-- Muzica de fundal -->
-<audio id="bg-music" loop autoplay>
-  <source src="audio/sunet-fundal.mp3" type="audio/mpeg" />
-  Browserul tău nu suportă elementul audio.
-</audio>
 
-  <!-- Header cu logo și buton logout -->
+  <!-- Muzică de fundal -->
+  <audio id="bg-music" loop>
+    <source src="sunet-fundal.mp3" type="audio/mpeg" />
+    Browserul tău nu suportă redarea audio.
+  </audio>
+
+  <!-- Buton pentru pornirea muzicii (dacă e blocată de browser) -->
+  <div style="text-align:center; margin-top: 10px;">
+    <button onclick="pornesteMuzica()">🔊 Pornește muzica</button>
+  </div>
+
+  <!-- Header -->
   <header>
     <div class="container">
       <div class="logo-box">
@@ -41,42 +47,42 @@
     </section>
   </main>
 
-  <!-- Script pentru preluarea numelui elevului -->
+  <!-- Script JavaScript -->
   <script>
+    // Preia numele elevului
     const elev = localStorage.getItem('elev_curent');
     if (elev) {
       document.getElementById("numeElev").textContent = elev;
     }
 
+    // Funcția de logout
     function logout() {
       localStorage.removeItem('elev_curent');
       window.location.href = "login.html";
     }
-  </script>
-<script>
-  const elev = localStorage.getItem('elev_curent');
-  if (elev) {
-    document.getElementById("numeElev").textContent = elev;
-  }
 
-  // Pornim muzica automat
-  window.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById("bg-music");
-    audio.volume = 0.05;
-    const playPromise = audio.play();
+    // Încercare automată de redare a muzicii
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("bg-music");
+      audio.volume = 0.05;
+      const playPromise = audio.play();
 
-    if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        console.warn("🔇 Sunet blocat de browser. Trebuie activat de utilizator.");
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          console.warn("🔇 Muzica a fost blocată de browser.");
+        });
+      }
+    });
+
+    // Buton pentru pornirea muzicii
+    function pornesteMuzica() {
+      const audio = document.getElementById("bg-music");
+      audio.volume = 0.05;
+      audio.play().catch(() => {
+        alert("🔇 Muzica este blocată de browser. Activează manual.");
       });
     }
-  });
-
-  function logout() {
-    localStorage.removeItem('elev_curent');
-    window.location.href = "login.html";
-  }
-</script>
+  </script>
 
 </body>
 </html>
