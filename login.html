@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Autentificare</title>
-  <link rel="stylesheet" href="stil.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autentificare - Bijou School</title>
+  <link rel="stylesheet" href="stil.css">
 </head>
-<body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f2f2f2;">
-  <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px;">
-    <h2>Autentificare</h2>
-    <form>
-      <div style="margin-bottom: 15px;">
-        <input type="text" placeholder="Utilizator" style="width: 100%; padding: 10px;" />
-      </div>
-      <div style="margin-bottom: 15px;">
-        <input type="password" placeholder="Parolă" style="width: 100%; padding: 10px;" />
-      </div>
-      <button type="submit" style="width: 100%; padding: 10px; background-color: #b77b2e; color: white; border: none; border-radius: 5px;">Intră în platformă</button>
+<body>
+  <div class="login-container">
+    <h2>🔐 Autentificare Elev</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Nume" required>
+      <input type="password" id="password" placeholder="Parolă" required>
+      <button type="submit">Intră în platformă</button>
+      <p id="mesajLogin" class="feedback"></p>
     </form>
   </div>
-  <script src="login.js"></script>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nume = document.getElementById("username").value.trim().toLowerCase();
+      const parola = document.getElementById("password").value.trim();
+      const conturi = JSON.parse(localStorage.getItem("conturi_elevi")) || {};
+      const mesaj = document.getElementById("mesajLogin");
+
+      if (conturi[nume] && conturi[nume].parola === parola) {
+        localStorage.setItem("elev_curent", nume);
+        window.location.href = "platforma.html";
+      } else {
+        mesaj.textContent = "❌ Nume sau parolă incorecte.";
+      }
+    });
+  </script>
 </body>
 </html>

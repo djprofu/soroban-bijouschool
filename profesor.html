@@ -33,24 +33,14 @@
       gap: 10px;
       margin-bottom: 30px;
     }
-    input {
-      padding: 8px;
+    input, button {
+      padding: 10px;
       font-size: 16px;
       width: 250px;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
     .buton-actiune {
-      margin-right: 10px;
+      margin: 10px;
     }
-    #feedbackElev, #feedbackStergere {
-      font-weight: bold;
-      text-align: center;
-    }
-
     .sterge-elev {
       margin-top: 40px;
       padding: 20px;
@@ -61,33 +51,41 @@
       margin-left: auto;
       margin-right: auto;
     }
-
     .sterge-elev h2 {
       color: #e74c3c;
       margin-bottom: 15px;
     }
-
-    .sterge-elev form input,
-    .sterge-elev form button {
+    .sterge-elev form input {
       width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
-
     .sterge-elev form button {
       background-color: #e74c3c;
       color: white;
       border: none;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
       border-radius: 4px;
-      transition: background 0.3s ease;
+      cursor: pointer;
     }
-
-    .sterge-elev form button:hover {
-      background-color: #c0392b;
+    #feedbackElev, #feedbackStergere {
+      font-weight: bold;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
   <h1>📊 Panou Profesor - Bijou School</h1>
+
+  <!-- Buton adăugare conturi -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button onclick="adaugaConturiDemo()">⚙️ Adaugă conturi demo</button>
+    <p id="feedbackConturi"></p>
+  </div>
 
   <!-- Tabel scoruri elevi -->
   <table>
@@ -102,7 +100,7 @@
   </table>
 
   <!-- Formular adăugare elev -->
-  <section class="adauga-elev">
+  <section>
     <h2>➕ Adaugă elev nou</h2>
     <form id="formularElev">
       <input type="text" id="numeNouElev" placeholder="Nume elev" required />
@@ -122,28 +120,30 @@
     <p id="feedbackStergere"></p>
   </section>
 
-  <!-- Butoane -->
+  <!-- Butoane acțiuni -->
   <div style="text-align: center;">
     <button onclick="exportCSV()" class="buton-actiune">⬇️ Exportă scoruri (CSV)</button>
-    <button onclick="reseteazaScoruri()">🧼 Șterge toate scorurile</button>
+    <button onclick="reseteazaScoruri()" class="buton-actiune">🧼 Șterge toate scorurile</button>
   </div>
 
-  <!-- Script -->
   <script>
     const scoruri = JSON.parse(localStorage.getItem("scoruri_elevi")) || {};
     const conturi = JSON.parse(localStorage.getItem("conturi_elevi")) || {};
     const tabel = document.getElementById("tabelElevi");
 
-    // Afișare scoruri
     for (const elev in scoruri) {
       const rand = document.createElement("tr");
       const scor2 = scoruri[elev]["lectia2"] || 0;
       const scor3 = scoruri[elev]["lectia3"] || 0;
-      rand.innerHTML = `<td>${elev}</td><td>${scor2}</td><td>${scor3}</td>`;
+
+      rand.innerHTML = `
+        <td>${elev}</td>
+        <td>${scor2}</td>
+        <td>${scor3}</td>
+      `;
       tabel.appendChild(rand);
     }
 
-    // Adaugă elev
     document.getElementById("formularElev").addEventListener("submit", function (e) {
       e.preventDefault();
       const nume = document.getElementById("numeNouElev").value.trim().toLowerCase();
@@ -166,16 +166,10 @@
       document.getElementById("formularElev").reset();
     });
 
-    // Ștergere elev
     document.getElementById("formularStergere").addEventListener("submit", function (e) {
       e.preventDefault();
       const nume = document.getElementById("elevDeSters").value.trim().toLowerCase();
       const feedback = document.getElementById("feedbackStergere");
-
-      if (!nume) {
-        feedback.textContent = "⚠️ Introdu numele elevului.";
-        return;
-      }
 
       if (!conturi[nume]) {
         feedback.textContent = "❌ Elevul nu există.";
@@ -184,20 +178,15 @@
 
       if (confirm(`Ești sigur că vrei să ștergi elevul "${nume}"?`)) {
         delete conturi[nume];
+        delete scoruri[nume];
         localStorage.setItem("conturi_elevi", JSON.stringify(conturi));
-
-        if (scoruri[nume]) {
-          delete scoruri[nume];
-          localStorage.setItem("scoruri_elevi", JSON.stringify(scoruri));
-        }
-
-        feedback.textContent = `✅ Elevul "${nume}" a fost șters cu succes.`;
+        localStorage.setItem("scoruri_elevi", JSON.stringify(scoruri));
+        feedback.textContent = `✅ Elevul "${nume}" a fost șters.`;
         document.getElementById("formularStergere").reset();
         setTimeout(() => location.reload(), 1000);
       }
     });
 
-    // Export CSV
     function exportCSV() {
       let csv = "Elev,Lecția 2,Lecția 3\n";
       for (const elev in scoruri) {
@@ -213,14 +202,23 @@
       link.click();
     }
 
-    // Resetare scoruri
     function reseteazaScoruri() {
-      if (confirm("Ștergi toate scorurile?")) {
+      if (confirm("Ești sigur că vrei să ștergi toate scorurile?")) {
         localStorage.removeItem("scoruri_elevi");
         location.reload();
       }
     }
-  </script>
 
+    function adaugaConturiDemo() {
+      const conturi = {
+        ana: { parola: "3045", rol: "elev" },
+        mihai: { parola: "2314", rol: "elev" },
+        cristina: { parola: "4798", rol: "elev" },
+        profesor: { parola: "1986", rol: "profesor" }
+      };
+      localStorage.setItem("conturi_elevi", JSON.stringify(conturi));
+      document.getElementById("feedbackConturi").textContent = "✅ Conturile au fost adăugate.";
+    }
+  </script>
 </body>
 </html>
