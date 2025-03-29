@@ -8,14 +8,14 @@
   <!-- Stil CSS -->
   <link rel="stylesheet" href="stil.css" />
 
-  <!-- Favicon și manifest -->
+  <!-- Faviconuri -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="96x96" href="imagini/favicon-96x96.png">
   <link rel="apple-touch-icon" href="imagini/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 </head>
-
 <body>
+
   <!-- Ecran de start -->
   <div id="start-screen">
     <div class="start-content">
@@ -25,12 +25,12 @@
   </div>
 
   <!-- Muzică de fundal -->
-  <audio id="bg-music" loop autoplay muted>
+  <audio id="bg-music" loop>
     <source src="sunet-fundal.mp3" type="audio/mpeg" />
     Browserul tău nu suportă redarea audio.
   </audio>
 
-  <!-- Antet și meniu -->
+  <!-- Antet + Meniu -->
   <header>
     <div class="container">
       <div class="logo-box">
@@ -67,23 +67,23 @@
     </div>
   </header>
 
-  <!-- Conținut principal -->
-  <main>
-    <section class="intro" style="background-image: url('imagini/fundal-bijou.png');">
+  <!-- Fundal blurat cu conținut -->
+  <div class="background-container">
+    <div class="blur-background"></div>
+    <div class="content-over-background">
       <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-      <p>Suntem bucuroși că ești aici. E timpul să antrenăm mintea cu zâmbet și distracție! 📃 💡</p>
+      <p>Antrenează-ți mintea cu zâmbet și distracție!</p>
       <button onclick="toggleMusic()" class="btn-music">Pornire/Oprire muzică</button>
-    </section>
-  </main>
+    </div>
+  </div>
 
-  <!-- Script JS -->
+  <!-- Scripturi -->
   <script>
     function toggleSubmenu(id) {
       document.querySelectorAll(".submenu").forEach(el => {
         if (el.id !== id) el.classList.remove("show");
       });
-      const submenu = document.getElementById(id);
-      submenu.classList.toggle("show");
+      document.getElementById(id).classList.toggle("show");
     }
 
     function toggleMusic() {
@@ -104,5 +104,6 @@
       audio.play().catch(() => {});
     }
   </script>
+
 </body>
 </html>
