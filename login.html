@@ -7,37 +7,56 @@
   <link rel="stylesheet" href="stil.css" />
   <style>
     body {
-      background-color: #f2f2f2;
+      background-color: #f4f4f4;
       font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 40px;
     }
+
     h1 {
-      text-align: center;
       color: #222;
+      margin-bottom: 20px;
     }
+
     form {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       gap: 10px;
-      margin-top: 20px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
     input {
       padding: 10px;
       font-size: 16px;
-      border-radius: 4px;
+      width: 250px;
       border: 1px solid #ccc;
+      border-radius: 5px;
     }
+
     button {
-      padding: 10px 15px;
+      padding: 10px 20px;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
     }
-    #mesajEroare {
-      text-align: center;
-      color: darkred;
+
+    button:hover {
+      background-color: #1a252f;
+    }
+
+    #eroare {
+      color: crimson;
       font-weight: bold;
-      margin-top: 20px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -45,13 +64,12 @@
 
   <h1>🔐 Autentificare Elev</h1>
 
-  <form onsubmit="return autentificareElev(event)">
-    <input type="text" id="numeElev" placeholder="Nume" required />
-    <input type="password" id="parolaElev" placeholder="Parolă" required />
+  <form id="loginForm">
+    <input type="text" id="nume" placeholder="Nume" required />
+    <input type="password" id="parola" placeholder="Parolă" required />
     <button type="submit">Intră în platformă</button>
+    <p id="eroare"></p>
   </form>
-
-  <div id="mesajEroare"></div>
 
   <script src="login.js"></script>
 </body>
