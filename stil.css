@@ -1,186 +1,97 @@
-/* Reset și font */
+/* Resetare stiluri implicite */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body, html {
-  height: 100%;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
+/* Stiluri generale */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: url('imagini/fundal.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
-/* Ecran de start */
-#start-screen {
+/* Antet și Meniu */
+header {
+  background-color: rgba(255, 255, 255, 0.9);
   position: fixed;
+  width: 100%;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('imagini/fundal-bijou.png');
-  background-size: cover;
-  background-position: center;
-  backdrop-filter: blur(6px);
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.start-content {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-/* Header + meniu */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
   z-index: 1000;
-  padding: 10px 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px 20px;
 }
 
 .logo-box img {
-  max-height: 60px;
+  height: 50px;
 }
 
-nav {
-  flex: 1;
-  text-align: center;
-}
-
-.menu {
+nav ul {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
 }
 
-.menu li {
-  position: relative;
+nav ul li {
+  margin: 0 10px;
 }
 
-.menu li a {
+nav ul li a {
   text-decoration: none;
   color: #333;
-  font-weight: 600;
-  font-size: 14px;
   padding: 5px 10px;
 }
 
-/* Submeniu */
-.submenu {
-  display: none;
-  position: absolute;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  top: 30px;
-  left: 0;
-  min-width: 150px;
-  z-index: 999;
-}
-
-.submenu li {
-  display: block;
-}
-
-.submenu li a {
-  padding: 8px 12px;
-  display: block;
-  color: #333;
-}
-
-.submenu.show {
-  display: block;
-}
-
-/* Buton Platforma */
 .platforma-button a {
   background-color: #e48f26;
-  color: white;
-  padding: 10px 15px;
+  color: #fff;
+  padding: 5px 15px;
   border-radius: 5px;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
-  white-space: nowrap;
 }
 
-/* Secțiune principală */
+/* Conținut Principal */
 main {
-  padding-top: 120px;
-  min-height: calc(100vh - 120px);
+  margin-top: 80px;
+  padding: 20px;
+  text-align: center;
 }
 
 .intro {
-  text-align: center;
-  padding: 40px 20px;
-  background-image: url('imagini/fundal-bijou.png');
-  background-size: cover;
-  background-position: center;
-  backdrop-filter: blur(3px);
-  color: white;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 50px 20px;
+  border-radius: 10px;
+  display: inline-block;
 }
 
-.intro h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.intro p {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.btn-music {
-  padding: 10px 20px;
-  font-size: 14px;
-  background-color: #38a169;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Responsive pentru mobil */
+/* Responsivitate */
 @media (max-width: 768px) {
-  .menu {
+  .container {
     flex-direction: column;
     align-items: center;
   }
 
-  .platforma-button {
-    margin-top: 10px;
+  nav ul {
+    flex-direction: column;
     text-align: center;
   }
 
-  .intro h1 {
-    font-size: 20px;
+  nav ul li {
+    margin: 5px 0;
   }
 
-  .intro p {
-    font-size: 16px;
+  .platforma-button {
+    margin-top: 10px;
   }
 
-  .logo-box img {
-    max-height: 50px;
+  .intro {
+    width: 90%;
   }
 }
