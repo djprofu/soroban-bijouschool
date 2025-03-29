@@ -2,10 +2,10 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bijou School</title>
 
-  <!-- Stil CSS -->
+  <!-- Stiluri -->
   <link rel="stylesheet" href="stil.css" />
 
   <!-- Faviconuri -->
@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <!-- Ecran de start -->
+  <!-- Ecran de Start -->
   <div id="start-screen">
     <div class="start-content">
       <h1>Bun venit la Bijou School!</h1>
@@ -25,21 +25,20 @@
   </div>
 
   <!-- Muzică de fundal -->
-  <audio id="bg-music" loop>
+  <audio id="bg-music" loop autoplay muted>
     <source src="sunet-fundal.mp3" type="audio/mpeg" />
     Browserul tău nu suportă redarea audio.
   </audio>
 
-  <!-- Antet + Meniu -->
+  <!-- Antet și meniu -->
   <header>
     <div class="container">
       <div class="logo-box">
         <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
       </div>
-
       <nav>
         <ul class="menu">
-          <li><a href="acasa.html">HOME</a></li>
+          <li><a href="index.html">HOME</a></li>
           <li><a href="#">DESPRE NOI</a></li>
           <li onclick="toggleSubmenu('cursuri')">
             CURSURI
@@ -60,24 +59,22 @@
           <li><a href="#">CONTACT</a></li>
         </ul>
       </nav>
-
       <div class="platforma-button">
         <a href="login.html"><i class="fas fa-lock"></i> Platforma de lucru</a>
       </div>
     </div>
   </header>
 
-  <!-- Fundal blurat + text -->
-  <div class="background-container">
-    <div class="blur-background"></div>
-    <div class="content-over-background">
+  <!-- Fundal + conținut -->
+  <main>
+    <section class="intro">
       <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
       <p>Antrenează-ți mintea cu zâmbet și distracție!</p>
       <button onclick="toggleMusic()" class="btn-music">Pornire/Oprire muzică</button>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <!-- Scripturi -->
+  <!-- Script JS -->
   <script>
     function toggleSubmenu(id) {
       document.querySelectorAll(".submenu").forEach(el => {
@@ -107,4 +104,3 @@
 
 </body>
 </html>
-S

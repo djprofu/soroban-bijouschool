@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bijou School</title>
 
-  <!-- Stil CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="stil.css" />
 
   <!-- Faviconuri -->
@@ -25,12 +25,12 @@
   </div>
 
   <!-- Muzică de fundal -->
-  <audio id="bg-music" loop>
+  <audio id="bg-music" loop autoplay muted>
     <source src="sunet-fundal.mp3" type="audio/mpeg" />
     Browserul tău nu suportă redarea audio.
   </audio>
 
-  <!-- Antet + Meniu -->
+  <!-- Antet și meniu -->
   <header>
     <div class="container">
       <div class="logo-box">
@@ -67,15 +67,14 @@
     </div>
   </header>
 
-  <!-- Fundal blurat cu conținut -->
-  <div class="background-container">
-    <div class="blur-background"></div>
-    <div class="content-over-background">
+  <!-- Conținut principal -->
+  <main>
+    <section class="intro">
       <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
       <p>Antrenează-ți mintea cu zâmbet și distracție!</p>
       <button onclick="toggleMusic()" class="btn-music">Pornire/Oprire muzică</button>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <!-- Scripturi -->
   <script>
@@ -88,12 +87,7 @@
 
     function toggleMusic() {
       const audio = document.getElementById("bg-music");
-      if (audio.paused) {
-        audio.volume = 0.05;
-        audio.play();
-      } else {
-        audio.pause();
-      }
+      audio.paused ? audio.play() : audio.pause();
     }
 
     function startPlatform() {
