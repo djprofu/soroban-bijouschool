@@ -5,38 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bijou School</title>
 
-  <!-- Stil CSS -->
   <link rel="stylesheet" href="stil.css" />
-
-  <!-- Faviconuri -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" type="image/png" sizes="96x96" href="imagini/favicon-96x96.png" />
-  <link rel="apple-touch-icon" href="imagini/apple-touch-icon.png" />
-  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
 
-  <!-- Ecran de start -->
-  <div id="start-screen">
-    <div class="start-content">
-      <h1>Bun venit la Bijou School!</h1>
-      <button onclick="startPlatform()">Intră pe platformă</button>
-    </div>
-  </div>
-
-  <!-- Muzică de fundal -->
+  <!-- Muzica de fundal -->
   <audio id="bg-music" loop>
     <source src="sunet-fundal.mp3" type="audio/mpeg" />
     Browserul tău nu suportă redarea audio.
   </audio>
 
-  <!-- Antet și meniu -->
+  <!-- Antet -->
   <header>
     <div class="container">
       <div class="logo-box">
         <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
       </div>
-
       <nav>
         <ul class="menu">
           <li><a href="#">HOME</a></li>
@@ -60,7 +45,6 @@
           <li><a href="#">CONTACT</a></li>
         </ul>
       </nav>
-
       <div class="platforma-button">
         <a href="login.html"><i class="fas fa-lock"></i> Platforma de lucru</a>
       </div>
@@ -76,7 +60,6 @@
     </section>
   </main>
 
-  <!-- Scripturi -->
   <script>
     function toggleSubmenu(id) {
       document.querySelectorAll(".submenu").forEach(el => {
@@ -94,14 +77,6 @@
         audio.pause();
       }
     }
-
-    function startPlatform() {
-      document.getElementById("start-screen").style.display = "none";
-      const audio = document.getElementById("bg-music");
-      audio.volume = 0.05;
-      audio.play().catch(() => {});
-    }
   </script>
-
 </body>
 </html>
