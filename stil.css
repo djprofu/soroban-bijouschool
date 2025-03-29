@@ -1,57 +1,181 @@
-/* === Login Page === */
-.login-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f7f7f7;
+/* Reset & font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.login-container {
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* Header */
+header {
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-box img {
+  height: 60px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.menu li {
+  position: relative;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.platforma-button a {
+  background: #bb823f;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
   background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 400px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.submenu li {
+  margin: 5px 0;
+}
+
+.show {
+  display: block;
+}
+
+/* Ecran de start */
+#start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('imagini/fundal-bijou.png') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.start-content {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px 40px;
+  border-radius: 10px;
   text-align: center;
 }
 
-.login-container h1 {
-  margin-bottom: 20px;
-  color: #333;
+/* Secțiune principală */
+.intro {
+  background: url('imagini/fundal-bijou.png') no-repeat center center/cover;
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+  min-height: 90vh;
 }
 
-.login-container form {
+.btn-music {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .platforma-button {
+    margin-top: 10px;
+  }
+
+  .logo-box img {
+    height: 50px;
+  }
+}
+/* Stil pentru login */
+.login-container {
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdfdfd;
+  padding: 2rem;
 }
 
-.login-container label {
-  margin: 10px 0 5px;
-  text-align: left;
+.login-container h1 {
+  margin-bottom: 1rem;
   color: #333;
 }
 
-.login-container input {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 300px;
 }
 
-.login-container button {
-  margin-top: 20px;
-  padding: 12px;
+.login-form input {
+  padding: 0.5rem;
   font-size: 1rem;
-  border: none;
-  background: #007bff;
+}
+
+.login-form button {
+  padding: 0.6rem;
+  background-color: #007bff;
   color: white;
-  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  transition: background 0.3s;
+  font-weight: bold;
 }
 
-.login-container button:hover {
-  background: #0056b3;
+.login-form button:hover {
+  background-color: #0056b3;
 }

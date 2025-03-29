@@ -1,43 +1,107 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bijou School</title>
-  <link rel="stylesheet" href="stil.css">
+
+  <!-- Stil CSS -->
+  <link rel="stylesheet" href="stil.css" />
+
+  <!-- Faviconuri -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="96x96" href="imagini/favicon-96x96.png" />
+  <link rel="apple-touch-icon" href="imagini/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
 
-  <!-- Antet și Meniu -->
+  <!-- Ecran de start -->
+  <div id="start-screen">
+    <div class="start-content">
+      <h1>Bun venit la Bijou School!</h1>
+      <button onclick="startPlatform()">Intră pe platformă</button>
+    </div>
+  </div>
+
+  <!-- Muzică de fundal -->
+  <audio id="bg-music" loop>
+    <source src="sunet-fundal.mp3" type="audio/mpeg" />
+    Browserul tău nu suportă redarea audio.
+  </audio>
+
+  <!-- Antet și meniu -->
   <header>
     <div class="container">
       <div class="logo-box">
-        <img src="imagini/logo-bijouschool.png" alt="Logo Bijou School">
+        <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
       </div>
+
       <nav>
         <ul class="menu">
           <li><a href="#">HOME</a></li>
           <li><a href="#">DESPRE NOI</a></li>
-          <li><a href="#">CURSURI</a></li>
-          <li><a href="#">ÎNSCRIERI</a></li>
+          <li onclick="toggleSubmenu('cursuri')">
+            CURSURI
+            <ul class="submenu" id="cursuri">
+              <li><a href="#">Soroban copii</a></li>
+              <li><a href="#">Citire rapidă</a></li>
+            </ul>
+          </li>
+          <li onclick="toggleSubmenu('inscrieri')">
+            ÎNSCRIERI
+            <ul class="submenu" id="inscrieri">
+              <li><a href="#">Formular online</a></li>
+              <li><a href="#">Programări curs</a></li>
+            </ul>
+          </li>
           <li><a href="#">ARTICOLE</a></li>
           <li><a href="#">GALERIE</a></li>
           <li><a href="#">CONTACT</a></li>
         </ul>
       </nav>
+
       <div class="platforma-button">
-        <a href="login.html">Platforma de lucru</a>
+        <a href="login.html"><i class="fas fa-lock"></i> Platforma de lucru</a>
       </div>
     </div>
   </header>
 
-  <!-- Conținut Principal -->
+  <!-- Conținut principal -->
   <main>
     <section class="intro">
-      <h1>Bun venit la Bijou School!</h1>
+      <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
       <p>Antrenează-ți mintea cu zâmbet și distracție!</p>
+      <button onclick="toggleMusic()" class="btn-music">Pornire/Oprire muzică</button>
     </section>
   </main>
+
+  <!-- Scripturi -->
+  <script>
+    function toggleSubmenu(id) {
+      document.querySelectorAll(".submenu").forEach(el => {
+        if (el.id !== id) el.classList.remove("show");
+      });
+      document.getElementById(id).classList.toggle("show");
+    }
+
+    function toggleMusic() {
+      const audio = document.getElementById("bg-music");
+      if (audio.paused) {
+        audio.volume = 0.05;
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    function startPlatform() {
+      document.getElementById("start-screen").style.display = "none";
+      const audio = document.getElementById("bg-music");
+      audio.volume = 0.05;
+      audio.play().catch(() => {});
+    }
+  </script>
 
 </body>
 </html>
