@@ -15,6 +15,11 @@
     Browserul tău nu suportă redarea audio.
   </audio>
 
+  <!-- Buton pentru pornire muzică -->
+  <div style="text-align:center; margin-top: 15px;">
+    <button onclick="pornesteMuzica()" class="btn-music">🔊 Activează muzica</button>
+  </div>
+
   <!-- Header -->
   <header>
     <div class="container">
@@ -39,13 +44,10 @@
       <h1>🎉 Bun venit pe platforma Bijou School!</h1>
       <p>Salut, <span id="numeElev">elev</span>! 👋</p>
       <p>Suntem bucuroși să te avem aici. Succes la antrenamente! 🧠✨</p>
-
-      <!-- Buton pentru pornire muzică -->
-      <button onclick="pornesteMuzica()" class="btn-music">🔊 Activează muzica</button>
     </section>
   </main>
 
-  <!-- Script JS -->
+  <!-- Script JavaScript -->
   <script>
     // Nume elev
     const elev = localStorage.getItem('elev_curent');
@@ -66,12 +68,12 @@
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          console.warn("🔇 Sunet blocat de browser. Se poate activa cu butonul.");
+          console.warn("🔇 Sunet blocat de browser. Activează-l manual.");
         });
       }
     });
 
-    // Pornire manuală
+    // Buton pentru pornirea muzicii
     function pornesteMuzica() {
       const audio = document.getElementById("bg-music");
       audio.volume = 0.05;
