@@ -147,3 +147,27 @@ header .container {
     width: 100%;
   }
 }
+.menu li {
+  position: relative;
+  margin-right: 20px; /* spațiu între taburi */
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  min-width: 160px;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+
+.submenu li {
+  padding: 8px 20px;
+  white-space: nowrap;
+}
+
+.submenu.show {
+  display: block;
+}
