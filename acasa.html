@@ -1,85 +1,61 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bijou School</title>
-
-  <link rel="stylesheet" href="stil.css" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bijou School – Soroban</title>
+  <link rel="stylesheet" href="stil.css">
 </head>
 <body>
 
-  <!-- Muzica de fundal -->
-  <audio id="bg-music" loop>
-    <source src="sunet-fundal.mp3" type="audio/mpeg" />
-    Browserul tău nu suportă redarea audio.
-  </audio>
-
-  <!-- Antet -->
-  <header>
-    <div class="container-header">
-      <div class="logo-box">
-        <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
-      </div>
-  
-      <input type="checkbox" id="toggle-menu">
-      <label for="toggle-menu" class="menu-icon">&#9776;</label>
-  
-      <nav>
-        <ul class="menu">
-          <li><a href="#">Acasă</a></li>
-          <li><a href="#">Despre noi</a></li>
-          <li class="dropdown">
-            <a href="#">Cursuri</a>
-            <ul class="submenu">
-              <li><a href="#">Soroban copii</a></li>
-              <li><a href="#">Citire rapidă</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#">Înscrieri</a>
-            <ul class="submenu">
-              <li><a href="#">Formular online</a></li>
-              <li><a href="#">Programări curs</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Articole</a></li>
-          <li><a href="#">Galerie</a></li>
-          <li><a href="#">Contact</a></li>
-          <li class="platforma"><a href="login.html"><i class="fas fa-lock"></i> Platforma</a></li>
-        </ul>
-      </nav>
-    </div>
+  <!-- Bara de navigare -->
+  <header class="navbar">
+    <img src="logo.png" alt="Logo" class="logo">
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="acasa.html" class="active">Despre noi</a></li>
+        <li><a href="#">Cursuri</a></li>
+        <li><a href="#">Înscrieri</a></li>
+        <li><a href="#">Articole</a></li>
+        <li><a href="#">Galerie</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
   </header>
-  
 
-  <!-- Conținut principal -->
-  <main>
-    <section class="intro">
-      <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-      <p>Antrenează-ți mintea cu zâmbet și distracție!</p>
-      <button onclick="toggleMusic()" class="btn-music">Pornire/Oprire muzică</button>
-    </section>
-  </main>
+  <!-- Mesaj de bun venit -->
+  <section class="intro">
+    <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
+    <p class="highlight">🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+  </section>
 
+  <!-- Slideshow automat -->
+  <section class="slideshow-container">
+    <img class="slideshow" src="imagini/soroban1.jpg" alt="Soroban 1">
+    <img class="slideshow" src="imagini/soroban2.jpg" alt="Soroban 2">
+    <img class="slideshow" src="imagini/soroban3.jpg" alt="Soroban 3">
+    <img class="slideshow" src="imagini/soroban4.jpg" alt="Soroban 4">
+    <img class="slideshow" src="imagini/soroban5.jpg" alt="Soroban 5">
+  </section>
+
+  <!-- Script slideshow -->
   <script>
-    function toggleSubmenu(id) {
-      document.querySelectorAll(".submenu").forEach(el => {
-        if (el.id !== id) el.classList.remove("show");
-      });
-      document.getElementById(id).classList.toggle("show");
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName("slideshow");
+
+    function showSlides() {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 2500); // schimbă la fiecare 2.5 secunde
     }
 
-    function toggleMusic() {
-      const audio = document.getElementById("bg-music");
-      if (audio.paused) {
-        audio.volume = 0.05;
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    }
+    showSlides();
   </script>
+
 </body>
 </html>
