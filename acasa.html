@@ -18,38 +18,41 @@
 
   <!-- Antet -->
   <header>
-    <div class="container">
+    <div class="container-header">
       <div class="logo-box">
         <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
       </div>
+  
+      <input type="checkbox" id="toggle-menu">
+      <label for="toggle-menu" class="menu-icon">&#9776;</label>
+  
       <nav>
         <ul class="menu">
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">DESPRE NOI</a></li>
-          <li onclick="toggleSubmenu('cursuri')">
-            CURSURI
-            <ul class="submenu" id="cursuri">
+          <li><a href="#">Acasă</a></li>
+          <li><a href="#">Despre noi</a></li>
+          <li class="dropdown">
+            <a href="#">Cursuri</a>
+            <ul class="submenu">
               <li><a href="#">Soroban copii</a></li>
               <li><a href="#">Citire rapidă</a></li>
             </ul>
           </li>
-          <li onclick="toggleSubmenu('inscrieri')">
-            ÎNSCRIERI
-            <ul class="submenu" id="inscrieri">
+          <li class="dropdown">
+            <a href="#">Înscrieri</a>
+            <ul class="submenu">
               <li><a href="#">Formular online</a></li>
               <li><a href="#">Programări curs</a></li>
             </ul>
           </li>
-          <li><a href="#">ARTICOLE</a></li>
-          <li><a href="#">GALERIE</a></li>
-          <li><a href="#">CONTACT</a></li>
+          <li><a href="#">Articole</a></li>
+          <li><a href="#">Galerie</a></li>
+          <li><a href="#">Contact</a></li>
+          <li class="platforma"><a href="login.html"><i class="fas fa-lock"></i> Platforma</a></li>
         </ul>
       </nav>
-      <div class="platforma-button">
-        <a href="login.html"><i class="fas fa-lock"></i> Platforma de lucru</a>
-      </div>
     </div>
   </header>
+  
 
   <!-- Conținut principal -->
   <main>
