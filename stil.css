@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to right, #a1c4fd, #c2e9fb);
@@ -217,77 +218,21 @@ body {
     height: 140px;
   }
 }
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f2f6ff;
-}
-
-/* Bara de navigare blurată */
-.navbar {
-  position: sticky;
-  top: 0;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 40px;
-  z-index: 1000;
-}
-
-.logo {
-  height: 40px;
-}
-
-.menu {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-  padding: 0;
-  margin: 0;
-}
-
-.menu li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-}
-
-.menu li a.active {
-  color: #007bff;
-}
-
-/* Intro */
-.intro {
-  text-align: center;
-  margin: 50px auto 20px;
-  padding: 20px;
-}
-
-.highlight {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #007bff;
-  text-shadow: 1px 1px #fff;
-}
-
-/* Slideshow */
 .slideshow-container {
   width: 100%;
-  max-width: 100%;
-  height: auto;
-  position: relative;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom, #cfe7ff, #ffffff);
+  overflow: hidden;
+  position: relative;
+  background: none;
 }
 
 .slideshow {
   display: none;
-  width: 100%;
-  max-height: 400px;
+  width: 100vw;
+  height: 350px;
   object-fit: cover;
-  border-top: 4px solid #007bff;
-  border-bottom: 4px solid #007bff;
+  margin: 0;
+  padding: 0;
+  border: none;
 }
