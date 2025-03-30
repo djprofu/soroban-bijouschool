@@ -3,74 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Autentificare Elev</title>
-  <link rel="stylesheet" href="stil.css" />
-  <style>
-    body {
-      background-color: #f4f4f4;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
-    }
-
-    h1 {
-      color: #222;
-      margin-bottom: 20px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    input {
-      padding: 10px;
-      font-size: 16px;
-      width: 250px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      padding: 10px 20px;
-      background-color: #2c3e50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1a252f;
-    }
-
-    #eroare {
-      color: crimson;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-  </style>
+  <title>Autentificare - Bijou School</title>
+  <link rel="stylesheet" href="stil.css">
 </head>
 <body>
 
-  <h1>🔐 Autentificare Elev</h1>
-
-  <form id="loginForm">
-    <input type="text" id="nume" placeholder="Nume" required />
-    <input type="password" id="parola" placeholder="Parolă" required />
-    <button type="submit">Intră în platformă</button>
-    <p id="eroare"></p>
-  </form>
+  <div class="login-container">
+    <h1>🔐 Autentificare</h1>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Nume" required>
+      <input type="password" id="password" placeholder="Parolă" required>
+      <button type="submit">Intră în platformă</button>
+    </form>
+    <p id="mesajEroare" class="eroare"></p>
+  </div>
 
   <script src="login.js"></script>
+
 </body>
 </html>

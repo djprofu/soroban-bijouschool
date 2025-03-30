@@ -1,11 +1,32 @@
-const conturi = JSON.parse(localStorage.getItem("conturi_elevi")) || {};
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-const nume = document.getElementById("nume").value.trim().toLowerCase(); // 🔽 conversie lowercase
-const parola = document.getElementById("parola").value.trim();
+  const username = document.getElementById("username").value.trim().toLowerCase();
+  const password = document.getElementById("password").value.trim();
+  const mesaj = document.getElementById("mesajEroare");
 
-if (conturi[nume] && conturi[nume].parola === parola) {
-  localStorage.setItem("elev_curent", nume);
-  window.location.href = "platforma.html";
-} else {
-  document.getElementById("eroare").textContent = "❌ Nume sau parolă incorecte.";
-}
+  // Conturi hardcodate inițiale
+  const conturi = {
+    "ana": { parola: "3045", rol: "elev" },
+    "mihai": { parola: "2314", rol: "elev" },
+    "cristina": { parola: "4798", rol: "elev" },
+    "profesor": { parola: "1986", rol: "profesor" }
+  };
+
+  // Preluăm conturile personalizate salvate de profesor
+  const conturiSalvate = JSON.parse(localStorage.getItem("conturi_elevi")) || {};
+  const toateConturile = { ...conturi, ...conturiSalvate };
+
+  if (toateConturile[username] && toateConturile[username].parola === password) {
+    const rol = toateConturile[username].rol;
+    localStorage.setItem("elev_curent", username);
+
+    if (rol === "profesor") {
+      window.location.href = "profesor.html";
+    } else {
+      window.location.href = "platforma.html";
+    }
+  } else {
+    mesaj.textContent = "❌ Nume sau parolă incorectă!";
+  }
+});
