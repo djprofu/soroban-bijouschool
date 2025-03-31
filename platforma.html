@@ -3,86 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Platforma Bijou School</title>
+  <title>Platforma Elev - Bijou School</title>
   <link rel="stylesheet" href="stil.css" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="favicon.ico" />
 </head>
 <body>
 
   <!-- Muzică de fundal -->
-  <audio id="bg-music" loop>
-    <source src="sunet-fundal.mp3" type="audio/mpeg" />
+  <audio id="bg-music" autoplay loop>
+    <source src="audio/sunet-fundal.mp3" type="audio/mpeg" />
     Browserul tău nu suportă redarea audio.
   </audio>
 
-  <!-- Buton pentru pornire muzică -->
-  <div style="text-align:center; margin-top: 15px;">
-    <button onclick="pornesteMuzica()" class="btn-music">🔊 Activează muzica</button>
-  </div>
-
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <div class="logo-box">
-        <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
-      </div>
-      <nav>
-        <ul class="menu">
-          <li><a href="#">Acasă</a></li>
-          <li><a href="#">Exerciții</a></li>
-          <li><a href="#">Teme</a></li>
-          <li><a href="#">Progres</a></li>
-          <li><a href="#" onclick="logout()">Ieșire</a></li>
-        </ul>
-      </nav>
+  <!-- Header cu meniu -->
+  <header class="navbar">
+    <div class="logo-box">
+      <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" class="logo" />
     </div>
+    <nav>
+      <ul class="menu">
+        <li><a href="acasa.html">Acasă</a></li>
+        <li><a href="#">Exerciții</a></li>
+        <li><a href="#">Teme</a></li>
+        <li><a href="#">Progres</a></li>
+        <li><a href="#" onclick="logout()">Ieșire</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Conținut principal -->
+  <!-- Mesaj de întâmpinare -->
   <main>
     <section class="intro" style="text-align: center;">
       <h1>🎉 Bun venit pe platforma Bijou School!</h1>
       <p>Salut, <span id="numeElev">elev</span>! 👋</p>
-      <p>Suntem bucuroși să te avem aici. Succes la antrenamente! 🧠✨</p>
+      <p>Succes la antrenamente! 🧠✨</p>
     </section>
   </main>
 
-  <!-- Script JavaScript -->
+  <!-- Scripturi -->
   <script>
-    // Nume elev
-    const elev = localStorage.getItem('elev_curent');
-    if (elev) {
+    // Verificare autentificare
+    const elev = localStorage.getItem("elev_curent");
+    if (!elev) {
+      alert("⚠️ Trebuie să te autentifici mai întâi!");
+      window.location.href = "login.html";
+    } else {
       document.getElementById("numeElev").textContent = elev;
     }
 
     // Logout
     function logout() {
-      localStorage.removeItem('elev_curent');
+      localStorage.removeItem("elev_curent");
       window.location.href = "login.html";
     }
 
-    // Pornire automată (dacă e permisă)
+    // Muzică
     window.addEventListener("DOMContentLoaded", () => {
       const audio = document.getElementById("bg-music");
       audio.volume = 0.05;
       const playPromise = audio.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          console.warn("🔇 Sunet blocat de browser. Activează-l manual.");
+        playPromise.catch(err => {
+          console.warn("🔇 Sunet blocat de browser.");
         });
       }
     });
-
-    // Buton pentru pornirea muzicii
-    function pornesteMuzica() {
-      const audio = document.getElementById("bg-music");
-      audio.volume = 0.05;
-      audio.play().then(() => {
-        console.log("✅ Muzică pornită manual.");
-      }).catch(() => {
-        alert("🔇 Muzica este blocată de browser. Încearcă din nou.");
-      });
-    }
   </script>
 
 </body>
