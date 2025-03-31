@@ -9,11 +9,11 @@ body {
   top: 0;
   width: 100%;
   height: 70px;
+  background-color: rgba(255, 255, 255, 0.95);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
-  background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   z-index: 1000;
 }
@@ -26,8 +26,8 @@ body {
   list-style: none;
   display: flex;
   gap: 20px;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .menu li a {
@@ -51,29 +51,44 @@ body {
 }
 
 .intro {
-  margin-top: 80px;
+  margin-top: 70px;
+  height: 100vh;
   background-image: url("imagini/fundal-bijou.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.intro .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 40px;
   text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
 }
 
-.mesaj h1 {
+.overlay h1 {
   font-size: 2.5rem;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+  margin-bottom: 10px;
 }
 
-.mesaj p {
+.overlay p {
   font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.btn-music {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #ff6f61;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .slideshow-container {
@@ -92,8 +107,8 @@ body {
 .slideshow-track img {
   width: 150px;
   height: 150px;
-  border-radius: 8px;
   object-fit: cover;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
@@ -115,20 +130,15 @@ body {
     margin-top: 10px;
   }
 
-  .logo {
-    height: 40px;
+  .intro .overlay {
+    padding: 20px;
   }
 
-  .intro {
-    height: 100vh;
-    padding-top: 80px;
-  }
-
-  .mesaj h1 {
+  .overlay h1 {
     font-size: 1.8rem;
   }
 
-  .mesaj p {
+  .overlay p {
     font-size: 1rem;
   }
 }

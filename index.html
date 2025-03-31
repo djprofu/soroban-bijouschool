@@ -25,11 +25,12 @@
     </nav>
   </header>
 
-  <!-- Intro -->
+  <!-- Intro cu blur -->
   <section class="intro">
-    <div class="mesaj">
+    <div class="overlay">
       <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
       <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+      <button onclick="toggleMusic()" class="btn-music">🎵 Muzică fundal</button>
     </div>
   </section>
 
@@ -41,18 +42,25 @@
       <img src="imagini/soroban3.jpg" alt="3">
       <img src="imagini/soroban4.jpg" alt="4">
       <img src="imagini/soroban5.jpg" alt="5">
-      <img src="imagini/soroban6.jpg" alt="6">
-      <img src="imagini/soroban7.jpg" alt="7">
-      <img src="imagini/soroban8.jpg" alt="8">
-      <img src="imagini/soroban9.jpg" alt="9">
     </div>
   </section>
 
   <!-- Audio -->
-  <audio autoplay loop>
+  <audio id="bg-music" loop>
     <source src="sunet-fundal.mp3" type="audio/mp3">
-    Browserul nu suportă redarea audio.
   </audio>
+
+  <script>
+    function toggleMusic() {
+      const audio = document.getElementById("bg-music");
+      if (audio.paused) {
+        audio.volume = 0.05;
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
 
 </body>
 </html>
