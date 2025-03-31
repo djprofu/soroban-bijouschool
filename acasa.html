@@ -1,85 +1,41 @@
-/* Navbar */
-.navbar {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(6px);
-  padding: 10px 0;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Despre noi – Bijou School</title>
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body>
 
-.navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 20px;
-}
+  <!-- Bara de navigare fixă -->
+  <header class="navbar">
+    <img src="logo.png" alt="Logo" class="logo">
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="acasa.html" class="active">Despre noi</a></li>
+        <li><a href="#">Cursuri</a></li>
+        <li><a href="#">Înscrieri</a></li>
+        <li><a href="#">Articole</a></li>
+        <li><a href="#">Galerie</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="platforma.html" class="platforma-link">Platforma</a></li>
+      </ul>
+    </nav>
+  </header>
 
-.menu {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-}
+  <!-- Secțiune de prezentare -->
+  <section class="intro despre">
+    <h1>🌟 Despre Bijou School – Soroban</h1>
+    <p>
+      Bijou School este un loc în care învățarea devine o aventură! Ne mândrim cu o metodă unică bazată pe <strong>Soroban</strong>,
+      un instrument japonez tradițional care dezvoltă logica, concentrarea și viteza de calcul mental.
+    </p>
+    <p>
+      Copiii învață prin joc, antrenându-și mintea într-un mod plăcut, într-un mediu prietenos și motivant. ✨
+    </p>
+  </section>
 
-.menu li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.menu li a.active {
-  color: #0077cc;
-}
-
-/* Intro */
-.intro {
-  text-align: center;
-  padding: 60px 20px 30px;
-  background: url('imagini/fundal-bijou.png') center/cover no-repeat;
-  color: white;
-}
-
-.intro .highlight {
-  font-size: 1.2rem;
-  color: #ffea00;
-  margin-top: 10px;
-}
-
-/* Slideshow */
-.slideshow-wrapper {
-  overflow: hidden;
-  width: 100%;
-  background: #f0f0f0;
-  margin-top: 0;
-}
-
-.slideshow-track {
-  display: flex;
-  animation: scrollSlides 40s linear infinite;
-}
-
-.slideshow-track img {
-  width: 100%;
-  flex-shrink: 0;
-  object-fit: cover;
-  height: 300px;
-  max-width: none;
-}
-
-@keyframes scrollSlides {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .slideshow-track img {
-    height: 180px;
-  }
-  .menu {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
+</body>
+</html>
