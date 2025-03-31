@@ -3,119 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bijou School</title>
-
+  <title>Bijou School – Soroban</title>
   <link rel="stylesheet" href="stil.css" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
+
 <body>
-  <!-- Ecran de start -->
-  <div id="start-screen">
-    <div class="start-content">
-      <h1>Bun venit la Bijou School!</h1>
-      <button onclick="startPlatform()">Intră pe platformă</button>
-    </div>
-  </div>
 
-  <!-- Muzica de fundal -->
-  <audio id="bg-music" loop>
-    <source src="sunet-fundal.mp3" type="audio/mpeg" />
-    Browserul tău nu suportă elementul audio.
-  </audio>
-
-  <!-- Antet -->
-  <header>
-    <div class="container">
-      <div class="logo-box">
-        <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
-      </div>
-      <nav>
-        <ul class="menu">
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">DESPRE NOI</a></li>
-          <li onclick="toggleSubmenu('cursuri')">
-            CURSURI
-            <ul class="submenu" id="cursuri">
-              <li><a href="#">Soroban copii</a></li>
-              <li><a href="#">Citire rapidă</a></li>
-            </ul>
-          </li>
-          <li onclick="toggleSubmenu('inscrieri')">
-            ÎNSCRIERI
-            <ul class="submenu" id="inscrieri">
-              <li><a href="#">Formular online</a></li>
-              <li><a href="#">Programări curs</a></li>
-            </ul>
-          </li>
-          <li><a href="#">ARTICOLE</a></li>
-          <li><a href="#">GALERIE</a></li>
-          <li><a href="#">CONTACT</a></li>
-        </ul>
-      </nav>
-      <div class="platforma-button">
-        <a href="login.html"><i class="fas fa-lock"></i> Platforma de lucru</a>
-      </div>
-    </div>
+  <!-- Bara de navigare -->
+  <header class="navbar">
+    <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" class="logo" />
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="acasa.html">Despre noi</a></li>
+        <li><a href="#">Cursuri</a></li>
+        <li><a href="#">Înscrieri</a></li>
+        <li><a href="#">Articole</a></li>
+        <li><a href="#">Galerie</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Conținut principal -->
-  <main>
-    <section class="intro">
-      <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-      <p class="mesaj-highlight">Antrenează-ți mintea cu zâmbet și distracție! 🧠✨</p>
-      <!-- Galerie Soroban -->
-<section class="galerie-soroban">
-  <div class="slider">
-    <img src="imagini/soroban1.jpg" alt="Soroban 1" />
-    <img src="imagini/soroban2.jpg" alt="Soroban 2" />
-    <img src="imagini/soroban3.jpg" alt="Soroban 3" />
-    <img src="imagini/soroban4.jpg" alt="Soroban 4" />
-    <img src="imagini/soroban5.jpg" alt="Soroban 5" />
-    <img src="imagini/soroban6.jpg" alt="Soroban 6" />
-    <img src="imagini/soroban7.jpg" alt="Soroban 7" />
-    <img src="imagini/soroban8.jpg" alt="Soroban 8" />
-    <img src="imagini/soroban9.jpg" alt="Soroban 9" />
-  </div>
-</section>
-      <button onclick="toggleMusic()" class="btn-music">🎵 Pornire/Oprire muzică</button>
-    </section>
-  
-    <!-- Slider imagini Soroban -->
-    <section class="slider-soroban">
-      <div class="slider">
-        <img src="imagini/soroban1.jpg" alt="Soroban 1">
-        <img src="imagini/soroban2.jpg" alt="Soroban 2">
-        <img src="imagini/soroban3.jpg" alt="Soroban 3">
-      </div>
-    </section>
-  </main>
-  
+  <!-- Mesaj de bun venit -->
+  <section class="intro">
+    <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
+    <p class="highlight">🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+  </section>
 
+  <!-- Slideshow automat -->
+  <section class="slideshow-container">
+    <img class="slideshow" src="imagini/soroban1.jpg" alt="Soroban 1" />
+    <img class="slideshow" src="imagini/soroban2.jpg" alt="Soroban 2" />
+    <img class="slideshow" src="imagini/soroban3.jpg" alt="Soroban 3" />
+    <img class="slideshow" src="imagini/soroban4.jpg" alt="Soroban 4" />
+    <img class="slideshow" src="imagini/soroban5.jpg" alt="Soroban 5" />
+  </section>
+
+  <!-- Script slideshow -->
   <script>
-    function toggleSubmenu(id) {
-      document.querySelectorAll(".submenu").forEach(el => {
-        if (el.id !== id) el.classList.remove("show");
-      });
-      document.getElementById(id).classList.toggle("show");
-    }
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName("slideshow");
 
-    function toggleMusic() {
-      const audio = document.getElementById("bg-music");
-      if (audio.paused) {
-        audio.volume = 0.05;
-        audio.play();
-      } else {
-        audio.pause();
+    function showSlides() {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
       }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 2500); // la fiecare 2.5 secunde
     }
 
-    function startPlatform() {
-      const startScreen = document.getElementById("start-screen");
-      startScreen.style.display = "none";
-      const audio = document.getElementById("bg-music");
-      audio.volume = 0.05;
-      audio.play().catch(() => {});
-    }
+    showSlides();
   </script>
+
 </body>
 </html>
