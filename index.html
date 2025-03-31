@@ -1,63 +1,51 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bijou School – Soroban</title>
-  <link rel="stylesheet" href="stil.css" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bijou School</title>
+  <link rel="stylesheet" href="stil.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
-
 <body>
+
+  <!-- Pagina de întâmpinare -->
+  <section class="welcome-screen">
+    <h1>🎉 BUN VENIT LA BIJOU SCHOOL</h1>
+    <p>Antrenează-ți mintea cu zâmbet și distracție! 🧠✨</p>
+  </section>
 
   <!-- Bara de navigare -->
   <header class="navbar">
-    <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" class="logo" />
+    <div class="logo-box">
+      <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
+    </div>
     <nav>
       <ul class="menu">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="acasa.html">Despre noi</a></li>
+        <li><a href="#">Acasă</a></li>
+        <li><a href="#">Despre noi</a></li>
         <li><a href="#">Cursuri</a></li>
-        <li><a href="#">Înscrieri</a></li>
-        <li><a href="#">Articole</a></li>
         <li><a href="#">Galerie</a></li>
         <li><a href="#">Contact</a></li>
+        <li><a href="login.html" class="platforma">🔐 Platforma</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Mesaj de bun venit -->
-  <section class="intro">
-    <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-    <p class="highlight">🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+  <!-- Slideshow continuu -->
+  <section class="slideshow-wrapper">
+    <div class="slideshow-track">
+      <img src="imagini/soroban1.jpg" alt="soroban1">
+      <img src="imagini/soroban2.jpg" alt="soroban2">
+      <img src="imagini/soroban3.jpg" alt="soroban3">
+      <img src="imagini/soroban4.jpg" alt="soroban4">
+      <img src="imagini/soroban5.jpg" alt="soroban5">
+      <!-- Pozele se pot repeta pentru efect de continuitate -->
+      <img src="imagini/soroban1.jpg" alt="soroban1">
+      <img src="imagini/soroban2.jpg" alt="soroban2">
+      <img src="imagini/soroban3.jpg" alt="soroban3">
+    </div>
   </section>
-
-  <!-- Slideshow automat -->
-  <section class="slideshow-container">
-    <img class="slideshow" src="imagini/soroban1.jpg" alt="Soroban 1" />
-    <img class="slideshow" src="imagini/soroban2.jpg" alt="Soroban 2" />
-    <img class="slideshow" src="imagini/soroban3.jpg" alt="Soroban 3" />
-    <img class="slideshow" src="imagini/soroban4.jpg" alt="Soroban 4" />
-    <img class="slideshow" src="imagini/soroban5.jpg" alt="Soroban 5" />
-  </section>
-
-  <!-- Script slideshow -->
-  <script>
-    let slideIndex = 0;
-    const slides = document.getElementsByClassName("slideshow");
-
-    function showSlides() {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; }
-      slides[slideIndex - 1].style.display = "block";
-      setTimeout(showSlides, 2500); // la fiecare 2.5 secunde
-    }
-
-    showSlides();
-  </script>
 
 </body>
 </html>
