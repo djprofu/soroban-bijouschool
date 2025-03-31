@@ -1,4 +1,4 @@
-/* Reset și fonturi de bază */
+/* Reset de bază */
 * {
   margin: 0;
   padding: 0;
@@ -6,148 +6,98 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f8ff;
-  color: #333;
-  overflow-x: hidden;
+  font-family: 'Arial', sans-serif;
+  background-color: #fff;
 }
 
-/* =================== NAVBAR =================== */
+/* ✅ NAVBAR */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
-  background: rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-bottom: 1px solid #ccc;
 }
 
-.navbar-container {
-  max-width: 1200px;
-  margin: auto;
+.container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
 }
 
-/* Logo */
 .logo {
-  height: 40px;
+  height: 50px;
 }
 
-/* Meniu principal */
 .menu {
   display: flex;
-  gap: 15px;
   flex-wrap: wrap;
+  list-style: none;
+  gap: 15px;
 }
 
-.menu a {
+.menu li a {
   text-decoration: none;
-  color: #fff;
+  color: #2c3e50;
   font-weight: bold;
-  padding: 8px 14px;
+  padding: 8px 12px;
+  transition: background 0.3s ease;
+}
+
+.menu li a:hover,
+.menu li a.active {
+  background-color: #f0f0f0;
   border-radius: 6px;
-  transition: background 0.3s;
 }
 
-.menu a.active,
-.menu a:hover {
-  background-color: #2563eb; /* albastru puternic */
+.menu li a.platforma {
+  background-color: #1abc9c;
   color: white;
+  border-radius: 6px;
 }
 
-/* Buton special platforma */
-.platforma-btn {
-  background-color: #1e3a8a;
-  color: white !important;
-  border-radius: 8px;
-}
-
-/* =================== INTRO + FUNDAL =================== */
+/* ✅ INTRO + fundal */
 .intro {
   margin-top: 80px;
-  padding: 80px 20px;
-  text-align: center;
-  background: url("imagini/fundal-bijou.png") no-repeat center center;
+  background-image: url('imagini/fundal-bijou.png');
   background-size: cover;
+  background-position: center;
+  padding: 150px 30px;
+  text-align: center;
   color: white;
-  text-shadow: 1px 1px 3px black;
+  text-shadow: 1px 1px 2px #333;
 }
 
-.intro h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
+.highlight {
+  font-size: 1.4em;
+  margin-top: 15px;
+  font-weight: 500;
 }
 
-.intro p {
-  font-size: 1.2em;
-}
-
-/* =================== SLIDESHOW =================== */
-.slideshow-container {
-  width: 100%;
-  overflow: hidden;
-  background: #e6f4ff;
-  padding: 10px 0;
-}
-
-.slideshow-wrapper {
-  display: flex;
-  gap: 10px;
-  animation: scrollSlideshow 40s linear infinite;
-  width: max-content;
-}
-
-.slideshow-wrapper img {
-  height: 120px;
-  border-radius: 10px;
-  box-shadow: 0 0 5px #999;
-}
-
-/* =================== ANIMAȚIE SLIDESHOW =================== */
-@keyframes scrollSlideshow {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-/* =================== RESPONSIVE =================== */
-@media screen and (max-width: 768px) {
-  .navbar-container {
+/* ✅ Responsivitate mobil */
+@media (max-width: 768px) {
+  .container {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .logo {
-    align-self: flex-end;
-    margin-bottom: 10px;
   }
 
   .menu {
     flex-direction: column;
     width: 100%;
-    padding-top: 10px;
-    gap: 10px;
   }
 
-  .menu a {
+  .menu li a {
+    display: block;
     width: 100%;
-    padding: 12px;
-    background-color: rgba(0, 0, 0, 0.2);
-    color: white;
+    padding: 10px;
   }
 
-  .intro h1 {
-    font-size: 1.8em;
-  }
-
-  .intro p {
-    font-size: 1em;
-  }
-
-  .slideshow-wrapper img {
-    height: 90px;
+  .logo {
+    align-self: flex-end;
+    height: 40px;
+    margin-bottom: 10px;
   }
 }
