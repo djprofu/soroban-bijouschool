@@ -1,63 +1,85 @@
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bijou School – Soroban</title>
-  <link rel="stylesheet" href="stil.css">
-</head>
-<body>
+/* Navbar */
+.navbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 
-  <!-- Bara de navigare -->
-  <header class="navbar">
-    <img src="logo.png" alt="Logo" class="logo">
-    <nav>
-      <ul class="menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="acasa.html" class="active">Despre noi</a></li>
-        <li><a href="#">Cursuri</a></li>
-        <li><a href="#">Înscrieri</a></li>
-        <li><a href="#">Articole</a></li>
-        <li><a href="#">Galerie</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
 
-  <!-- Mesaj de bun venit -->
-  <section class="intro">
-    <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-    <p class="highlight">🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
-  </section>
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
 
-  <!-- Slideshow automat -->
- <!-- Slideshow automat -->
-<section class="slideshow-container">
-  <img class="slideshow" src="imagini/soroban1.jpg" alt="Soroban 1">
-  <img class="slideshow" src="imagini/soroban2.jpg" alt="Soroban 2">
-  <img class="slideshow" src="imagini/soroban3.jpg" alt="Soroban 3">
-  <img class="slideshow" src="imagini/soroban4.jpg" alt="Soroban 4">
-  <img class="slideshow" src="imagini/soroban5.jpg" alt="Soroban 5">
-</section>
+.menu li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
 
+.menu li a.active {
+  color: #0077cc;
+}
 
-  <!-- Script slideshow -->
-  <script>
-    let slideIndex = 0;
-    const slides = document.getElementsByClassName("slideshow");
+/* Intro */
+.intro {
+  text-align: center;
+  padding: 60px 20px 30px;
+  background: url('imagini/fundal-bijou.png') center/cover no-repeat;
+  color: white;
+}
 
-    function showSlides() {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1 }
-      slides[slideIndex - 1].style.display = "block";
-      setTimeout(showSlides, 2500); // schimbă la fiecare 2.5 secunde
-    }
+.intro .highlight {
+  font-size: 1.2rem;
+  color: #ffea00;
+  margin-top: 10px;
+}
 
-    showSlides();
-  </script>
+/* Slideshow */
+.slideshow-wrapper {
+  overflow: hidden;
+  width: 100%;
+  background: #f0f0f0;
+  margin-top: 0;
+}
 
-</body>
-</html>
+.slideshow-track {
+  display: flex;
+  animation: scrollSlides 40s linear infinite;
+}
+
+.slideshow-track img {
+  width: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+  height: 300px;
+  max-width: none;
+}
+
+@keyframes scrollSlides {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slideshow-track img {
+    height: 180px;
+  }
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
