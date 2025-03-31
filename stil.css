@@ -112,3 +112,10 @@
     transform: translateX(-100%);
   }
 }
+@media (max-width: 768px) {
+  .intro {
+    padding-top: 140px;
+    background-size: contain;
+    background-position: center top;
+  }
+}
