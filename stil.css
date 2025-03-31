@@ -1,148 +1,91 @@
-/* Resetare stiluri implicite și setare font */
-body, h1, p {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-/* Stilizare corp pagină */
-body {
-  background-color: #f5faff;
-}
-
-/* Meniu de navigare */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-
-.logo {
-  height: 50px;
-}
-
-.menu {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.menu li a {
-  text-decoration: none;
-  font-weight: bold;
-  color: #333;
-  padding: 8px 14px;
-  border-radius: 6px;
-  transition: background 0.3s;
-}
-
-.menu li a.active,
-.menu li a:hover {
-  background-color: #5865f2;
-  color: #fff;
-}
-
-.platforma-btn {
-  background-color: #28a745;
-  color: white !important;
-}
-
-/* Secțiune de introducere cu fundal blurat */
-.intro {
-  margin-top: 70px;
-  height: 100vh;
-  background: url("imagini/fundal-bijou.png") no-repeat center center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* 🔽 Dropdown */
+.dropdown {
   position: relative;
 }
 
-.overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 40px;
+.dropdown .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  list-style: none;
+  z-index: 1000;
+}
+
+.dropdown:hover .submenu {
+  display: block;
+}
+
+.submenu li a {
+  display: block;
+  padding: 10px 20px;
+  color: #2c3e50;
+  white-space: nowrap;
+}
+
+.submenu li a:hover {
+  background-color: #f4f4f4;
+}
+
+/* ✅ Fundal + slideshow clar dedesubt */
+.intro {
+  margin-top: 90px;
+  background-image: url('imagini/fundal-bijou.png');
+  background-size: cover;
+  background-position: center;
+  padding: 180px 30px;
   text-align: center;
-  color: #fff;
+  color: white;
+  text-shadow: 1px 1px 2px #333;
+}
+
+.slideshow {
+  background: #e8f6fd;
+  padding: 15px 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.carousel img {
+  height: 130px;
+  margin: 0 10px;
   border-radius: 10px;
-  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  display: inline-block;
 }
 
-.overlay h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.overlay p {
-  font-size: 1.3rem;
-}
-
-/* Slideshow */
-.slideshow-container {
-  width: 100%;
-  overflow: hidden;
-  background-color: #e6f3ff;
-  padding: 20px 0;
-}
-
-.slideshow-track {
-  display: flex;
-  gap: 10px;
-  animation: scroll 30s linear infinite;
-}
-
-.slideshow-track img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-/* Animație scroll pentru slideshow */
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-/* Responsivitate pentru dispozitive mobile */
+/* 🟦 Responsive pentru mobil */
 @media (max-width: 768px) {
-  .navbar {
+  .container {
     flex-direction: column;
-    height: auto;
-    padding: 10px;
+    align-items: flex-start;
   }
 
   .menu {
     flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
+    width: 100%;
+  }
+
+  .menu li a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .logo {
+    align-self: flex-end;
+    height: 40px;
+    margin-bottom: 10px;
   }
 
   .intro {
-    height: 70vh;
+    padding: 150px 20px;
   }
 
-  .overlay {
-    padding: 20px;
-  }
-
-  .overlay h1 {
-    font-size: 1.8rem;
-  }
-
-  .overlay p {
-    font-size: 1rem;
-  }
-
-  .slideshow-track img {
-    width: 120px;
-    height: 120px;
+  .carousel img {
+    height: 110px;
   }
 }
