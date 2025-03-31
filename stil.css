@@ -192,3 +192,26 @@ body {
     height: 110px;
   }
 }
+.carousel {
+  display: flex;
+  overflow: hidden;
+  animation: scroll 25s linear infinite;
+  width: 100%;
+}
+
+.carousel img {
+  height: 130px;
+  flex-shrink: 0;
+  margin-right: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
