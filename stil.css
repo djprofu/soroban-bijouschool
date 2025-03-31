@@ -110,3 +110,34 @@ body {
     height: 200px;
   }
 }
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.login-container input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 16px;
+}
+.login-container button {
+  padding: 12px 20px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+.login-container button:hover {
+  background-color: #27ae60;
+}
+.mesaj-eroare {
+  color: red;
+  margin-top: 10px;
+}
