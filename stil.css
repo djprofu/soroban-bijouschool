@@ -1,4 +1,4 @@
-/* === Reset general === */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -7,126 +7,149 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background-color: #f4f7fc;
-  padding-top: 70px; /* pentru navbar fix */
+  background-color: #f0f4fa;
 }
 
-/* === NAVBAR === */
+/* Navbar */
 .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
   z-index: 999;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #ddd;
 }
 
 .logo {
   height: 50px;
 }
 
+/* Meniu */
 .menu {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
   gap: 20px;
 }
 
 .menu li a {
   text-decoration: none;
-  color: #1a1a1a;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: 0.2s ease-in-out;
+  color: #111;
+  font-weight: 600;
+  padding: 8px 14px;
+  transition: 0.3s;
+  border-radius: 6px;
 }
 
-.menu li a:hover,
-.menu li a.active {
-  background-color: #364fc7;
-  color: white;
+.menu li a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* === INTRO CU FUNDAL === */
-.intro {
-  height: 90vh;
-  background-image: url("imagini/fundal-bijou.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.menu li a.active,
+.menu li a.platforma-link {
+  background-color: #4a4ee6;
+  color: #fff !important;
+}
+
+/* Hero Section */
+.hero {
+  background: url("imagini/fundal-bijou.png") no-repeat center center/cover;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 10px;
   color: white;
-  padding: 0 20px;
 }
 
-.intro h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
 }
 
-.intro p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+.hero p {
+  font-size: 1.4rem;
 }
 
-/* === SLIDESHOW === */
-.slideshow-container {
-  background: linear-gradient(to right, #e3f2fd, #e0f7fa);
-  overflow: hidden;
-  white-space: nowrap;
+/* Slideshow stil */
+.slideshow {
+  background: #dcefff;
   padding: 10px 0;
+  overflow: hidden;
+}
+
+.slideshow-container {
+  display: flex;
+  gap: 10px;
+  animation: slide 25s linear infinite;
 }
 
 .slideshow-container img {
-  height: 120px;
-  margin: 0;
+  height: 150px;
   border-radius: 8px;
-  display: inline-block;
-  animation: scroll 20s linear infinite;
 }
 
-@keyframes scroll {
-  0% { transform: translateX(100%); }
+/* Slide Animation */
+@keyframes slide {
+  0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 
-/* === RESPONSIVE === */
+/* Responsive */
 @media (max-width: 768px) {
-  .intro h1 {
-    font-size: 1.8rem;
-  }
-
-  .intro p {
-    font-size: 1rem;
-  }
-
-  .menu {
-    flex-direction: column;
-    gap: 10px;
-  }
-
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
   }
 
   .logo {
     height: 40px;
+    order: 2;
+  }
+
+  nav {
+    order: 1;
+  }
+
+  .menu {
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    display: none;
+    padding: 20px;
+  }
+
+  .menu.show {
+    display: flex;
+  }
+
+  .menu li a {
+    padding: 12px;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
   }
 
   .slideshow-container img {
-    height: 100px;
+    height: 120px;
   }
 }
