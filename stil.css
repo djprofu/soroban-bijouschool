@@ -61,14 +61,17 @@ body {
 
 /* ✅ INTRO + fundal */
 .intro {
-  margin-top: 80px;
-  background-image: url('imagini/fundal-bijou.png');
-  background-size: cover;
-  background-position: center;
-  padding: 150px 30px;
+  position: relative;
   text-align: center;
   color: white;
-  text-shadow: 1px 1px 2px #333;
+  background-image: url("imagini/fundal-bijou.png");
+  background-size: contain;          /* Afișează întreaga imagine */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;      /* 🧲 Fundalul rămâne pe loc la scroll */
+  height: auto;
+  padding-top: 180px;
+  padding-bottom: 80px;
 }
 
 .highlight {
