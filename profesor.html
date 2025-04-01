@@ -3,245 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panou Profesor - Bijou School</title>
+  <title>Platforma Bijou School</title>
   <link rel="stylesheet" href="stil.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fa;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #2c3e50;
-      text-align: center;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 30px;
-      background: #fff;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    input {
-      padding: 8px;
-      font-size: 16px;
-      width: 250px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .buton-actiune {
-      margin: 10px;
-    }
-
-    .sterge-elev {
-      margin-top: 30px;
-      padding: 20px;
-      background: #fff5f5;
-      border: 1px solid #e74c3c;
-      border-radius: 8px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .sterge-elev h2 {
-      color: #e74c3c;
-    }
-
-    .sterge-elev input, .sterge-elev button {
-      width: 100%;
-    }
-
-    #feedbackElev, #feedbackStergere {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    ul#listaElevi {
-      list-style: none;
-      padding: 0;
-      max-width: 400px;
-      margin: 20px auto;
-      background: #ecf0f1;
-      border-radius: 8px;
-    }
-
-    ul#listaElevi li {
-      padding: 8px;
-      border-bottom: 1px solid #bdc3c7;
-    }
-  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 
-  <h1>📊 Panou Profesor - Bijou School</h1>
+  <!-- Muzică de fundal -->
+  <audio id="bg-music" loop autoplay muted>
+    <source src="audio/sunet-fundal.mp3" type="audio/mpeg" />
+    Browserul tău nu suportă audio.
+  </audio>
 
-  <!-- Tabel scoruri elevi -->
-  <table>
-    <thead>
-      <tr>
-        <th>Elev</th>
-        <th>Lecția 2</th>
-        <th>Lecția 3</th>
-      </tr>
-    </thead>
-    <tbody id="tabelElevi"></tbody>
-  </table>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="container">
+      <div class="logo-box">
+        <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" />
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="acasa.html">Acasă</a></li>
+          <li><a href="#">Exerciții</a></li>
+          <li><a href="#">Teme</a></li>
+          <li><a href="#">Progres</a></li>
+          <li><a href="#" onclick="logout()">🔓 Ieșire</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Formular adăugare elev -->
-  <section>
-    <h2>➕ Adaugă elev nou</h2>
-    <form id="formularElev">
-      <input type="text" id="numeNouElev" placeholder="Nume elev" required />
-      <input type="text" id="parolaNoua" placeholder="Parolă elev" required />
-      <button type="submit">Adaugă</button>
-    </form>
-    <p id="feedbackElev"></p>
-  </section>
+  <!-- Conținut principal -->
+  <main class="intro">
+    <h1>🎉 Bun venit pe platforma Bijou School!</h1>
+    <p>Salut, <span id="numeElev">elev</span>! 👋</p>
+    <p>Suntem bucuroși să te avem aici. Succes la antrenamente! 🧠✨</p>
+  </main>
 
-  <!-- Lista elevilor existenți -->
-  <section>
-    <h2>👥 Conturi existente</h2>
-    <ul id="listaElevi"></ul>
-  </section>
-
-  <!-- Formular ștergere elev -->
-  <section class="sterge-elev">
-    <h2>🗑️ Șterge elev</h2>
-    <form id="formularStergere">
-      <input type="text" id="elevDeSters" placeholder="Nume elev de șters" required />
-      <button type="submit">Șterge</button>
-    </form>
-    <p id="feedbackStergere"></p>
-  </section>
-
-  <!-- Export și resetare -->
-  <div style="text-align: center;">
-    <button onclick="exportCSV()" class="buton-actiune">⬇️ Exportă scoruri CSV</button>
-    <button onclick="reseteazaScoruri()" class="buton-actiune">💎 Șterge toate scorurile</button>
-  </div>
-
+  <!-- Script pentru numele elevului și sunet -->
   <script>
-    const scoruri = JSON.parse(localStorage.getItem("scoruri_elevi")) || {};
-    const conturi = JSON.parse(localStorage.getItem("conturi_elevi")) || {};
-    const tabel = document.getElementById("tabelElevi");
-
-    for (const elev in scoruri) {
-      const rand = document.createElement("tr");
-      const scor2 = scoruri[elev]["lectia2"] || 0;
-      const scor3 = scoruri[elev]["lectia3"] || 0;
-
-      rand.innerHTML = `
-        <td>${elev}</td>
-        <td>${scor2}</td>
-        <td>${scor3}</td>
-      `;
-      tabel.appendChild(rand);
+    const elev = localStorage.getItem('elev_curent');
+    if (elev) {
+      document.getElementById("numeElev").textContent = elev;
     }
 
-    document.getElementById("formularElev").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const nume = document.getElementById("numeNouElev").value.trim().toLowerCase();
-      const parola = document.getElementById("parolaNoua").value.trim();
-      const feedback = document.getElementById("feedbackElev");
-
-      if (!nume || !parola) {
-        feedback.textContent = "⚠️ Completează toate câmpurile.";
-        return;
-      }
-
-      if (conturi[nume]) {
-        feedback.textContent = "❌ Acest elev există deja.";
-        return;
-      }
-
-      conturi[nume] = { parola: parola, rol: "elev" };
-      localStorage.setItem("conturi_elevi", JSON.stringify(conturi));
-      feedback.textContent = `✅ Elevul "${nume}" a fost adăugat cu succes!`;
-
-      document.getElementById("formularElev").reset();
-      afiseazaElevi(); // actualizează lista
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("bg-music");
+      audio.volume = 0.05;
+      audio.play().catch(() => {
+        console.warn("🔇 Sunetul a fost blocat de browser.");
+      });
     });
 
-    document.getElementById("formularStergere").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const nume = document.getElementById("elevDeSters").value.trim().toLowerCase();
-      const feedback = document.getElementById("feedbackStergere");
-
-      if (!conturi[nume]) {
-        feedback.textContent = "❌ Elevul nu există.";
-        return;
-      }
-
-      delete conturi[nume];
-      localStorage.setItem("conturi_elevi", JSON.stringify(conturi));
-
-      if (scoruri[nume]) {
-        delete scoruri[nume];
-        localStorage.setItem("scoruri_elevi", JSON.stringify(scoruri));
-      }
-
-      feedback.textContent = `✅ Elevul "${nume}" a fost șters.`;
-      document.getElementById("formularStergere").reset();
-      setTimeout(() => location.reload(), 1000);
-    });
-
-    function exportCSV() {
-      let csv = "Elev,Lecția 2,Lecția 3\n";
-      for (const elev in scoruri) {
-        const l2 = scoruri[elev]["lectia2"] || 0;
-        const l3 = scoruri[elev]["lectia3"] || 0;
-        csv += `${elev},${l2},${l3}\n`;
-      }
-
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "scoruri_elevi.csv";
-      link.click();
+    function logout() {
+      localStorage.removeItem('elev_curent');
+      window.location.href = "login.html";
     }
-
-    function reseteazaScoruri() {
-      if (confirm("Ești sigur că vrei să ștergi toate scorurile?")) {
-        localStorage.removeItem("scoruri_elevi");
-        location.reload();
-      }
-    }
-
-    // Afișare lista conturi elevi
-    function afiseazaElevi() {
-      const lista = document.getElementById("listaElevi");
-      lista.innerHTML = "";
-      for (const elev in conturi) {
-        const li = document.createElement("li");
-        li.textContent = `👤 ${elev} | 🔑 ${conturi[elev].parola}`;
-        lista.appendChild(li);
-      }
-    }
-
-    afiseazaElevi();
   </script>
 
 </body>

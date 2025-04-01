@@ -5,136 +5,106 @@
   box-sizing: border-box;
 }
 
-/* Stiluri generale */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f9ff;
+  background: linear-gradient(to bottom, #e8f0fe, #ffffff);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Bara de navigare */
+/* Navbar */
 .navbar {
-  background-color: white;
-  padding: 10px 20px;
-  position: fixed;
-  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
   top: 0;
-  z-index: 999;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 100%;
+  z-index: 10;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  flex-wrap: wrap;
+}
+
+.logo-box img {
+  height: 50px;
 }
 
 .menu {
   list-style: none;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.menu li {
-  position: relative;
+  gap: 20px;
 }
 
 .menu li a {
   text-decoration: none;
-  color: #333;
-  padding: 10px 15px;
-  display: block;
+  color: #2c3e50;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
-.menu li a:hover,
+.menu li a:hover {
+  background-color: #f1f1f1;
+  color: #1e88e5;
+}
+
 .menu li a.active {
-  background-color: #4d6eff;
+  background-color: #1e88e5;
   color: white;
-  border-radius: 5px;
 }
 
-/* Dropdown */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-
-.dropdown-content li {
-  min-width: 160px;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Buton Platforma */
-.btn-platforma {
-  background-color: #1abc9c;
-  color: white !important;
-  border-radius: 5px;
-  margin-left: 10px;
-}
-
-/* Secțiunea introductivă */
-.intro {
-  background: url('imagini/fundal-bijou.png') no-repeat center center;
-  background-size: cover;
-  padding: 150px 20px;
-  text-align: center;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-}
-
-.intro h1 {
-  font-size: 2.5em;
-}
-
-.highlight {
-  font-size: 1.2em;
-  margin-top: 10px;
-}
-
-/* Slideshow */
-.slideshow-container {
-  overflow: hidden;
-  padding: 20px 0;
-  background-color: #eaf6ff;
-}
-
-.slideshow {
+/* Conținut principal */
+main.intro {
+  flex: 1;
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
 }
 
-.slideshow img {
-  width: 100%;
-  max-width: 600px;
-  border-radius: 10px;
-  margin: 0 auto;
+main h1 {
+  font-size: 2.2em;
+  margin-bottom: 20px;
+  color: #1e88e5;
 }
 
-/* Responsivitate */
+main p {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .menu {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
   }
 
-  .menu li {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo-box {
+    align-self: center;
+    margin-bottom: 10px;
+  }
+
+  .menu li a {
     width: 100%;
-    text-align: center;
-  }
-
-  .dropdown-content {
-    position: static;
-    box-shadow: none;
-  }
-
-  .intro {
-    padding: 100px 20px;
-  }
-
-  .intro h1 {
-    font-size: 2em;
-  }
-
-  .highlight {
-    font-size: 1em;
+    padding: 10px;
   }
 }
