@@ -3,17 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bun venit la Bijou School</title>
+  <title>Bijou School – Soroban</title>
   <link rel="stylesheet" href="stil.css" />
 </head>
 <body>
 
-  <!-- Navigare -->
+  <!-- Bara de navigare -->
   <header class="navbar">
-    <img src="imagini/logo.png" alt="Logo" class="logo" />
+    <img src="logo.png" alt="Logo" class="logo" />
+    
+    <!-- Buton meniu mobil -->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+    
     <nav>
-      <ul class="menu">
-        <li><a href="#" class="active">Home</a></li>
+      <ul class="menu" id="meniu">
+        <li><a href="#" class="active">Acasă</a></li>
         <li><a href="#">Despre noi</a></li>
         <li><a href="#">Cursuri</a></li>
         <li><a href="#">Înscrieri</a></li>
@@ -25,25 +29,30 @@
     </nav>
   </header>
 
-  <!-- Fundal și mesaj -->
-  <section class="hero">
-    <div class="text-hero">
-      <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-      <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
-    </div>
+  <!-- Secțiune introductivă -->
+  <section class="intro">
+    <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
+    <p class="highlight">🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
   </section>
 
-  <!-- Slideshow -->
+  <!-- Fundal + slideshow -->
+  <section class="hero-section">
+    <img src="imagini/fundal-bijou.png" alt="Poza de fundal" class="hero-image" />
+  </section>
+
   <section class="slideshow-container">
     <div class="slideshow-track">
-      <img src="imagini/soroban1.jpg" alt="img1">
-      <img src="imagini/soroban2.jpg" alt="img2">
-      <img src="imagini/soroban3.jpg" alt="img3">
-      <img src="imagini/soroban4.jpg" alt="img4">
-      <img src="imagini/soroban5.jpg" alt="img5">
-      <img src="imagini/soroban6.jpg" alt="img6">
+      <img src="imagini/soroban1.jpg" alt="Soroban 1" />
+      <img src="imagini/soroban2.jpg" alt="Soroban 2" />
+      <img src="imagini/soroban3.jpg" alt="Soroban 3" />
+      <img src="imagini/soroban4.jpg" alt="Soroban 4" />
+      <img src="imagini/soroban5.jpg" alt="Soroban 5" />
+      <img src="imagini/soroban6.jpg" alt="Soroban 6" />
+      <img src="imagini/soroban7.jpg" alt="Soroban 7" />
+      <img src="imagini/soroban8.jpg" alt="Soroban 8" />
     </div>
   </section>
 
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,115 +1,177 @@
-body {
+/* Resetări de bază */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f8f8f8;
+  background-color: #e6f4ff;
+  overflow-x: hidden;
 }
 
+/* === NAVBAR === */
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffffd5;
-  padding: 10px 20px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 999;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  padding: 10px 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .logo {
   height: 50px;
+  width: auto;
 }
 
 .menu {
-  list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding: 0;
-  margin: 0;
+  gap: 20px;
+  list-style: none;
 }
 
 .menu li a {
   text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  padding: 8px 12px;
-  transition: 0.3s;
+  color: #1a1a1a;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 .menu li a:hover,
 .menu li a.active {
-  background-color: #4f46e5;
-  color: white;
-  border-radius: 6px;
+  color: #3366ff;
+  font-weight: bold;
 }
 
 .platforma-btn {
-  background-color: #10b981;
+  background: #30cfcf;
   color: white !important;
-  border-radius: 8px;
-  padding: 8px 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
 }
 
-.hero {
+/* === INTRO SECȚIUNE === */
+.intro {
   margin-top: 80px;
-  background: url('imagini/fundal-bijou.png') center/cover no-repeat;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
+  padding: 40px 20px 20px;
 }
 
-.text-hero {
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 20px;
-  border-radius: 10px;
-  color: white;
+.intro h1 {
+  font-size: 2rem;
+  color: #003366;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-.slideshow-container {
-  background-color: #e0f2ff;
+.highlight {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* === HERO IMAGE === */
+.hero-section {
+  width: 100%;
   overflow: hidden;
-  white-space: nowrap;
-  padding: 20px 0;
+}
+
+.hero-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  display: block;
+}
+
+/* === SLIDESHOW === */
+.slideshow-container {
+  margin-top: 10px;
+  width: 100%;
+  overflow: hidden;
+  background: #d7efff;
+  padding: 15px 0;
 }
 
 .slideshow-track {
   display: flex;
-  gap: 10px;
-  animation: slide 20s linear infinite;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+  gap: 15px;
+  padding-left: 20px;
 }
 
 .slideshow-track img {
-  height: 100px;
+  height: 120px;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
 
-@keyframes slide {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.slideshow-track img:hover {
+  transform: scale(1.05);
 }
 
-/* Responsive */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* === HAMBURGER MENU === */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
   .menu {
-    flex-direction: column;
-    background-color: white;
     position: absolute;
-    top: 60px;
-    right: 10px;
-    width: 70%;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    align-items: center;
     display: none;
+    padding: 15px 0;
+    border-top: 1px solid #ccc;
   }
 
   .menu.active {
     display: flex;
   }
 
+  .hamburger {
+    display: block;
+    color: #333;
+  }
+
   .logo {
     height: 40px;
+  }
+
+  .intro h1 {
+    font-size: 1.4rem;
+  }
+
+  .highlight {
+    font-size: 1rem;
+  }
+
+  .slideshow-track img {
+    height: 90px;
   }
 }
