@@ -5,11 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bijou School – Soroban</title>
   <link rel="stylesheet" href="stil.css" />
-</head>
-<body>
+</head><script src="script.js" defer></script>
+
+<body><audio id="bg-music" loop>
+  <source src="audio/sunet-fundal.mp3" type="audio/mpeg" />
+</audio>
+
 
   <!-- Bara de navigare -->
   <header class="navbar">
+    <button class="menu-toggle" onclick="toggleMenu()">MENIU</button>
+    <img src="logo.png" alt="Logo" class="logo" />
+    <nav>
+      <ul class="menu" id="menu">
+        <li><a href="index.html" class="active">Acasă</a></li>
+        <li><a href="#">Despre noi</a></li>
+        <li><a href="#">Cursuri</a></li>
+        <li><a href="#">Înscrieri</a></li>
+        <li><a href="#">Articole</a></li>
+        <li><a href="#">Galerie</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#" class="platforma-btn">🔐 Platforma</a></li>
+      </ul>
+    </nav>
+  </header>
+  
     <img src="logo.png" alt="Logo" class="logo" />
     
     <!-- Buton meniu mobil -->

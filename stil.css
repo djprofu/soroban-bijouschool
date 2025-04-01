@@ -1,177 +1,151 @@
-/* Resetări de bază */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #e6f4ff;
+  background-color: #f4f4f4;
   overflow-x: hidden;
 }
 
-/* === NAVBAR === */
+/* NAVBAR */
 .navbar {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.95);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 25px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 999;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .logo {
   height: 50px;
-  width: auto;
 }
 
 .menu {
   display: flex;
-  gap: 20px;
   list-style: none;
+  gap: 20px;
 }
 
 .menu li a {
   text-decoration: none;
-  color: #1a1a1a;
-  font-weight: 500;
-  transition: color 0.3s;
+  color: #333;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
 .menu li a:hover,
 .menu li a.active {
   color: #3366ff;
-  font-weight: bold;
 }
 
 .platforma-btn {
-  background: #30cfcf;
+  background-color: #3366ff;
   color: white !important;
   padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 600;
+  border-radius: 5px;
 }
 
-/* === INTRO SECȚIUNE === */
+/* MENIU MOBIL */
+.menu-toggle {
+  display: none;
+  background-color: #3366ff;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* INTRO */
 .intro {
   margin-top: 80px;
+  padding: 50px 20px;
+  background: url("imagini/fundal-bijou.png") no-repeat center center;
+  background-size: contain;
   text-align: center;
-  padding: 40px 20px 20px;
 }
 
 .intro h1 {
-  font-size: 2rem;
-  color: #003366;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  font-size: 2em;
+  color: #222;
 }
 
-.highlight {
+.intro p.highlight {
+  font-size: 1.3em;
+  color: #3366ff;
+  font-weight: bold;
   margin-top: 10px;
-  font-size: 1.2rem;
-  color: #333;
 }
 
-/* === HERO IMAGE === */
-.hero-section {
-  width: 100%;
-  overflow: hidden;
-}
-
-.hero-image {
-  width: 100%;
-  max-height: 500px;
-  object-fit: cover;
-  display: block;
-}
-
-/* === SLIDESHOW === */
+/* SLIDESHOW */
 .slideshow-container {
-  margin-top: 10px;
+  margin-top: 20px;
   width: 100%;
+  max-height: 250px;
   overflow: hidden;
-  background: #d7efff;
-  padding: 15px 0;
+  position: relative;
+  text-align: center;
+  background-color: white;
 }
 
-.slideshow-track {
-  display: flex;
-  width: max-content;
-  animation: scroll 40s linear infinite;
-  gap: 15px;
-  padding-left: 20px;
-}
-
-.slideshow-track img {
-  height: 120px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-}
-
-.slideshow-track img:hover {
-  transform: scale(1.05);
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* === HAMBURGER MENU === */
-.hamburger {
+.slideshow {
   display: none;
-  background: none;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
 }
 
-/* === RESPONSIVE === */
+/* RESPONSIVE */
 @media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .logo {
+    order: 2;
+    height: 40px;
+  }
+
+  .menu-toggle {
+    display: block;
+    order: 1;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+  }
+
   .menu {
+    flex-direction: column;
     position: absolute;
-    top: 70px;
+    top: 60px;
     left: 0;
     right: 0;
     background: white;
-    flex-direction: column;
-    align-items: center;
+    padding: 10px 0;
     display: none;
-    padding: 15px 0;
-    border-top: 1px solid #ccc;
   }
 
   .menu.active {
     display: flex;
   }
 
-  .hamburger {
-    display: block;
-    color: #333;
-  }
-
-  .logo {
-    height: 40px;
-  }
-
-  .intro h1 {
-    font-size: 1.4rem;
-  }
-
-  .highlight {
-    font-size: 1rem;
-  }
-
-  .slideshow-track img {
-    height: 90px;
+  .intro {
+    padding: 30px 15px;
+    background-size: cover;
   }
 }
