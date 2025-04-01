@@ -1,110 +1,150 @@
-/* Resetare stiluri implicite */
+/* General */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom, #e8f0fe, #ffffff);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-family: Arial, sans-serif;
+  background: #f8f9fc;
 }
 
-/* Navbar */
+/* ✅ Navbar */
 .navbar {
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  width: 100%;
-  z-index: 10;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 999;
 }
-
-.container {
+.navbar .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 30px;
-  flex-wrap: wrap;
+  padding: 10px 20px;
 }
-
-.logo-box img {
-  height: 50px;
+.logo {
+  height: 40px;
 }
-
 .menu {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
-
-.menu li a {
+.menu li {
+  position: relative;
+}
+.menu a {
   text-decoration: none;
-  color: #2c3e50;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  color: #1d1d1d;
+  font-weight: 600;
 }
-
-.menu li a:hover {
-  background-color: #f1f1f1;
-  color: #1e88e5;
-}
-
-.menu li a.active {
-  background-color: #1e88e5;
+.menu a.active {
+  background: #586eff;
   color: white;
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+.platforma-btn {
+  background: #10b981;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 6px;
 }
 
-/* Conținut principal */
-main.intro {
-  flex: 1;
+/* ✅ Dropdown */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 30px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content li {
+  margin-bottom: 5px;
+}
+.dropdown-content li:last-child {
+  margin-bottom: 0;
+}
+
+/* ✅ Fundal Hero */
+.hero {
+  background-image: url('imagini/fundal-bijou.png');
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  position: relative;
+}
+.overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  color: white;
   text-align: center;
-  padding: 40px 20px;
 }
-
-main h1 {
-  font-size: 2.2em;
-  margin-bottom: 20px;
-  color: #1e88e5;
-}
-
-main p {
-  font-size: 1.2em;
-  color: #333;
+.overlay h1 {
+  font-size: 2rem;
   margin-bottom: 10px;
 }
+.overlay p {
+  font-size: 1.2rem;
+}
 
-/* Responsive */
+/* ✅ Slideshow */
+.slideshow {
+  background: #e6f2ff;
+  overflow: hidden;
+}
+.slideshow-track {
+  display: flex;
+  width: calc(300px * 18);
+  animation: slide 25s linear infinite;
+}
+.slideshow-track img {
+  height: 150px;
+  width: 300px;
+  object-fit: cover;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ✅ Responsive */
 @media (max-width: 768px) {
   .menu {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    margin-top: 10px;
   }
 
-  .container {
-    flex-direction: column;
-    align-items: flex-start;
+  .hero {
+    height: 300px;
   }
 
-  .logo-box {
-    align-self: center;
-    margin-bottom: 10px;
+  .overlay h1 {
+    font-size: 1.5rem;
   }
 
-  .menu li a {
-    width: 100%;
-    padding: 10px;
+  .overlay p {
+    font-size: 1rem;
+  }
+
+  .slideshow-track img {
+    height: 120px;
+    width: 200px;
   }
 }
