@@ -5,42 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bijou School – Soroban</title>
   <link rel="stylesheet" href="stil.css">
-  <script defer src="script.js"></script>
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- Bara de navigare -->
   <header class="navbar">
-    <nav class="nav-links" id="nav-links">
-      <a href="#" class="active">Acasă</a>
-      <a href="#">Despre noi</a>
-      <a href="#">Cursuri</a>
-      <a href="#">Înscrieri</a>
-      <a href="#">Articole</a>
-      <a href="#">Galerie</a>
-      <a href="#">Contact</a>
-      <a href="#" class="platforma">🔐 Platforma</a>
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html" class="active">Acasă</a></li>
+        <li class="dropdown">
+          <a href="#">Cursuri ▾</a>
+          <ul class="dropdown-content">
+            <li><a href="#">Soroban copii</a></li>
+            <li><a href="#">Citire rapidă</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Înscrieri ▾</a>
+          <ul class="dropdown-content">
+            <li><a href="#">Formular înscriere</a></li>
+            <li><a href="#">Taxe și tarife</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Despre noi</a></li>
+        <li><a href="#">Articole</a></li>
+        <li><a href="#">Galerie</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="platforma.html" class="btn-platforma">🔐 Platforma</a></li>
+      </ul>
     </nav>
   </header>
-  
-  
 
- <!-- Fundal + Mesaj -->
-<section class="hero">
-  <div class="hero-text">
+  <!-- Poza de fundal + mesaj -->
+  <section class="intro">
     <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-    <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
-  </div>
-</section>
+    <p class="highlight">🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+  </section>
 
-<!-- Slideshow automat -->
-<section class="slideshow">
-  <div class="slide-track">
-    <img src="imagini/soroban1.jpg" alt="">
-    <!-- adaugă restul de imagini aici -->
-  </div>
-</section>
+  <!-- Slideshow -->
+  <section class="slideshow-container">
+    <div class="slideshow">
+      <img src="imagini/soroban1.jpg" alt="Soroban 1">
+      <img src="imagini/soroban2.jpg" alt="Soroban 2">
+      <img src="imagini/soroban3.jpg" alt="Soroban 3">
+      <img src="imagini/soroban4.jpg" alt="Soroban 4">
+    </div>
+  </section>
 
-
+  <script src="script.js"></script>
 </body>
 </html>
