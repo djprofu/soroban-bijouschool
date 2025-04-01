@@ -1,78 +1,50 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bijou School – Soroban</title>
-  <link rel="stylesheet" href="stil.css" />
-</head><script src="script.js" defer></script>
+  <link rel="stylesheet" href="stil.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
 
-<body><audio id="bg-music" loop>
-  <source src="audio/sunet-fundal.mp3" type="audio/mpeg" />
-</audio>
-
-
-  <!-- Bara de navigare -->
+  <!-- NAVBAR -->
   <header class="navbar">
-    <button class="menu-toggle" onclick="toggleMenu()">MENIU</button>
-    <img src="logo.png" alt="Logo" class="logo" />
-    <nav>
-      <ul class="menu" id="menu">
-        <li><a href="index.html" class="active">Acasă</a></li>
-        <li><a href="#">Despre noi</a></li>
-        <li><a href="#">Cursuri</a></li>
-        <li><a href="#">Înscrieri</a></li>
-        <li><a href="#">Articole</a></li>
-        <li><a href="#">Galerie</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#" class="platforma-btn">🔐 Platforma</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-    <img src="logo.png" alt="Logo" class="logo" />
-    
-    <!-- Buton meniu mobil -->
-    <button class="hamburger" id="hamburger">&#9776;</button>
-    
-    <nav>
-      <ul class="menu" id="meniu">
-        <li><a href="#" class="active">Acasă</a></li>
-        <li><a href="#">Despre noi</a></li>
-        <li><a href="#">Cursuri</a></li>
-        <li><a href="#">Înscrieri</a></li>
-        <li><a href="#">Articole</a></li>
-        <li><a href="#">Galerie</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#" class="platforma-btn">🔐 Platforma</a></li>
-      </ul>
+    <div class="nav-container">
+      <img src="logo.png" alt="Logo" class="logo">
+      <button class="menu-toggle" id="menu-toggle">MENIU ☰</button>
+    </div>
+    <nav class="nav-links" id="nav-links">
+      <a href="#" class="active">Acasă</a>
+      <a href="#">Despre noi</a>
+      <a href="#">Cursuri</a>
+      <a href="#">Înscrieri</a>
+      <a href="#">Articole</a>
+      <a href="#">Galerie</a>
+      <a href="#">Contact</a>
+      <a href="#" class="platforma">🔐 Platforma</a>
     </nav>
   </header>
 
-  <!-- Secțiune introductivă -->
-  <section class="intro">
-    <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
-    <p class="highlight">🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
-  </section>
-
-  <!-- Fundal + slideshow -->
-  <section class="hero-section">
-    <img src="imagini/fundal-bijou.png" alt="Poza de fundal" class="hero-image" />
-  </section>
-
-  <section class="slideshow-container">
-    <div class="slideshow-track">
-      <img src="imagini/soroban1.jpg" alt="Soroban 1" />
-      <img src="imagini/soroban2.jpg" alt="Soroban 2" />
-      <img src="imagini/soroban3.jpg" alt="Soroban 3" />
-      <img src="imagini/soroban4.jpg" alt="Soroban 4" />
-      <img src="imagini/soroban5.jpg" alt="Soroban 5" />
-      <img src="imagini/soroban6.jpg" alt="Soroban 6" />
-      <img src="imagini/soroban7.jpg" alt="Soroban 7" />
-      <img src="imagini/soroban8.jpg" alt="Soroban 8" />
+  <!-- INTRO CU FUNDAL -->
+  <section class="hero">
+    <div class="overlay">
+      <h1>🎉 Bun venit la Bijou School – Soroban!</h1>
+      <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <!-- SLIDESHOW -->
+  <section class="slideshow">
+    <div class="slider-track">
+      <img src="imagini/soroban1.jpg" alt="Soroban 1">
+      <img src="imagini/soroban2.jpg" alt="Soroban 2">
+      <img src="imagini/soroban3.jpg" alt="Soroban 3">
+      <img src="imagini/soroban4.jpg" alt="Soroban 4">
+      <img src="imagini/soroban5.jpg" alt="Soroban 5">
+    </div>
+  </section>
+
 </body>
 </html>
