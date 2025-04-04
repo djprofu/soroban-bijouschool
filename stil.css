@@ -59,13 +59,18 @@ body {
   width: 100%;
   max-width: 1100px;
   margin: 40px auto;
-  background: url('imagini/fundal-bijou.jpg') center 45% / cover no-repeat;
+  background-image: url("imagini/fundal-bijou.jpg");
+  background-position: center 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 300px 20px;
   border-radius: 8px;
+  z-index: 2;
 }
+
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.6);
@@ -93,12 +98,14 @@ body {
   padding: 20px 0;
   display: flex;
   justify-content: center;
+  z-index: 1;
 }
 
 .slider-track {
   display: flex;
   gap: 0;
-  animation: slide-horizontal 25s linear infinite;
+  animation: slide-horizontal 30s linear infinite;
+  width: max-content;
 }
 
 .slider-track img {
@@ -108,6 +115,7 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
 }
+
 
 @keyframes slide-horizontal {
   0% { transform: translateX(0); }
@@ -138,6 +146,7 @@ body {
   gap: 0;
   animation: slide-vertical 30s linear infinite;
   align-items: center;
+  height: fit-content;
 }
 
 .slider-vertical-track img {
@@ -182,7 +191,7 @@ body {
     background-size: contain;
     background-position: center bottom;
     padding: 150px 20px;
-    margin: 05px auto;
+    margin: 5px auto;
     max-width: 100%;
   }
 
@@ -191,7 +200,17 @@ body {
   }
 
   .overlay p {
-    font-size: 0.2rem;
+    font-size: 1rem;
+  }
+
+  /* 👇 Slideshow orizontal pentru mobil */
+  .slideshow-container {
+    padding: 10px 0;
+  }
+
+  .slider-track {
+    gap: 10px;
+    animation: slide-horizontal 20s linear infinite;
   }
 
   .slider-track img {
