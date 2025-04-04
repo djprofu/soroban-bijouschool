@@ -97,7 +97,7 @@ body {
 
 .slider-track {
   display: flex;
-  gap: 20px;
+  gap: 0;
   animation: slide-horizontal 25s linear infinite;
 }
 
@@ -135,7 +135,7 @@ body {
 .slider-vertical-track {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0;
   animation: slide-vertical 30s linear infinite;
   align-items: center;
 }
@@ -179,10 +179,11 @@ body {
   }
 
   .hero {
-    background-size: cover;
-    background-position: center top;
-    padding: 60px 20px;
-    margin: 20px;
+    background-size: contain;
+    background-position: center bottom;
+    padding: 150px 20px;
+    margin: 05px auto;
+    max-width: 100%;
   }
 
   .overlay h1 {
@@ -190,10 +191,10 @@ body {
   }
 
   .overlay p {
-    font-size: 1rem;
+    font-size: 0.2rem;
   }
 
   .slider-track img {
-    height: 100px;
+    height: 80px;
   }
 }
