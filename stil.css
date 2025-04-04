@@ -62,16 +62,14 @@ body {
 .hero {
   position: relative;
   width: 100%;
-  min-height: 500px;
-  background: url('imagini/fundal-bijou.jpg') center 40% / cover no-repeat;
+  background: url('imagini/fundal-bijou.jpg') center top / contain no-repeat;
+  padding-top: 100px;
+  padding-bottom: 300px; /* împinge slideshow-ul în jos */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-
-
-
 
 
 .overlay {
@@ -125,8 +123,8 @@ body {
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 20px;
-    aspect-ratio: 3 / 4; /* mai înalt decât lat */
+    padding: 40px 20px;
+    aspect-ratio: 3 / 4;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -135,7 +133,7 @@ body {
 
   .overlay {
     padding: 16px 20px;
-    max-width: 90%;
+    max-width: 95%;
     border-radius: 12px;
     text-align: center;
   }
@@ -198,4 +196,55 @@ body {
 
 .navbar a:hover {
   background-color: #d0d0ff;
+}
+/* Vizibil doar pe desktop */
+@media (min-width: 769px) {
+  .soroban-left,
+  .soroban-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    opacity: 0.85;
+    z-index: 1;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .soroban-left {
+    left: 20px;
+  }
+
+  .soroban-right {
+    right: 20px;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-55%) translateX(5px); }
+  }
+
+  .overlay {
+    text-align: center;
+    max-width: 90%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 12px;
+    text-shadow: 0 0 5px black;
+  }
+
+  .hero {
+    min-height: 750px;
+    padding-top: 100px;
+    padding-bottom: 300px;
+    background: url('imagini/fundal-bijou.jpg') center 75% / contain no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+}
+/* Ascunde aceste elemente pe mobil */
+.desktop-only {
+  display: none;
 }
