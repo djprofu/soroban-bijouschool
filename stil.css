@@ -1,4 +1,4 @@
-/* Reset & bază */
+/* === RESET === */
 * {
   margin: 0;
   padding: 0;
@@ -8,28 +8,24 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f2f6fc;
+  overflow-x: hidden;
 }
 
-/* === HEADER: logo + meniu orizontal, responsive === */
+/* === HEADER: logo + meniu orizontal === */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
   background: white;
-  flex-wrap: nowrap;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
   overflow-x: auto;
 }
 
-.logo-container {
-  flex-shrink: 0;
-}
-
-.logo {
+.logo-container img.logo {
   height: 50px;
   max-width: 100%;
 }
@@ -37,7 +33,6 @@ body {
 .navbar {
   display: flex;
   gap: 12px;
-  margin-left: auto;
   flex-wrap: nowrap;
   overflow-x: auto;
   white-space: nowrap;
@@ -58,31 +53,29 @@ body {
   background-color: #d0d0ff;
 }
 
-/* Hero section */
+/* === HERO SECTION === */
 .hero {
   position: relative;
   width: 100%;
-  background: url('imagini/fundal-bijou.jpg') center top / contain no-repeat;
-  padding-top: 100px;
-  padding-bottom: 300px; /* împinge slideshow-ul în jos */
+  max-width: 1100px;
+  margin: 40px auto;
+  background: url('imagini/fundal-bijou.jpg') center 45% / cover no-repeat;
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
+  align-items: center;
+  padding: 300px 20px;
+  border-radius: 8px;
 }
 
-
 .overlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
   padding: 20px 30px;
   border-radius: 10px;
   text-shadow: 0 0 5px black;
-  max-width: 1000px; /* ← mai mult spațiu pt. o singură linie */
-  text-align: left;
-  white-space: normal; /* ← permite o linie, dar se rupe dacă e musai pe mobil */
+  max-width: 90%;
+  text-align: center;
 }
-
 
 .overlay h1 {
   font-size: 2rem;
@@ -93,49 +86,103 @@ body {
   font-size: 1.2rem;
 }
 
-/* Slideshow */
-.slideshow {
+/* === SLIDESHOW ORIZONTAL === */
+.slideshow-container {
   overflow: hidden;
   background-color: #e6f4ff;
   padding: 20px 0;
+  display: flex;
+  justify-content: center;
 }
 
 .slider-track {
   display: flex;
-  animation: slide 25s linear infinite;
   gap: 20px;
+  animation: slide-horizontal 25s linear infinite;
 }
 
 .slider-track img {
   height: 120px;
+  width: auto;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
 }
 
-@keyframes slide {
+@keyframes slide-horizontal {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* Responsive (ajustări minore pt. secțiuni generale) */
+/* === SLIDESHOW VERTICAL === */
+.slider-vertical {
+  position: fixed;
+  top: 80px;
+  width: 100px;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.slider-vertical.left {
+  left: 0;
+}
+
+.slider-vertical.right {
+  right: 0;
+}
+
+.slider-vertical-track {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slide-vertical 30s linear infinite;
+  align-items: center;
+}
+
+.slider-vertical-track img {
+  width: 80px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+@keyframes slide-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+/* === DOAR PENTRU DESKTOP === */
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
-  .hero {
-    background-position: center top;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 40px 20px;
-    aspect-ratio: 3 / 4;
-    display: flex;
+  .top-bar {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
 
-  .overlay {
-    padding: 16px 20px;
-    max-width: 95%;
-    border-radius: 12px;
-    text-align: center;
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .slider-vertical {
+    display: none;
+  }
+
+  .hero {
+    background-size: cover;
+    background-position: center top;
+    padding: 60px 20px;
+    margin: 20px;
   }
 
   .overlay h1 {
@@ -145,106 +192,8 @@ body {
   .overlay p {
     font-size: 1rem;
   }
-}
 
-
-
-
-/* === HEADER: logo + meniu orizontal, responsive === */
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background: white;
-  flex-wrap: nowrap;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  overflow-x: auto;
-}
-
-.logo-container {
-  flex-shrink: 0;
-}
-
-.logo {
-  height: 50px;
-  max-width: 100%;
-}
-
-.navbar {
-  display: flex;
-  gap: 12px;
-  margin-left: auto;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: #1f2937;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 6px;
-  background: #f1f1f1;
-  transition: background 0.3s ease;
-  flex-shrink: 0;
-}
-
-.navbar a:hover {
-  background-color: #d0d0ff;
-}
-/* Vizibil doar pe desktop */
-@media (min-width: 769px) {
-  .soroban-left,
-  .soroban-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100px;
-    opacity: 0.85;
-    z-index: 1;
-    animation: float 6s ease-in-out infinite;
+  .slider-track img {
+    height: 100px;
   }
-
-  .soroban-left {
-    left: 20px;
-  }
-
-  .soroban-right {
-    right: 20px;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(-50%) translateX(0); }
-    50% { transform: translateY(-55%) translateX(5px); }
-  }
-
-  .overlay {
-    text-align: center;
-    max-width: 90%;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 30px;
-    border-radius: 12px;
-    text-shadow: 0 0 5px black;
-  }
-
-  .hero {
-    min-height: 750px;
-    padding-top: 100px;
-    padding-bottom: 300px;
-    background: url('imagini/fundal-bijou.jpg') center 75% / contain no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-  }
-}
-/* Ascunde aceste elemente pe mobil */
-.desktop-only {
-  display: none;
 }
