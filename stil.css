@@ -1,4 +1,4 @@
-/* Reset & bază */
+/* === RESET === */
 * {
   margin: 0;
   padding: 0;
@@ -10,19 +10,17 @@ body {
   background-color: #f2f6fc;
 }
 
-/* === HEADER: logo + meniu orizontal, responsive === */
+/* === HEADER === */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
   background: white;
-  flex-wrap: nowrap;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 100;
-  overflow-x: auto;
 }
 
 .logo-container {
@@ -37,7 +35,6 @@ body {
 .navbar {
   display: flex;
   gap: 12px;
-  margin-left: auto;
   flex-wrap: nowrap;
   overflow-x: auto;
   white-space: nowrap;
@@ -58,19 +55,16 @@ body {
   background-color: #d0d0ff;
 }
 
-/* Hero section */
+/* === HERO SECTION === */
 .hero {
   position: relative;
-  width: 100%;
-  background: url('imagini/fundal-bijou.jpg') center top / contain no-repeat;
-  padding-top: 100px;
-  padding-bottom: 300px; /* împinge slideshow-ul în jos */
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
+  align-items: center;
+  min-height: 600px;
+  background: url('imagini/fundal-bijou.jpg') center 60% / cover no-repeat;
+  padding: 40px 0;
 }
-
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.5);
@@ -78,11 +72,9 @@ body {
   padding: 20px 30px;
   border-radius: 10px;
   text-shadow: 0 0 5px black;
-  max-width: 1000px; /* ← mai mult spațiu pt. o singură linie */
-  text-align: left;
-  white-space: normal; /* ← permite o linie, dar se rupe dacă e musai pe mobil */
+  max-width: 800px;
+  text-align: center;
 }
-
 
 .overlay h1 {
   font-size: 2rem;
@@ -93,7 +85,7 @@ body {
   font-size: 1.2rem;
 }
 
-/* Slideshow */
+/* === SLIDESHOW ORIZONTAL === */
 .slideshow {
   overflow: hidden;
   background-color: #e6f4ff;
@@ -117,25 +109,67 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* Responsive (ajustări minore pt. secțiuni generale) */
-@media (max-width: 768px) {
-  .hero {
-    background-position: center top;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 40px 20px;
-    aspect-ratio: 3 / 4;
+/* === SLIDESHOW VERTICAL STANGA/DREAPTA === */
+.slideshow-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: absolute;
+  top: 20px;
+  height: 90%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.slideshow-vertical img {
+  width: 80px;
+  height: auto;
+  border-radius: 8px;
+  opacity: 0.85;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.slideshow-vertical.left {
+  left: 20px;
+}
+
+.slideshow-vertical.right {
+  right: 20px;
+}
+
+/* === DESKTOP ONLY === */
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .desktop-only {
     display: flex;
+  }
+}
+
+/* === RESPONSIVE MOBIL === */
+@media (max-width: 768px) {
+  .top-bar {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+  }
+
+  .navbar {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar a {
+    width: 100%;
+    text-align: left;
   }
 
   .overlay {
     padding: 16px 20px;
     max-width: 95%;
     border-radius: 12px;
-    text-align: center;
   }
 
   .overlay h1 {
@@ -145,106 +179,4 @@ body {
   .overlay p {
     font-size: 1rem;
   }
-}
-
-
-
-
-/* === HEADER: logo + meniu orizontal, responsive === */
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background: white;
-  flex-wrap: nowrap;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  overflow-x: auto;
-}
-
-.logo-container {
-  flex-shrink: 0;
-}
-
-.logo {
-  height: 50px;
-  max-width: 100%;
-}
-
-.navbar {
-  display: flex;
-  gap: 12px;
-  margin-left: auto;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: #1f2937;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 6px;
-  background: #f1f1f1;
-  transition: background 0.3s ease;
-  flex-shrink: 0;
-}
-
-.navbar a:hover {
-  background-color: #d0d0ff;
-}
-/* Vizibil doar pe desktop */
-@media (min-width: 769px) {
-  .soroban-left,
-  .soroban-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100px;
-    opacity: 0.85;
-    z-index: 1;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .soroban-left {
-    left: 20px;
-  }
-
-  .soroban-right {
-    right: 20px;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(-50%) translateX(0); }
-    50% { transform: translateY(-55%) translateX(5px); }
-  }
-
-  .overlay {
-    text-align: center;
-    max-width: 90%;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 30px;
-    border-radius: 12px;
-    text-shadow: 0 0 5px black;
-  }
-
-  .hero {
-    min-height: 750px;
-    padding-top: 100px;
-    padding-bottom: 300px;
-    background: url('imagini/fundal-bijou.jpg') center 75% / contain no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-  }
-}
-/* Ascunde aceste elemente pe mobil */
-.desktop-only {
-  display: none;
 }
