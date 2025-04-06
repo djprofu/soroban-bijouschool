@@ -231,10 +231,10 @@ body {
   position: fixed;
   top: 0;
   width: 100px;
+  height: calc(100vh - 160px); /* ✅ ajustăm să nu acopere slideshow-ul orizontal */
   overflow: hidden;
-  z-index: 10;
+  z-index: 1;
 }
-
 
 .slider-vertical.left {
   left: 0;
@@ -247,20 +247,32 @@ body {
 .slider-vertical-track {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  animation: slide-vertical 30s linear infinite;
-  align-items: center;
-  height: fit-content;
+  animation: scroll-vertical 30s linear infinite;
 }
 
-@keyframes slide-vertical {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
+.slider-vertical img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-/* === DOAR PENTRU DESKTOP ȘI LANDSCAPE === */
-@media (min-width: 769px), (max-width: 768px) and (orientation: landscape) {
-  .slider-vertical {
+@keyframes scroll-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Doar pe desktop afișăm coloanele verticale */
+.desktop-only {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .desktop-only {
     display: block;
   }
 }
@@ -324,6 +336,24 @@ body {
 
   .slider-track img {
     height: 80px;
+  }
+}
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+  .motivational-box {
+    font-size: 0.7rem;
+    padding: 20px;
+  }
+
+  #instruction-text {
+    font-size: 1rem;
+  }
+
+  .overlay h1 {
+    font-size: 1.0rem;
+  }
+
+  .overlay p {
+    font-size: 1rem;
   }
 }
 
@@ -445,4 +475,170 @@ body {
     flex-wrap: wrap;
     gap: 8px;
   }
+}
+
+.motivation-area {
+  text-align: center;
+  margin: 20px auto 0;
+}
+
+#instruction-text {
+  font-size: 1.3rem;
+  color: #1f2937;
+  font-weight: bold;
+  animation: pulseText 2s infinite;
+}
+
+@keyframes pulseText {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.fullscreen-motivational {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #a0e0ff, #4090d0);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.fullscreen-motivational.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+/* Zona de instrucțiune */
+.motivation-area {
+  text-align: center;
+  margin: 20px auto;
+  animation: pulseText 2.5s infinite;
+}
+
+#instruction-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+/* Fullscreen container */
+.fullscreen-motivational {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(145deg, #a3d5ff, #f5faff);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.fullscreen-motivational.show {
+  display: flex;
+}
+
+/* Text motivațional */
+.motivational-box {
+  font-size: 2rem;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 90%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  animation: zoomIn 0.6s ease-in-out;
+}
+
+/* Animații */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+.fullscreen-motivational {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #6dd5ed, #2193b0);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 9999;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.fullscreen-motivational.show {
+  display: flex;
+}
+/* === POPUP MOTIVAȚIONAL === */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* fundal blurat */
+  backdrop-filter: blur(6px); /* efect de blur */
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-overlay.show {
+  display: flex;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.popup-box {
+  background: white;
+  color: #1f2937;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 90%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  animation: popupScale 0.4s ease-in-out;
+}
+
+@keyframes popupScale {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }

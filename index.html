@@ -2,129 +2,80 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bijou School – Soroban</title>
-  <link rel="stylesheet" href="stil.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bine ai venit!</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-image: url("imagini/soroban1.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeIn 1.5s forwards;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .overlay.fade-out {
+      opacity: 0;
+    }
+
+    .welcome-message {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 20px 40px;
+      border-radius: 20px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-top: 100px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Bara de sus -->
-  <header>
-    <div class="top-bar">
-      <div class="logo-container">
-        <img src="imagini/logo-bijouschool.png" alt="Logo" class="logo" />
-      </div>
-      <div class="navbar">
-        <a href="#">Acasă</a>
-        <a href="#">Despre noi</a>
-      
-        <div class="dropdown">
-          <button class="dropdown-toggle special-tab">Cursuri <span class="arrow">&#9662;</span></button>
-          <div class="dropdown-menu">
-            <a href="#">Soroban copii</a>
-            <a href="#">Citire rapidă</a>
-          </div>
-        </div>
-        
-      
-        <div class="dropdown">
-          <button class="dropdown-toggle special-tab">Înscrieri <span class="arrow">&#9662;</span></button>
-          <div class="dropdown-menu">
-            <a href="#">Formular înscriere</a>
-            <a href="#">Taxe și tarife</a>
-          </div>
-        </div>        
-      
-        <a href="#">Articole</a>
-        <a href="#">Galerie</a>
-        <a href="#">Contact</a>
-        <a href="#" class="platform-tab">🔒 Platforma</a>
-      </div>      
-  </header>
-
-  <!-- Fundal cu mesaj de întâmpinare -->
-  <section class="hero">
-    <div class="overlay">
-      <h1>🎉 Bun venit la Bijou School!</h1>
-      <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+  <div class="overlay" id="intro-screen">
+    <div class="welcome-message">
+      🎉 Bun venit la <strong>BIJOU SCHOOL</strong>!
     </div>
-  </section>
-<!-- Slideshow vertical stânga (doar desktop) -->
-<div class="slider-vertical left desktop-only">
-  <div class="slider-vertical-track">
-    <img src="imagini/soroban1.jpg" alt="" />
-    <img src="imagini/soroban2.jpg" alt="" />
-    <img src="imagini/soroban3.jpg" alt="" />
-    <img src="imagini/soroban4.jpg" alt="" />
-    <img src="imagini/soroban5.jpg" alt="" />
-    <!-- Poți adăuga mai multe imagini -->
   </div>
-</div>
-<!-- Slideshow vertical dreapta (doar desktop) -->
-<div class="slider-vertical right desktop-only">
-  <div class="slider-vertical-track">
-    <img src="imagini/soroban6.jpg" alt="" />
-    <img src="imagini/soroban7.jpg" alt="" />
-    <img src="imagini/soroban8.jpg" alt="" />
-    <img src="imagini/soroban9.jpg" alt="" />
-    <img src="imagini/soroban10.jpg" alt="" />
-    <!-- Sau orice combinație de imagini dorești -->
-  </div>
-</div>
 
-  <!-- Slideshow orizontal -->
-<div class="slideshow-container">
-  <div class="slider-track">
-    <!-- Imagini orizontale -->
-    <!-- Se pot repeta pentru efect continuu -->
-    <img src="imagini/soroban1.jpg" alt="" />
-    <img src="imagini/soroban2.jpg" alt="" />
-    <img src="imagini/soroban3.jpg" alt="" />
-    <img src="imagini/soroban4.jpg" alt="" />
-    <img src="imagini/soroban5.jpg" alt="" />
-    <img src="imagini/soroban6.jpg" alt="" />
-    <img src="imagini/soroban7.jpg" alt="" />
-    <img src="imagini/soroban8.jpg" alt="" />
-    <img src="imagini/soroban9.jpg" alt="" />
-    <img src="imagini/soroban10.jpg" alt="" />
-    <img src="imagini/soroban11.jpg" alt="" />
-    <img src="imagini/soroban12.jpg" alt="" />
-    <img src="imagini/soroban13.jpg" alt="" />
-    <img src="imagini/soroban14.jpg" alt="" />
-    <img src="imagini/soroban15.jpg" alt="" />
-    <img src="imagini/soroban16.jpg" alt="" />
-    <img src="imagini/soroban17.jpg" alt="" />
-    <img src="imagini/soroban18.jpg" alt="" />
-    <img src="imagini/soroban19.jpg" alt="" />
-    <img src="imagini/soroban20.jpg" alt="" />
-    <img src="imagini/soroban21.jpg" alt="" />
-    <img src="imagini/soroban22.jpg" alt="" />
-  </div>
-</div>
-<script>
-  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-    toggle.addEventListener('click', function(e) {
-      e.preventDefault();
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const overlay = document.getElementById("intro-screen");
 
-      // Închide alte dropdownuri
-      document.querySelectorAll('.dropdown').forEach(drop => {
-        if (drop !== this.parentElement) {
-          drop.classList.remove('open');
-        }
-      });
-
-      // Deschide/închide dropdownul curent
-      this.parentElement.classList.toggle('open');
+      setTimeout(() => {
+        overlay.classList.add("fade-out");
+        setTimeout(() => {
+          window.location.replace("pagina-principala.html");
+        }, 2000); // timp pentru fade-out
+      }, 4000); // timp în care e vizibil mesajul
     });
-  });
-
-  // Închide dropdown-urile dacă dai click în afara lor
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.dropdown')) {
-      document.querySelectorAll('.dropdown').forEach(drop => drop.classList.remove('open'));
-    }
-  });
-</script>
+  </script>
 </body>
 </html>
-

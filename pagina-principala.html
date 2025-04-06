@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bijou School – Soroban</title>
+  <link rel="stylesheet" href="stil.css" />
+  <style>
+    body {
+      opacity: 0;
+      animation: fadeInMain 1.5s ease forwards;
+    }
+    @keyframes fadeInMain {
+      to { opacity: 1; }
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 10000;
+    }
+    .dropdown.open .dropdown-menu {
+      display: block;
+    }
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .popup-overlay.show {
+      display: flex;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .popup-box {
+      background: white;
+      color: #1f2937;
+      font-size: 1.6rem;
+      font-weight: bold;
+      padding: 30px 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      animation: popupScale 0.4s ease-in-out;
+    }
+    @keyframes popupScale {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="logo-container">
+        <img src="imagini/logo-bijouschool.png" alt="Logo" class="logo" />
+      </div>
+      <div class="navbar">
+        <a href="#">Acasă</a>
+        <a href="#">Despre noi</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle special-tab">Cursuri <span class="arrow">▼</span></button>
+          <div class="dropdown-menu">
+            <a href="#">Soroban copii</a>
+            <a href="#">Citire rapidă</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropdown-toggle special-tab">Înscrieri <span class="arrow">▼</span></button>
+          <div class="dropdown-menu">
+            <a href="#">Formular înscriere</a>
+            <a href="#">Taxe și tarife</a>
+          </div>
+        </div>
+        <a href="#">Articole</a>
+        <a href="#">Galerie</a>
+        <a href="#">Contact</a>
+        <a href="#" class="platform-tab">🔒 Platforma</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="overlay">
+      <h1>🎉 Bun venit la Bijou School!</h1>
+      <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+    </div>
+  </section>
+
+  <div class="slider-vertical left desktop-only">
+    <div class="slider-vertical-track">
+      <img src="imagini/soroban1.jpg" alt="" />
+      <img src="imagini/soroban2.jpg" alt="" />
+      <img src="imagini/soroban3.jpg" alt="" />
+      <img src="imagini/soroban4.jpg" alt="" />
+      <img src="imagini/soroban5.jpg" alt="" />
+      <img src="imagini/soroban6.jpg" alt="" />
+      <img src="imagini/soroban7.jpg" alt="" />
+      <img src="imagini/soroban8.jpg" alt="" />
+      <img src="imagini/soroban9.jpg" alt="" />
+      <img src="imagini/soroban10.jpg" alt="" />
+      <img src="imagini/soroban11.jpg" alt="" />
+    </div>
+  </div>
+  <div class="slider-vertical right desktop-only">
+    <div class="slider-vertical-track">
+      <img src="imagini/soroban12.jpg" alt="" />
+      <img src="imagini/soroban13.jpg" alt="" />
+      <img src="imagini/soroban14.jpg" alt="" />
+      <img src="imagini/soroban15.jpg" alt="" />
+      <img src="imagini/soroban16.jpg" alt="" />
+      <img src="imagini/soroban17.jpg" alt="" />
+      <img src="imagini/soroban18.jpg" alt="" />
+      <img src="imagini/soroban19.jpg" alt="" />
+      <img src="imagini/soroban20.jpg" alt="" />
+      <img src="imagini/soroban21.jpg" alt="" />
+      <img src="imagini/soroban22.jpg" alt="" />
+    </div>
+  </div>
+
+  <div class="motivation-area">
+    <p id="instruction-text">👇 Apasă pe o poză pentru un mesaj motivațional!</p>
+  </div>
+
+  <div class="slideshow-container">
+    <div class="slider-track">
+      <img src="imagini/soroban1.jpg" alt="" />
+      <img src="imagini/soroban2.jpg" alt="" />
+      <img src="imagini/soroban3.jpg" alt="" />
+      <img src="imagini/soroban4.jpg" alt="" />
+      <img src="imagini/soroban5.jpg" alt="" />
+      <img src="imagini/soroban6.jpg" alt="" />
+      <img src="imagini/soroban7.jpg" alt="" />
+      <img src="imagini/soroban8.jpg" alt="" />
+      <img src="imagini/soroban9.jpg" alt="" />
+      <img src="imagini/soroban10.jpg" alt="" />
+      <img src="imagini/soroban11.jpg" alt="" />
+      <img src="imagini/soroban12.jpg" alt="" />
+      <img src="imagini/soroban13.jpg" alt="" />
+      <img src="imagini/soroban14.jpg" alt="" />
+      <img src="imagini/soroban15.jpg" alt="" />
+      <img src="imagini/soroban16.jpg" alt="" />
+      <img src="imagini/soroban17.jpg" alt="" />
+      <img src="imagini/soroban18.jpg" alt="" />
+      <img src="imagini/soroban19.jpg" alt="" />
+      <img src="imagini/soroban20.jpg" alt="" />
+      <img src="imagini/soroban21.jpg" alt="" />
+      <img src="imagini/soroban22.jpg" alt="" />
+    </div>
+  </div>
+
+  <div id="popupMotivational" class="popup-overlay">
+    <div class="popup-box" id="popupText"></div>
+  </div>
+
+  <script>
+    const popup = document.getElementById("popupMotivational");
+    const popupText = document.getElementById("popupText");
+
+    const motivationalMessages = [
+      "Crede în tine și în puterea ta!",
+      "Fiecare zi este o nouă șansă să strălucești!",
+      "Ai tot ce îți trebuie ca să reușești!",
+      "Micii pași duc la mari succese!",
+      "Zâmbește – e primul pas spre o zi minunată!",
+      "Fii curajos, chiar și când îți este frică!",
+      "Cunoștințele cresc cu fiecare exercițiu!",
+      "Răbdarea este cheia progresului!",
+      "Astăzi poți învăța ceva uimitor!",
+      "Ai încredere în mintea ta strălucită!",
+      "Încearcă din nou – vei reuși!",
+      "Fii mândru de fiecare efort făcut!",
+      "Fiecare problemă are o soluție!",
+      "Ești mai puternic decât crezi!",
+      "Mintea ta este un super-erou în antrenament!",
+      "Succesul începe cu un pas mic!",
+      "Curajul înseamnă să mergi mai departe!",
+      "Fii curios – ești pe drumul cel bun!",
+      "Ai făcut deja progrese mari!",
+      "Bravo! Continuă să înveți cu bucurie!",
+      "Îți antrenezi mintea, devii mai înțelept!",
+      "În fiecare zi devii mai bun!"
+    ];
+
+    const images = document.querySelectorAll(".slideshow-container .slider-track img");
+
+    images.forEach((img, index) => {
+      img.addEventListener("click", () => {
+        popupText.textContent = motivationalMessages[index] || "Ești minunat!";
+        popup.classList.add("show");
+      });
+    });
+
+    popup.addEventListener("click", () => {
+      popup.classList.remove("show");
+    });
+  </script>
+  <script>
+    // Activează / dezactivează submeniul la click
+    document.querySelectorAll('.dropdown-toggle').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation(); // împiedică închiderea imediată
+        const dropdown = this.parentElement;
+        const alreadyOpen = dropdown.classList.contains('open');
+  
+        // Închide toate submeniurile
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+  
+        // Deschide doar dacă nu era deja deschis
+        if (!alreadyOpen) {
+          dropdown.classList.add('open');
+        }
+      });
+    });
+  
+    // Închide toate dropdown-urile dacă dai click în afara lor
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+    });
+  </script>
+  
+</body>
+</html>
