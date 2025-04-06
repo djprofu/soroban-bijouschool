@@ -17,14 +17,29 @@
       <div class="navbar">
         <a href="#">Acasă</a>
         <a href="#">Despre noi</a>
-        <a href="#">Cursuri</a>
-        <a href="#">Înscrieri</a>
+      
+        <div class="dropdown">
+          <button class="dropdown-toggle special-tab">Cursuri <span class="arrow">&#9662;</span></button>
+          <div class="dropdown-menu">
+            <a href="#">Soroban copii</a>
+            <a href="#">Citire rapidă</a>
+          </div>
+        </div>
+        
+      
+        <div class="dropdown">
+          <button class="dropdown-toggle special-tab">Înscrieri <span class="arrow">&#9662;</span></button>
+          <div class="dropdown-menu">
+            <a href="#">Formular înscriere</a>
+            <a href="#">Taxe și tarife</a>
+          </div>
+        </div>        
+      
         <a href="#">Articole</a>
         <a href="#">Galerie</a>
         <a href="#">Contact</a>
-        <a href="#">🔒 Platforma</a>
-      </div>
-    </div>
+        <a href="#" class="platform-tab">🔒 Platforma</a>
+      </div>      
   </header>
 
   <!-- Fundal cu mesaj de întâmpinare -->
@@ -86,35 +101,30 @@
     <img src="imagini/soroban22.jpg" alt="" />
   </div>
 </div>
+<script>
+  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
 
-<!-- Slideshow vertical stânga -->
-<div class="slider-vertical left desktop-only">
-  <div class="slider-vertical-track">
-    <!-- Poți pune mai puține imagini dacă vrei -->
-    <img src="imagini/soroban1.jpg" alt="" />
-    <img src="imagini/soroban4.jpg" alt="" />
-    <img src="imagini/soroban7.jpg" alt="" />
-    <img src="imagini/soroban10.jpg" alt="" />
-    <img src="imagini/soroban13.jpg" alt="" />
-    <img src="imagini/soroban16.jpg" alt="" />
-    <img src="imagini/soroban19.jpg" alt="" />
-    <img src="imagini/soroban22.jpg" alt="" />
-  </div>
-</div>
+      // Închide alte dropdownuri
+      document.querySelectorAll('.dropdown').forEach(drop => {
+        if (drop !== this.parentElement) {
+          drop.classList.remove('open');
+        }
+      });
 
-<!-- Slideshow vertical dreapta -->
-<div class="slider-vertical right desktop-only">
-  <div class="slider-vertical-track">
-    <img src="imagini/soroban2.jpg" alt="" />
-    <img src="imagini/soroban5.jpg" alt="" />
-    <img src="imagini/soroban8.jpg" alt="" />
-    <img src="imagini/soroban11.jpg" alt="" />
-    <img src="imagini/soroban14.jpg" alt="" />
-    <img src="imagini/soroban17.jpg" alt="" />
-    <img src="imagini/soroban20.jpg" alt="" />
-  </div>
-</div>
+      // Deschide/închide dropdownul curent
+      this.parentElement.classList.toggle('open');
+    });
+  });
 
+  // Închide dropdown-urile dacă dai click în afara lor
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown')) {
+      document.querySelectorAll('.dropdown').forEach(drop => drop.classList.remove('open'));
+    }
+  });
+</script>
 </body>
 </html>
 
