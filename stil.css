@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-/* === HEADER: logo + meniu orizontal === */
+/* === HEADER === */
 .top-bar {
   display: flex;
   align-items: center;
@@ -56,40 +56,38 @@ body {
 /* === HERO SECTION === */
 .hero {
   position: relative;
-  width: 100%;
+  width: 58%;
   max-width: 1100px;
-  margin: 30px auto;
+  margin: 40px auto;
   background-image: url("imagini/fundal-bijou.jpg");
-  background-position: center top;
-  background-size: contain;  /* vezi toată imaginea */
+  background-position: center 45%;
+  background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 300px 300px;  /* redus față de 300px */
+  padding: 300px 20px;
   border-radius: 8px;
   z-index: 2;
 }
 
-
 .overlay {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
-  padding: 20px 10px;
-  border-radius: 10px;
+  padding: 10px 10px;
+  border-radius: 20px;
   text-shadow: 0 0 5px black;
-  max-width: 150%;
+  max-width: 100%;
   text-align: center;
-  margin: 0 auto; 
 }
 
 .overlay h1 {
-  font-size: 1.9rem;
+  font-size: 2rem;
   margin-bottom: 10px;
 }
 
 .overlay p {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 /* === SLIDESHOW ORIZONTAL === */
@@ -125,12 +123,12 @@ body {
 /* === SLIDESHOW VERTICAL === */
 .slider-vertical {
   position: fixed;
-  top: 80px;
+  top: 0;
   width: 100px;
-  height: 100vh;
   overflow: hidden;
-  z-index: 1;
+  z-index: 10;
 }
+
 
 .slider-vertical.left {
   left: 0;
@@ -150,7 +148,7 @@ body {
 }
 
 .slider-vertical-track img {
-  width: 80px;
+  width: 70px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
@@ -160,18 +158,14 @@ body {
   100% { transform: translateY(-50%); }
 }
 
-/* === DOAR PENTRU DESKTOP === */
-.desktop-only {
-  display: none;
-}
-
-@media (min-width: 769px) {
-  .desktop-only {
+/* === DOAR PENTRU DESKTOP ȘI LANDSCAPE === */
+@media (min-width: 769px), (max-width: 768px) and (orientation: landscape) {
+  .slider-vertical {
     display: block;
   }
 }
 
-/* === RESPONSIVE: Mobil (max-width: 768px) === */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
   .top-bar {
     flex-direction: column;
@@ -187,19 +181,25 @@ body {
     display: none;
   }
 
-  .hero {
-    background-size: contain;
-    background-position: center top;
-    padding: 120px 10px; /* mai puțin pe mobil */
-    margin: 10px auto;
-    max-width: 100%;
-  }
-  
-
+  @media only screen and (max-width: 768px) and (orientation: portrait) {
+    .hero {
+      background-image: url("imagini/fundal-bijou.jpg");
+      background-size: 100% auto !important;
+      background-position: top center !important;
+      background-repeat: no-repeat !important;
+      background-attachment: scroll !important;
+      padding: 220px 10px;
+      margin: 10px auto;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0;
+    }
+  } 
+   
   .overlay h1 {
-    font-size: 1.5rem;
-    white-space: normal;
+    font-size: 0.8rem;
     text-align: center;
+    white-space: normal;
     animation: pulseText 2.5s ease-in-out infinite;
   }
 
@@ -208,7 +208,7 @@ body {
   }
 
   .overlay p {
-    font-size: 1.1rem;
+    font-size: 0.5rem;
     text-align: center;
     margin-top: 10px;
   }
@@ -231,4 +231,98 @@ body {
   0%   { transform: scale(1); opacity: 1; }
   50%  { transform: scale(1.05); opacity: 0.9; }
   100% { transform: scale(1); opacity: 1; }
+}
+/* Slideshow vertical stânga */
+.slider-vertical {
+  position: fixed;
+  top: 0;
+  width: 100px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.slider-vertical.left {
+  left: 0;
+}
+
+.slider-vertical.right {
+  right: 0;
+}
+
+.slider-vertical-track {
+  display: flex;
+  flex-direction: column;
+  animation: slide-vertical 20s linear infinite;
+}
+
+.slider-vertical img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+@keyframes slide-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Ascunde în mobil */
+.desktop-only {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+}
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+  .logo-container {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-container img.logo {
+    height: 60px;
+    max-width: 130px;
+  }
+}
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+  .slider-vertical {
+    bottom: 180px; /* ajustează după înălțimea slideshow-ului orizontal */
+  }
+}
+@media (min-width: 769px) {
+  .slider-vertical {
+    bottom: 180px;
+  }
+}
+@media only screen and (orientation: landscape) {
+  .mesaj {
+    font-size: 1.5rem; /* Sau orice dimensiune dorești */
+  }
+}
+@media only screen and (orientation: landscape) {
+  .overlay h1, .overlay p {
+    font-size: 1.0rem; /* Ajustează dimensiunea dorită */
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .overlay h1 {
+    font-size: 2.5rem; /* Ajustează dimensiunea dorită */
+  }
+
+  .overlay p {
+    font-size: 1.2rem; /* Ajustează dimensiunea dorită */
+  }
 }
