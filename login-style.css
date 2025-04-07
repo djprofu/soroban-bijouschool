@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(145deg, #f3e5f5, #e3f2fd);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .container {
+    background: #ffffff;
+    padding: 60px;
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  h1 {
+    font-size: 34px;
+    margin-bottom: 40px;
+    color: #512da8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .input-wrapper {
+    margin-bottom: 24px;
+    width: 100%;
+  }
+  
+  .input-wrapper input {
+    width: 100%;
+    padding: 18px 20px;
+    font-size: 20px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }  
+  
+  .input-wrapper input:focus {
+    border-color: #673ab7;
+    outline: none;
+  }
+  
+  #logout {
+    margin-top: 40px;
+    padding: 18px 36px;
+    font-size: 22px;
+    font-weight: bold;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+  }
+  
+  #logout:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+  }   
+  
+  #mesaj {
+    color: red;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  @media screen and (max-width: 768px) {
+    body {
+      padding: 20px;
+    }
+  
+    h1 {
+      font-size: 26px;
+    }
+  
+    p {
+      font-size: 18px;
+    }
+  
+    #logout {
+      width: 100%;
+      font-size: 20px;
+      padding: 18px;
+      border-radius: 12px;
+    }
+  }
+  
