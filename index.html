@@ -26,12 +26,13 @@
       align-items: center;
       justify-content: center;
       opacity: 0;
-      animation: fadeIn 1.5s forwards;
-      transition: opacity 2s ease-in-out;
+      animation: fadeIn 1s forwards;
+      transition: opacity 1s ease-in-out;
     }
 
     .overlay.fade-out {
       opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
 
     .welcome-message {
@@ -65,27 +66,28 @@
     </div>
   </div>
 
+  <audio id="introSound" src="sunete/sunet_intro_fadeout.mp3" autoplay></audio>
+
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const overlay = document.getElementById("intro-screen");
+      const audio = document.getElementById("introSound");
 
+      audio.volume = 0.8;
+
+      // Afișează timp de 1 secundă după fade-in
       setTimeout(() => {
         overlay.classList.add("fade-out");
         setTimeout(() => {
           window.location.replace("pagina-principala.html");
-        }, 2000); // timp pentru fade-out
-      }, 4000); // timp în care e vizibil mesajul
+        }, 1000); // fade-out 1s
+      }, 2000); // fade-in 1s + 1s vizibil
+
+      // Oprește sunetul după 3 secunde
+      setTimeout(() => {
+        audio.pause();
+      }, 3000);
     });
   </script>
-  <audio id="introSound" src="sunete/sunet_intro_fadeout.mp3" autoplay></audio>
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const audio = document.getElementById("introSound");
-      audio.volume = 0.8;
-      setTimeout(() => {
-        audio.pause(); // Oprește sunetul sincron cu fade-ul fundalului
-      }, 4000); // identic cu durata efectului de fade-out vizual
-    });
-  </script>  
 </body>
 </html>
