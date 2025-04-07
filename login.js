@@ -1,24 +1,21 @@
+const coduriElevi = {
+  "Maria Pop": "1234",
+  "Ionel Ionescu": "5678",
+  "Ana Bucur": "4321"
+};
+
 document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
+  const nume = document.getElementById("nume").value.trim();
+  const cod = document.getElementById("cod").value.trim();
+  const mesaj = document.getElementById("mesaj");
 
-  const nume = document.getElementById("nume").value.trim().toLowerCase();
-  const parola = document.getElementById("parola").value.trim();
-  const mesaj = document.getElementById("mesajEroare");
-
-  const conturi = JSON.parse(localStorage.getItem("conturi_elevi")) || {};
-
-  // Exemplu cont implicit profesor
-  conturi["profesor"] = { parola: "1986", rol: "profesor" };
-
-  if (conturi[nume] && conturi[nume].parola === parola) {
-    localStorage.setItem("elev_curent", nume);
-
-    if (conturi[nume].rol === "profesor") {
-      window.location.href = "profesor.html";
-    } else {
-      window.location.href = "platforma.html";
-    }
+  if (nume.toLowerCase() === "profesor" && cod === "1986") {
+    window.location.href = "profesor.html";
+  } else if (coduriElevi[nume] === cod) {
+    localStorage.setItem("elev_nume", nume); // salvăm pentru platforma.html
+    window.location.href = "platforma.html";
   } else {
-    mesaj.textContent = "❌ Nume sau parolă greșită!";
+    mesaj.textContent = "Date incorecte. Încearcă din nou.";
   }
 });

@@ -77,5 +77,15 @@
       }, 4000); // timp în care e vizibil mesajul
     });
   </script>
+  <audio id="introSound" src="sunete/sunet_intro_fadeout.mp3" autoplay></audio>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("introSound");
+      audio.volume = 0.8;
+      setTimeout(() => {
+        audio.pause(); // Oprește sunetul sincron cu fade-ul fundalului
+      }, 4000); // identic cu durata efectului de fade-out vizual
+    });
+  </script>  
 </body>
 </html>

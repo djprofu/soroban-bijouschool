@@ -1,74 +1,54 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Platforma Elev - Bijou School</title>
-  <link rel="stylesheet" href="stil.css" />
-  <link rel="icon" href="favicon.ico" />
+  <meta charset="UTF-8">
+  <title>Platformă Elev</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+      background: #f1f8e9;
+    }
+
+    h1 {
+      color: #4b2e83;
+    }
+
+    #logout {
+  margin-top: 40px;
+  padding: 16px 30px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#logout:hover {
+  background-color: #b71c1c;
+  transform: scale(1.03);
+}
+  </style>
 </head>
 <body>
+  <h1>Bun venit, <span id="numeElev"></span>!</h1>
+  <p>Aici vei avea exercițiile tale.</p>
 
-  <!-- Muzică de fundal -->
-  <audio id="bg-music" autoplay loop>
-    <source src="audio/sunet-fundal.mp3" type="audio/mpeg" />
-    Browserul tău nu suportă redarea audio.
-  </audio>
+  <button id="logout">Ieșire din platformă</button>
 
-  <!-- Header cu meniu -->
-  <header class="navbar">
-    <div class="logo-box">
-      <img src="imagini/logo-bijouschool.png" alt="Logo Bijou" class="logo" />
-    </div>
-    <nav>
-      <ul class="menu">
-        <li><a href="acasa.html">Acasă</a></li>
-        <li><a href="#">Exerciții</a></li>
-        <li><a href="#">Teme</a></li>
-        <li><a href="#">Progres</a></li>
-        <li><a href="#" onclick="logout()">Ieșire</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Mesaj de întâmpinare -->
-  <main>
-    <section class="intro" style="text-align: center;">
-      <h1>🎉 Bun venit pe platforma Bijou School!</h1>
-      <p>Salut, <span id="numeElev">elev</span>! 👋</p>
-      <p>Succes la antrenamente! 🧠✨</p>
-    </section>
-  </main>
-
-  <!-- Scripturi -->
   <script>
-    // Verificare autentificare
-    const elev = localStorage.getItem("elev_curent");
-    if (!elev) {
-      alert("⚠️ Trebuie să te autentifici mai întâi!");
+    const nume = localStorage.getItem("elev_nume") || "elev";
+    document.getElementById("numeElev").textContent = nume;
+  
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.removeItem("elev_nume");
       window.location.href = "login.html";
-    } else {
-      document.getElementById("numeElev").textContent = elev;
-    }
-
-    // Logout
-    function logout() {
-      localStorage.removeItem("elev_curent");
-      window.location.href = "login.html";
-    }
-
-    // Muzică
-    window.addEventListener("DOMContentLoaded", () => {
-      const audio = document.getElementById("bg-music");
-      audio.volume = 0.05;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          console.warn("🔇 Sunet blocat de browser.");
-        });
-      }
     });
   </script>
-
+  
 </body>
 </html>

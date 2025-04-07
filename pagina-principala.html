@@ -83,7 +83,7 @@
         <a href="#">Articole</a>
         <a href="#">Galerie</a>
         <a href="#">Contact</a>
-        <a href="#" class="platform-tab">🔒 Platforma</a>
+        <a href="login.html" class="platform-tab">🔒 Platforma</a>
       </div>
     </div>
   </header>
@@ -226,6 +226,12 @@
       document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
     });
   </script>
-  
+  <audio id="mainSound" src="sunete/sunet_principal_fadein.mp3" autoplay loop></audio>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("mainSound");
+      audio.volume = 0.3; // volum discret
+    });
+  </script>  
 </body>
 </html>

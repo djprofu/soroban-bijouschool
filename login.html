@@ -2,23 +2,23 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Autentificare - Bijou School</title>
-  <link rel="stylesheet" href="stil.css" />
-  <link rel="icon" href="favicon.ico" />
+  <title>Autentificare Bijou School</title>
+  <link rel="stylesheet" href="login-style.css" />
+  <script src="login.js" defer></script>
 </head>
 <body>
-
-  <section class="login-container">
-    <h1>🔐 Autentificare</h1>
+  <div class="container">
+    <h1>🔒 Autentificare Platformă</h1>
     <form id="loginForm">
-      <input type="text" id="nume" placeholder="Nume elev sau profesor" required />
-      <input type="password" id="parola" placeholder="Parolă" required />
-      <button type="submit">Intră în platformă</button>
-    </form>
-    <p id="mesajEroare" class="mesaj-eroare"></p>
-  </section>
-
-  <script src="login.js"></script>
+      <div class="input-wrapper">
+        <input type="text" id="nume" placeholder="Nume elev sau 'profesor'" required>
+      </div>
+      <div class="input-wrapper">
+        <input type="password" id="cod" placeholder="Cod elev sau parolă" required>
+      </div>
+      <button type="submit">Intră</button>
+    </form>    
+    <p id="mesaj"></p>
+  </div>
 </body>
 </html>
