@@ -48,13 +48,31 @@
       background-color: #b71c1c;
     }
     .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      padding: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+  display: grid;
+  gap: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-template-columns: repeat(2, 1fr); /* mobil portret */
+}
+
+@media (min-width: 480px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* mobil landscape, tabletă */
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr); /* desktop fix */
+  }
+}
+@media (orientation: landscape) and (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* landscape pe telefon/tabletă */
+  }
+}
+
     .tab {
       background-color: white;
       border-radius: 20px;
@@ -72,15 +90,46 @@
       background-color: #e8e4fc;
     }
     .tab img {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-      margin-bottom: 15px;
-    }
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
     .tab p {
       font-size: 1.2rem;
       color: #333;
       font-weight: 600;
+    }
+
+    /* RESPONSIVE PENTRU MOBIL (portret) */
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 22px;
+        padding: 10px 0;
+        margin: 0;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      .top-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: -10px;
+        margin-bottom: 20px;
+      }
+
+      .top-buttons a {
+        font-size: 13px;
+        padding: 6px 12px;
+        min-width: 70%;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .tab p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -90,41 +139,60 @@
     <a href="pagina-principala.html" class="btn-back">⬅ Înapoi la pagina principală</a>
     <a href="login.html" class="btn-logout">📤 Ieșire din platformă</a>
   </div>
+
   <audio id="hoverSound" src="sunete/hover.mp3" preload="auto"></audio>
+
   <div class="grid-container">
-    <a class="tab" href="platforma_pages/exercitii.html">
-      <img src="imagini/exercitii.png" alt="Exerciții zilnice">
-      <p>Exerciții zilnice</p>
+    <a class="tab" href="platforma_pages/competitie.html">
+      <img src="imagini/participa_la_competitie.gif" alt="Participa la competitie">
+      <p>Participa la competitie</p>
     </a>
-    <a class="tab" href="platforma_pages/concursuri.html">
-      <img src="imagini/concursuri.png" alt="Concursuri și premii">
-      <p>Concursuri și premii</p>
+    <a class="tab" href="platforma_pages/exercitiu_usor.html">
+      <img src="imagini/exercitiu_usor.gif" alt="Exercitiu usor">
+      <p>Exercitiu usor</p>
     </a>
-    <a class="tab" href="platforma_pages/lectii.html">
-      <img src="imagini/lectii.png" alt="Lecții video">
-      <p>Lecții video</p>
+    <a class="tab" href="platforma_pages/curs.html">
+      <img src="imagini/la_curs.gif" alt="La curs">
+      <p>La curs</p>
     </a>
-    <a class="tab" href="platforma_pages/fise.html">
-      <img src="imagini/fise.png" alt="Fișe printabile">
-      <p>Fișe printabile</p>
+    <a class="tab" href="platforma_pages/alegere.html">
+      <img src="imagini/exercitii_la_alegere.gif" alt="Exercitii la alegere">
+      <p>Exercitii la alegere</p>
     </a>
     <a class="tab" href="platforma_pages/progres.html">
-      <img src="imagini/progres.png" alt="Progresul meu">
-      <p>Progresul meu</p>
+      <img src="imagini/cat_am_exersat.gif" alt="Cat am exersat">
+      <p>Cat am exersat ?</p>
     </a>
-    <a class="tab" href="platforma_pages/mesaje.html">
-      <img src="imagini/mesaje.png" alt="Mesaje și notificări">
-      <p>Mesaje și notificări</p>
+    <a class="tab" href="platforma_pages/premiu.html">
+      <img src="imagini/premiul_zilnic.gif" alt="Premiul zilnic">
+      <p>Premiul zilnic</p>
     </a>
-    <a class="tab" href="platforma_pages/setari.html">
-      <img src="imagini/setari.png" alt="Setări și profil">
-      <p>Setări și profil</p>
+    <a class="tab" href="platforma_pages/notificari.html">
+      <img src="imagini/notificari.gif" alt="Notificari">
+      <p>Notificari</p>
+    </a>
+    <a class="tab" href="platforma_pages/conectare.html">
+      <img src="imagini/conectare_online.gif" alt="Conectare online">
+      <p>Conectare online</p>
     </a>
     <a class="tab" href="platforma_pages/ajutor.html">
-      <img src="imagini/ajutor.png" alt="Ajutor și ghidare">
-      <p>Ajutor și ghidare</p>
+      <img src="imagini/cere_ajutorul.gif" alt="Cere ajutorul">
+      <p>Cere ajutorul</p>
     </a>
-  </div>
+    <a class="tab" href="platforma_pages/intrebari.html">
+      <img src="imagini/intrebari_frecvente.gif" alt="Intrebari frecvente">
+      <p>Intrebari frecvente</p>
+    </a>
+    <a class="tab" href="platforma_pages/soroban.html">
+      <img src="imagini/soroban_online.gif" alt="Soroban online">
+      <p>Soroban online</p>
+    </a>
+    <a class="tab" href="platforma_pages/printeaza.html">
+      <img src="imagini/printeaza_exercitii.gif" alt="Printeaza exercitii">
+      <p>Printeaza exercitii</p>
+    </a>
+  </div>      
+
   <script>
     const sound = document.getElementById("hoverSound");
     document.querySelectorAll(".tab").forEach(tab => {

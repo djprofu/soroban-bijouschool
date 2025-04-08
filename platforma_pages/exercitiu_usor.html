@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercițiu ușor</title>
+  <link rel="stylesheet" href="../stil.css?v=6">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f3fa;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #5c2d91;
+      margin-bottom: 40px;
+      font-size: 2.4rem;
+    }
+
+    .subtab-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .subtab {
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: #5c2d91;
+      font-weight: bold;
+      transition: transform 0.3s;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .subtab:hover {
+      background-color: #e6e1fa;
+      transform: translateY(-3px);
+    }
+
+    .btn-inapoi {
+      margin-top: 40px;
+      display: inline-block;
+      background-color: #5c2d91;
+      color: white;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn-inapoi:hover {
+      background-color: #45217c;
+    }
+
+    /* === INDIVIDUAL BUTOANE === */
+    .btn-ghiceste {
+      font-size: 1.0rem;
+      padding: 30px 40px;
+    }
+
+    .btn-unitati {
+      font-size: 1.6rem;
+      padding: 30px 40px;
+    }
+
+    .btn-inapoi {
+      font-size: 1.5rem;
+      padding: 14px 28px;
+    }
+
+    /* === PORTRET === */
+    @media screen and (max-width: 768px) and (orientation: portrait) {
+      body {
+        body {
+    background-color: white !important;
+  }
+      }
+      h2 {
+        font-size: 1.8rem;
+        color: #e60000;
+      }
+      .btn-ghiceste {
+        font-size: 1.6rem;
+        padding: 10px 20px;
+        max-width: 95vw;
+      }
+      .btn-unitati {
+        font-size: 1.5rem;
+        padding: 20px 25px;
+        max-width: 95vw;
+      }
+      .btn-inapoi {
+        font-size: 1.5rem;
+        padding: 16px 30px;
+        max-width: 90vw;
+      }
+    }
+
+    /* === LANDSCAPE === */
+    @media screen and (max-width: 1024px) and (orientation: landscape) {
+      h2 {
+        font-size: 2.6rem;
+      }
+      .btn-ghiceste {
+        font-size: 1.7rem;
+        padding: 28px 30px;
+        max-width: 85vw;
+      }
+      .btn-unitati {
+        font-size: 1.7rem;
+        padding: 28px 30px;
+        max-width: 85vw;
+      }
+      .btn-inapoi {
+        font-size: 1.4rem;
+        padding: 12px 24px;
+        max-width: 85vw;
+      }
+    }
+
+    /* === DESKTOP === */
+    @media screen and (min-width: 1025px) {
+      h2 {
+        font-size: 2.8rem;
+      }
+      .btn-ghiceste {
+        font-size: 1.8rem;
+        padding: 30px 40px;
+        max-width: 600px;
+      }
+      .btn-unitati {
+        font-size: 1.rem;
+        padding: 30px 40px;
+        max-width: 600px;
+      }
+      .btn-inapoi {
+        font-size: 1.6rem;
+        padding: 16px 30px;
+        max-width: 600px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🧠 Alege un exercițiu ușor</h2>
+
+  <div class="subtab-container">
+    <a class="subtab btn-ghiceste" href="ghiceste_numarul.html">📋 Ghiceste numărul</a>
+    <a class="subtab btn-unitati" href="unitati_adunare_scadere.html">➕➖ Adunarea și scăderea - Unități</a>
+  </div>
+
+  <a class="btn-inapoi" href="../platforma.html">⬅ Înapoi la platformă</a>
+
+</body>
+</html>

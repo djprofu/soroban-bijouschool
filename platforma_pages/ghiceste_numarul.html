@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghiceste numărul</title>
+  <style>
+    /* ========== STIL IMPLICIT (Desktop) ========== */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f3fa;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    /* === Titlu pagină === */
+    .titlu-ghiceste {
+      font-size: 2.8rem;
+      color: #5c2d91;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    /* === Container central === */
+    .container-ghiceste {
+      background: white;
+      padding: 50px;
+      border-radius: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* === Titlu "Alege opțiunile exercițiului" === */
+    .label-ghiceste {
+      font-style: italic;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      display: block;
+    }
+
+    /* === Dropdown Minute === */
+    .dropdown-wrapper-ghiceste {
+      position: relative;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    .dropdown-ghiceste {
+  width: 100%;
+  padding: 14px;
+  font-size: 2.2rem;
+  border-radius: 20px;
+  border: 2px solid #333;
+  background-color: white;
+  padding-right: 48px;
+
+  /* 🔽 Ascunde complet săgeata nativă */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: right 24px center;
+}
+    .dropdown-arrow-ghiceste {
+      position: absolute;
+      right:10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: #5c2d91;
+      pointer-events: none;
+    }
+
+    /* === Buton "Exercițiu nou" === */
+    .btn-start-ghiceste {
+      width: 100%;
+      padding: 26px;
+      font-size: 3.5rem;
+      background-color: #3b43d6;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    /* === Buton Înapoi === */
+    .btn-inapoi-ghiceste {
+      margin-top: 40px;
+      display: inline-block;
+      background-color: #5c2d91;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 3.4rem;
+      font-weight: bold;
+    }
+
+    /* ========== Portret ========== */
+    @media (max-width: 480px) and (orientation: portrait) {
+      .titlu-ghiceste {
+        font-size: 1.8rem;
+      }
+      .label-ghiceste {
+        font-size: 1.2rem;
+      }
+      .dropdown-ghiceste {
+        font-size: 1.3rem;
+        padding: 16px;
+      }
+      .btn-start-ghiceste {
+        font-size: 1.6rem;
+        padding: 8px;
+      }
+      .btn-inapoi-ghiceste {
+        font-size: 1.6rem;
+        padding: 16px 32px;
+      }
+    }
+
+    /* ========== Landscape ========== */
+    @media (max-width: 1024px) and (orientation: landscape) {
+      .titlu-ghiceste {
+        font-size: 2.4rem;
+      }
+      .label-ghiceste {
+        font-size: 1.8rem;
+      }
+      .dropdown-ghiceste {
+        font-size: 1.5rem;
+      }
+      .btn-start-ghiceste {
+        font-size: 2rem;
+      }
+      .btn-inapoi-ghiceste {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2 class="titlu-ghiceste">🔢 Ghiceste numărul!</h2>
+
+  <div class="container-ghiceste">
+    <label class="label-ghiceste" for="timp-select">Alege opțiunile exercițiului!</label>
+    <div class="dropdown-wrapper-ghiceste">
+      <select class="dropdown-ghiceste" id="timp-select">
+        <option value="">Câte minute lucrezi?</option>
+        <!-- Opțiuni 1 până la 59 -->
+        <script>
+          for (let i = 1; i <= 59; i++) {
+            document.write(`<option value="${i}">${i} minut${i > 1 ? 'e' : ''}</option>`);
+          }
+        </script>
+      </select>
+      <span class="dropdown-arrow-ghiceste">▼</span>
+    </div>
+
+    <button class="btn-start-ghiceste">Exercițiu nou!</button>
+  </div>
+
+  <a class="btn-inapoi-ghiceste" href="../platforma_pages/exercitiu_usor.html">⬅ Înapoi</a>
+
+</body>
+</html>
