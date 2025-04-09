@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercițiu Soroban - Tijă unități</title>
+  <style>
+    /* Stiluri generale */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .titlu-exercitiu {
+      margin-top: 20px;
+      font-size: 2em;
+      color: #333;
+    }
+    .imagine-tija {
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
+    }
+    .input-zone {
+      margin: 20px auto;
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1.2em;
+      width: 100px;
+      text-align: center;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      background-color: #6a0dad;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #8b2dd2;
+    }
+    .mesaj-feedback {
+      font-size: 1.5em;
+      margin-top: 20px;
+      color: #000;
+    }
+    .buton-inapoi {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.buton-inapoi:hover {
+  background-color: #8b2dd2;
+}
+
+    /* ---- Variante responsive ---- */
+
+    /* Desktop */
+    @media (min-width: 1025px) {
+      .titlu-exercitiu {
+        font-size: 2.5em;
+      }
+      input[type="number"] {
+        font-size: 1.5em;
+        width: 120px;
+      }
+      button {
+        font-size: 1.3em;
+      }
+    }
+
+    /* Mobil - Portret */
+    @media (max-width: 600px) and (orientation: portrait) {
+      .titlu-exercitiu {
+        font-size: 1.8em;
+      }
+      input[type="number"] {
+        width: 90px;
+        font-size: 1.2em;
+      }
+      button {
+        font-size: 1.1em;
+        padding: 8px 16px;
+      }
+    }
+
+    /* Mobil - Landscape */
+    @media (max-width: 900px) and (orientation: landscape) {
+      .titlu-exercitiu {
+        font-size: 2em;
+      }
+      input[type="number"] {
+        width: 100px;
+        font-size: 1.3em;
+      }
+      button {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="titlu-exercitiu">Ce număr este reprezentat?</div>
+  <img id="imagineTija" class="imagine-tija" src="imagini/tije/tija_0.png" alt="Imagine tija abac">
+
+  <div class="input-zone">
+    <input type="number" id="raspunsUtilizator" placeholder="0-9">
+    <br>
+    <button onclick="verificaRaspuns()">Verifică</button>
+    <button onclick="genereazaExercitiuNou()">Exercițiu nou</button>
+  </div>
+
+  <div id="feedback" class="mesaj-feedback"></div>
+
+  <script>
+    let numarCorect = 0;
+
+    function genereazaExercitiuNou() {
+      numarCorect = Math.floor(Math.random() * 10);
+      document.getElementById("imagineTija").src = `../imagini/tije/tija_${numarCorect}.png`;
+      document.getElementById("raspunsUtilizator").value = "";
+      document.getElementById("feedback").innerText = "";
+    }
+
+    function verificaRaspuns() {
+      const raspuns = parseInt(document.getElementById("raspunsUtilizator").value);
+      const feedback = document.getElementById("feedback");
+      if (raspuns === numarCorect) {
+        feedback.innerText = "Bravo! Ai răspuns corect.";
+        feedback.style.color = "green";
+      } else {
+        feedback.innerText = `Mai încearcă! Răspunsul era ${numarCorect}.`;
+        feedback.style.color = "red";
+      }
+    }
+
+    window.onload = genereazaExercitiuNou;
+  </script>
+  <br><br>
+  <button class="buton-inapoi" onclick="window.location.href='exercitiu_usor.html#tab-unitati'">
+    Înapoi la Exercițiu ușor
+  </button>  
+  
+</body>
+</html>

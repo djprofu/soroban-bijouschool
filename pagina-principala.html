@@ -55,6 +55,17 @@
       from { transform: scale(0.8); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
+    .btn-ghiceste {
+      display: inline-block;
+      margin: 30px auto;
+      padding: 18px 32px;
+      font-size: 2rem;
+      font-weight: bold;
+      background-color: #6a2bc9;
+      color: white;
+      border-radius: 14px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -94,6 +105,8 @@
       <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
     </div>
   </section>
+
+  <a href="platforma_pages/ghiceste_numarul.html" class="btn-ghiceste">🔢 Mergi la exercițiul „Ghiceste numărul”</a>
 
   <div class="slider-vertical left desktop-only">
     <div class="slider-vertical-track">
@@ -204,24 +217,17 @@
     });
   </script>
   <script>
-    // Activează / dezactivează submeniul la click
     document.querySelectorAll('.dropdown-toggle').forEach(button => {
       button.addEventListener('click', function(e) {
-        e.stopPropagation(); // împiedică închiderea imediată
+        e.stopPropagation();
         const dropdown = this.parentElement;
         const alreadyOpen = dropdown.classList.contains('open');
-  
-        // Închide toate submeniurile
         document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
-  
-        // Deschide doar dacă nu era deja deschis
         if (!alreadyOpen) {
           dropdown.classList.add('open');
         }
       });
     });
-  
-    // Închide toate dropdown-urile dacă dai click în afara lor
     window.addEventListener('click', () => {
       document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
     });
@@ -230,8 +236,8 @@
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const audio = document.getElementById("mainSound");
-      audio.volume = 0.3; // volum discret
+      audio.volume = 0.3;
     });
-  </script>  
+  </script>
 </body>
 </html>
