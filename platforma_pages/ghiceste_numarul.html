@@ -12,27 +12,23 @@
       padding: 30px 10px;
       position: relative;
     }
-
     .titlu-ghiceste {
       font-size: 1.8rem;
       color: #5c2d91;
       font-weight: bold;
       margin-bottom: 10px;
     }
-
     .cronometru {
       font-size: 1.6rem;
       font-weight: bold;
       color: #e91e63;
       margin-bottom: 8px;
     }
-
     #imagine-tija {
       width: 160px;
       margin: 10px auto;
       display: block;
     }
-
     .container-ghiceste {
       background: white;
       padding: 20px;
@@ -41,44 +37,6 @@
       margin: 0 auto;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
-
-    .label-ghiceste {
-      font-style: italic;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .dropdown-wrapper-ghiceste {
-      position: relative;
-      width: 100%;
-      margin-bottom: 12px;
-    }
-
-    .dropdown-ghiceste {
-      width: 100%;
-      padding: 10px;
-      font-size: 1.1rem;
-      border-radius: 16px;
-      border: 2px solid #333;
-      background-color: white;
-      padding-right: 48px;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-image: none;
-    }
-
-    .dropdown-arrow-ghiceste {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1rem;
-      color: #5c2d91;
-      pointer-events: none;
-    }
-
     .input-ghiceste {
       margin-top: 8px;
       font-size: 1.6rem;
@@ -87,12 +45,11 @@
       border-radius: 10px;
       border: 2px solid #ccc;
     }
-
     .btn-verifica-ghiceste,
     .btn-start-ghiceste {
       margin-top: 14px;
       padding: 8px 14px;
-      font-size: 0.9rem;
+      font-size: 1.5rem;
       background-color: #3b43d6;
       color: white;
       font-weight: bold;
@@ -101,7 +58,6 @@
       cursor: pointer;
       margin-right: 6px;
     }
-
     .btn-inapoi-ghiceste {
       margin-top: 25px;
       display: inline-block;
@@ -110,79 +66,73 @@
       padding: 8px 18px;
       border-radius: 12px;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 1.5rem;
       font-weight: bold;
     }
-
     #feedback {
       margin-top: 14px;
       font-size: 1.5rem;
       font-weight: bold;
     }
-
     #feedback.correct { color: green; }
     #feedback.wrong { color: red; }
-
-    #timer-bar {
-      position: absolute;
+    #timer {
+      position: fixed;
       top: 10px;
       left: 10px;
-      background-color: #ccc;
-      height: 12px;
-      width: 120px;
-      border-radius: 20px;
-      overflow: hidden;
+      background: #4b0082;
+      color: white;
+      font-size: 1.4rem;
+      padding: 6px 14px;
+      border-radius: 10px;
     }
-    #timer-progress {
-      background-color: #76c7c0;
-      height: 100%;
-      width: 0%;
-    }
-
     .gif-feedback {
       position: absolute;
       top: 100px;
     }
-    #gif-corect {
-      right: 10px;
-      width: 400px;
-    }
-    #gif-gresit {
-      left: 10px;
-      width: 400px;
-    }
-
+    #gif-corect { right: 10px; width: 400px; }
+    #gif-gresit { left: 10px; width: 400px; }
     @media (max-width: 480px) and (orientation: portrait) {
       .input-ghiceste { width: 160px; font-size: 1.1rem; }
       .btn-verifica-ghiceste, .btn-start-ghiceste { padding: 8px 12px; font-size: 0.9rem; }
+      .mobil-popup {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 9999 !important;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      body.blur-background {
+        filter: blur(5px);
+        transition: filter 0.3s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+      }
     }
   </style>
 </head>
 <body>
-  <div id="timer-bar"><div id="timer-progress"></div></div>
+  <div id="timer">Timp rămas: <span id="secunde">60</span>s</div>
   <h2 class="titlu-ghiceste">🔢 Ghiceste numărul!</h2>
   <div id="cronometru" class="cronometru">⏳ START!</div>
   <img id="imagine-tija" src="" alt="Imagine tija abac">
   <img id="gif-corect" class="gif-feedback" src="../imagini/confetti.gif" style="display:none;">
   <img id="gif-gresit" class="gif-feedback" src="../imagini/fata-trista.gif" style="display:none;">
-
   <div class="container-ghiceste">
-    <label class="label-ghiceste" for="timp-select">Alege opțiunile exercițiului!</label>
-    <div class="dropdown-wrapper-ghiceste">
-      <select class="dropdown-ghiceste" id="timp-select">
-        <option value="">Câte minute lucrezi?</option>
-        <script>for (let i = 1; i <= 59; i++) document.write(`<option value="${i}">${i} minut${i > 1 ? 'e' : ''}</option>`);</script>
-      </select>
-      <span class="dropdown-arrow-ghiceste">▼</span>
-    </div>
     <input id="raspuns-user" class="input-ghiceste" type="number" placeholder="Răspunsul tău" />
     <div>
       <button class="btn-verifica-ghiceste" onclick="verificaRaspuns()">Verifică</button>
-      <button class="btn-start-ghiceste" onclick="genereazaExercitiu()">Exercițiu nou!</button>
+      <button class="btn-start-ghiceste" id="btn-nou" onclick="genereazaExercitiu()" disabled>Exercițiu nou!</button>
     </div>
     <div id="feedback"></div>
   </div>
-
   <a class="btn-inapoi-ghiceste" href="../platforma_pages/exercitiu_usor.html">⬅ Înapoi</a>
   <audio id="sunet-corect" src="../audio/aplauze.mp3"></audio>
   <audio id="sunet-gresit" src="../audio/oh-no.mp3"></audio>
@@ -191,17 +141,27 @@
     let numarCorect = 0;
     let totalTime = 60;
     let timePassed = 0;
-    let interval, countdown;
+    let interval;
+
+    function startGlobalTimer() {
+      setInterval(() => {
+        timePassed++;
+        const remaining = totalTime - timePassed;
+        document.getElementById("secunde").textContent = remaining;
+        if (remaining <= 0) {
+          window.location.href = "../platforma_pages/exercitiu_usor.html";
+        }
+      }, 1000);
+    }
 
     function startCountdown(callback) {
       const cron = document.getElementById("cronometru");
       let secunde = 3;
       cron.textContent = `⏳ ${secunde}...`;
-      countdown = setInterval(() => {
+      const countdown = setInterval(() => {
         secunde--;
-        if (secunde > 0) {
-          cron.textContent = `⏳ ${secunde}...`;
-        } else {
+        cron.textContent = `⏳ ${secunde}...`;
+        if (secunde <= 0) {
           clearInterval(countdown);
           cron.textContent = '⏳ START!';
           setTimeout(() => {
@@ -213,115 +173,61 @@
     }
 
     function genereazaExercitiu() {
-      clearInterval(interval);
-      clearInterval(countdown);
-      timePassed = 0;
-      document.getElementById("timer-progress").style.width = `0%`;
+      // oprește orice sunet activ
+      document.getElementById("sunet-corect").pause();
+      document.getElementById("sunet-corect").currentTime = 0;
+      document.getElementById("sunet-gresit").pause();
+      document.getElementById("sunet-gresit").currentTime = 0;
+
       document.getElementById("feedback").textContent = "";
       document.getElementById("gif-corect").style.display = 'none';
       document.getElementById("gif-gresit").style.display = 'none';
+      document.getElementById("btn-nou").disabled = true; // blochează următorul exercițiu
 
       startCountdown(() => {
         numarCorect = Math.floor(Math.random() * 10);
         document.getElementById("imagine-tija").src = `../imagini/tije/tija_${numarCorect}.png`;
         document.getElementById("raspuns-user").value = '';
-
-        interval = setInterval(() => {
-          timePassed++;
-          const pct = Math.min(100, (timePassed / totalTime) * 100);
-          document.getElementById("timer-progress").style.width = `${pct}%`;
-          if (timePassed >= totalTime) {
-            clearInterval(interval);
-            window.location.href = "../platforma_pages/exercitiu_usor.html";
-          }
-        }, 1000);
       });
     }
 
-    // ... restul codului neschimbat ...
+    function verificaRaspuns() {
+      const raspuns = parseInt(document.getElementById("raspuns-user").value);
+      const feedback = document.getElementById("feedback");
+      const audioCorect = document.getElementById("sunet-corect");
+      const audioGresit = document.getElementById("sunet-gresit");
 
-// ... restul codului neschimbat ...
-
-function verificaRaspuns() {
-  const raspuns = parseInt(document.getElementById("raspuns-user").value);
-  const feedback = document.getElementById("feedback");
-  const audioCorect = document.getElementById("sunet-corect");
-  const audioGresit = document.getElementById("sunet-gresit");
-
-  audioCorect.volume = 0.8;
-  audioGresit.volume = 0.8;
-
-  // Ascunde eventualele GIF-uri anterioare
-  document.getElementById("gif-corect").style.display = 'none';
-  document.getElementById("gif-gresit").style.display = 'none';
-  document.getElementById("gif-gresit").classList.remove("mobil-popup");
-  document.body.classList.remove("blur-background");
-
-  if (raspuns === numarCorect) {
-    feedback.textContent = "Bravo! Ai ghicit corect!";
-    feedback.className = 'correct';
-    document.getElementById("gif-corect").style.display = 'block';
-    document.getElementById("gif-gresit").style.display = 'none';
-    audioCorect.currentTime = 0;
-    audioCorect.play();
-    setTimeout(() => {
+      audioCorect.volume = 0.8;
+      audioGresit.volume = 0.8;
       document.getElementById("gif-corect").style.display = 'none';
-    }, audioCorect.duration * 1000 || 3000);
-  } else {
-    feedback.textContent = `Mai încearcă! Răspunsul corect era ${numarCorect}.`;
-    feedback.className = 'wrong';
-    document.getElementById("gif-gresit").style.display = 'block';
-    document.getElementById("gif-corect").style.display = 'none';
-    audioGresit.currentTime = 0;
-    audioGresit.play();
-    // activează clasă pentru mobil + blur fundal
-    if (window.matchMedia("(max-width: 480px) and (orientation: portrait)").matches) {
-      document.getElementById("gif-gresit").classList.add("mobil-popup");
-      document.body.classList.add("blur-background");
-    }
-    setTimeout(() => {
       document.getElementById("gif-gresit").style.display = 'none';
-      document.getElementById("gif-gresit").classList.remove("mobil-popup");
       document.body.classList.remove("blur-background");
-    }, audioGresit.duration * 1000 || 3000);
-  }
-}
 
-// ... restul codului neschimbat ...
+      if (raspuns === numarCorect) {
+        feedback.textContent = "Bravo! Ai ghicit corect!";
+        feedback.className = 'correct';
+        document.getElementById("gif-corect").style.display = 'block';
+        audioCorect.currentTime = 0;
+        audioCorect.play();
+        document.getElementById("btn-nou").disabled = false; // permite exercițiu nou
+      } else {
+        feedback.textContent = `Mai încearcă! Răspunsul corect era ${numarCorect}.`;
+        feedback.className = 'wrong';
+        document.getElementById("gif-gresit").style.display = 'block';
+        audioGresit.currentTime = 0;
+        audioGresit.play();
+        document.getElementById("btn-nou").disabled = false; // permite exercițiu nou chiar și greșit
 
-/* Adaugăm stil CSS pentru .mobil-popup și fundal blurat */
-const style = document.createElement('style');
-style.innerHTML = `
-@media (max-width: 480px) and (orientation: portrait) {
-  .mobil-popup {
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    z-index: 9999 !important;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  body.blur-background {
-    filter: blur(5px);
-    transition: filter 0.3s ease-in-out;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  }
-}`;
-document.head.appendChild(style);
+        if (window.matchMedia("(max-width: 480px) and (orientation: portrait)").matches) {
+          document.getElementById("gif-gresit").classList.add("mobil-popup");
+          document.body.classList.add("blur-background");
+        }
+      }
+    }
 
-
-    window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById("timp-select").addEventListener("change", (e) => {
-        totalTime = parseInt(e.target.value) * 60;
-        genereazaExercitiu();
-      });
+    window.addEventListener("DOMContentLoaded", () => {
+      startGlobalTimer();
+      genereazaExercitiu();
     });
   </script>
 </body>

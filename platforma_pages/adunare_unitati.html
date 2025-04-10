@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adunări și scăderi – Unități</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f3fa;
+      text-align: center;
+      padding: 30px 10px;
+    }
+    .titlu {
+      font-size: 2rem;
+      color: #5c2d91;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    #timer {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #4b0082;
+      color: white;
+      font-size: 1.4rem;
+      padding: 6px 14px;
+      border-radius: 10px;
+    }
+    #exercitiu-container div {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #4b0082;
+      margin: 6px;
+    }
+    .input {
+      font-size: 1.6rem;
+      padding: 18px;
+      width: 200px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      margin: 10px auto;
+    }
+    .btn {
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      margin: 10px 8px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #3b43d6;
+      color: white;
+    }
+    .btn-inapoi {
+      margin-top: 25px;
+      display: inline-block;
+      background-color: #5c2d91;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    #feedback {
+      margin-top: 10px;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    #feedback.correct { color: green; }
+    #feedback.wrong { color: #d32f2f; }
+
+    @media (max-width: 480px) and (orientation: portrait) {
+      .titlu {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="timer">Timp rămas: <span id="secunde">60</span>s</div>
+  <h2 class="titlu">➕➖ Adunări și scăderi – Unități</h2>
+  <div id="exercitiu-container"></div>
+  <input id="raspuns" class="input" type="number" placeholder="Răspunsul tău">
+  <div>
+    <button class="btn btn-verifica-ghiceste" onclick="verificaRaspuns()">Verifică</button>
+    <button class="btn btn-nou" onclick="genereazaExercitiu()" disabled>Exercițiu nou!</button>
+  </div>
+  <div id="feedback"></div>
+  <a class="btn-inapoi" href="../platforma_pages/exercitiu_usor.html">⬅ Înapoi</a>
+
+  <audio id="sunet-corect" src="../audio/correct.mp3"></audio>
+  <audio id="sunet-gresit" src="../audio/wrong.mp3"></audio>
+
+  <script>
+    let totalTime = parseInt(localStorage.getItem("timpSelectat") || "1") * 60;
+    let timePassed = 0;
+    let countdownInterval;
+
+    function startGlobalTimer() {
+      countdownInterval = setInterval(() => {
+        timePassed++;
+        const remaining = totalTime - timePassed;
+        document.getElementById("secunde").textContent = remaining;
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          window.location.href = "../platforma_pages/exercitiu_usor.html";
+        }
+      }, 1000);
+    }
+
+    function genereazaExercitiu() {
+      document.getElementById("raspuns").value = "";
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("feedback").className = "";
+      document.querySelector(".btn-nou").disabled = true;
+
+      const container = document.getElementById("exercitiu-container");
+      container.innerHTML = "";
+
+      const calcule = [];
+      const numarCalcule = parseInt(localStorage.getItem("numarCalcule")) || 2;
+
+      let rezultat = Math.floor(Math.random() * 10);
+      calcule.push({ semn: '', valoare: rezultat });
+
+      let ultimaValoare = rezultat;
+      let ultimaOperatie = null;
+      let usedValues = new Set([rezultat]);
+
+      for (let i = 1; i < numarCalcule; i++) {
+        let semn;
+        do {
+          semn = numarCalcule >= 3 ? (Math.random() < 0.5 ? "+" : "-") : "+";
+        } while (semn === ultimaOperatie);
+
+        let valoare;
+        do {
+          if (semn === "+") {
+            let maxAdd = 9 - rezultat;
+            valoare = Math.floor(Math.random() * (maxAdd + 1));
+          } else {
+            let maxSub = rezultat;
+            valoare = Math.floor(Math.random() * (maxSub + 1));
+          }
+        } while (valoare === ultimaValoare);
+
+        ultimaValoare = valoare;
+        ultimaOperatie = semn;
+
+        if (semn === "+") rezultat += valoare;
+        else rezultat -= valoare;
+
+        calcule.push({ semn, valoare });
+      }
+
+      calcule.forEach(pas => {
+        const linie = document.createElement("div");
+        linie.textContent = `${pas.semn} ${pas.valoare}`.trim();
+        container.appendChild(linie);
+      });
+
+      localStorage.setItem("raspunsCorect", rezultat);
+    }
+
+    function verificaRaspuns() {
+      const raspuns = parseInt(document.getElementById("raspuns").value.trim(), 10);
+      const corect = parseInt(localStorage.getItem("raspunsCorect"), 10);
+      const feedback = document.getElementById("feedback");
+      const audioCorect = document.getElementById("sunet-corect");
+      const audioGresit = document.getElementById("sunet-gresit");
+
+      audioCorect.pause();
+      audioGresit.pause();
+      audioCorect.currentTime = 0;
+      audioGresit.currentTime = 0;
+
+      if (raspuns === corect) {
+        feedback.textContent = "Bravo! Ai răspuns corect!";
+        feedback.className = "correct";
+        audioCorect.play();
+      } else {
+        feedback.textContent = `Mai încearcă! Răspunsul corect era ${corect}.`;
+        feedback.className = "wrong";
+        audioGresit.play();
+      }
+
+      document.querySelector(".btn-nou").disabled = false;
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      startGlobalTimer();
+      genereazaExercitiu();
+    });
+  </script>
+</body>
+</html>

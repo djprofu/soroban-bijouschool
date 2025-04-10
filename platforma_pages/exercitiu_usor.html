@@ -59,92 +59,19 @@
       background-color: #45217c;
     }
 
-    /* === INDIVIDUAL BUTOANE === */
     .btn-ghiceste {
-      font-size: 1.0rem;
-      padding: 30px 40px;
+      font-size: 2rem;
+      padding: 40px 50px;
     }
 
     .btn-unitati {
       font-size: 1.6rem;
-      padding: 30px 40px;
+      padding: 40px 40px;
     }
 
     .btn-inapoi {
       font-size: 1.5rem;
       padding: 14px 28px;
-    }
-
-    /* === PORTRET === */
-    @media screen and (max-width: 768px) and (orientation: portrait) {
-      body {
-        body {
-    background-color: white !important;
-  }
-      }
-      h2 {
-        font-size: 1.8rem;
-        color: #e60000;
-      }
-      .btn-ghiceste {
-        font-size: 1.6rem;
-        padding: 10px 20px;
-        max-width: 95vw;
-      }
-      .btn-unitati {
-        font-size: 1.5rem;
-        padding: 20px 25px;
-        max-width: 95vw;
-      }
-      .btn-inapoi {
-        font-size: 1.5rem;
-        padding: 16px 30px;
-        max-width: 90vw;
-      }
-    }
-
-    /* === LANDSCAPE === */
-    @media screen and (max-width: 1024px) and (orientation: landscape) {
-      h2 {
-        font-size: 2.6rem;
-      }
-      .btn-ghiceste {
-        font-size: 1.7rem;
-        padding: 28px 30px;
-        max-width: 85vw;
-      }
-      .btn-unitati {
-        font-size: 1.7rem;
-        padding: 28px 30px;
-        max-width: 85vw;
-      }
-      .btn-inapoi {
-        font-size: 1.4rem;
-        padding: 12px 24px;
-        max-width: 85vw;
-      }
-    }
-
-    /* === DESKTOP === */
-    @media screen and (min-width: 1025px) {
-      h2 {
-        font-size: 2.8rem;
-      }
-      .btn-ghiceste {
-        font-size: 1.8rem;
-        padding: 30px 40px;
-        max-width: 600px;
-      }
-      .btn-unitati {
-        font-size: 1.rem;
-        padding: 30px 40px;
-        max-width: 600px;
-      }
-      .btn-inapoi {
-        font-size: 1.6rem;
-        padding: 16px 30px;
-        max-width: 600px;
-      }
     }
   </style>
 </head>
@@ -153,11 +80,104 @@
   <h2>🧠 Alege un exercițiu ușor</h2>
 
   <div class="subtab-container">
-    <a class="subtab btn-ghiceste" href="ghiceste_numarul.html">📋 Ghiceste numărul</a>
-    <a class="subtab btn-unitati" href="unitati_adunare_scadere.html">➕➖ Adunarea și scăderea - Unități</a>
+
+    <!-- TAB: Ghiceste numarul -->
+    <a class="subtab btn-ghiceste" href="Ghiceste">📋 Ghiceste numărul</a>
+
+    <!-- Setări: Ghiceste numarul -->
+    <div id="setari-ghiceste" style="display: none; margin-top: 30px;" class="setari-box">
+      <h3 style="font-style: italic; color: #4b0082;">Alege opțiunile exercițiului!</h3>
+      <select style="margin: 10px 0; width: 100%; max-width: 450px; font-size: 1.8rem; padding: 16px;">
+        <option selected disabled>Câte minute lucrezi?</option>
+        <script>
+          for (let i = 1; i <= 59; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select>
+      <br />
+      <a href="ghiceste_numarul.html">
+        <button style="background-color: #4b0082; color: white; font-size: 1.8rem; padding: 18px 36px; border-radius: 18px; border: none; cursor: pointer;">
+          Exercițiu nou!
+        </button>
+      </a>
+    </div>
+
+    <!-- TAB: Adunare si scadere -->
+    <a class="subtab btn-unitati" href="Adunarea">➕➖ Adunarea și scăderea - Unități</a>
+
+    <!-- Setări: Adunare și scădere -->
+    <div id="setari-adunare" style="display: none; margin-top: 30px;" class="setari-box">
+      <h3 style="font-style: italic; color: #4b0082;">Alege opțiunile exercițiului!</h3>
+      <select style="margin: 10px 0; width: 100%; max-width: 450px; font-size: 1.8rem; padding: 16px;">
+        <option selected disabled>Câte minute lucrezi?</option>
+        <script>
+          for (let i = 1; i <= 59; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select>
+      <br />
+      <select style="margin-bottom: 15px; width: 100%; max-width: 450px; font-size: 1.5rem; padding: 20px; line-height: 1.4;">
+        <option selected disabled>Alege câte calcule va avea exercițiul</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select>
+      <br />
+      <button onclick="startAdunareUnitati()">Exercițiu nou!</button>
+      
+    </div>
+
   </div>
 
   <a class="btn-inapoi" href="../platforma.html">⬅ Înapoi la platformă</a>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const butonAdunare = document.querySelector("a[href='Adunarea']");
+      const butonGhiceste = document.querySelector("a[href='Ghiceste']");
+      const setariAdunare = document.getElementById("setari-adunare");
+      const setariGhiceste = document.getElementById("setari-ghiceste");
+
+      if (butonAdunare) {
+        butonAdunare.addEventListener("click", function (e) {
+          e.preventDefault();
+          setariAdunare.style.display = "block";
+          setariGhiceste.style.display = "none";
+        });
+      }
+
+      if (butonGhiceste) {
+        butonGhiceste.addEventListener("click", function (e) {
+          e.preventDefault();
+          setariGhiceste.style.display = "block";
+          setariAdunare.style.display = "none";
+        });
+      }
+    });
+  </script>
+  <script>
+    function startAdunareUnitati() {
+      // Ia valorile selectate din dropdown-uri
+      const minute = document.querySelector('#setari-adunare select:nth-of-type(1)').value;
+      const calcule = document.querySelector('#setari-adunare select:nth-of-type(2)').value;
+  
+      if (!minute || !calcule) {
+        alert("Te rog selectează timpul și numărul de calcule!");
+        return;
+      }
+  
+      // Salvăm în localStorage
+      localStorage.setItem("timpSelectat", minute);
+      localStorage.setItem("numarCalcule", calcule);
+  
+      // Redirecționează către pagina cu exercițiile
+      window.location.href = "adunare_unitati.html";
+    }
+  </script>
+  
 </body>
 </html>
