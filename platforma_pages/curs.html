@@ -2,44 +2,147 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La curs</title>
   <link rel="stylesheet" href="../stil.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f0f3fa;
-      text-align: center;
       padding: 40px 20px;
+      text-align: center;
     }
     h2 {
       color: #5c2d91;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
+      font-size: 2.4rem;
     }
-    p {
-      font-size: 1.2rem;
-      color: #333;
+    .subtab-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .subtab {
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: #5c2d91;
+      font-weight: bold;
+      transition: transform 0.3s;
+      width: 100%;
+      max-width: 600px;
+    }
+    .subtab:hover {
+      background-color: #e6e1fa;
+      transform: translateY(-3px);
     }
     .btn-inapoi {
-      margin-top: 30px;
+      margin-top: 40px;
+      display: inline-block;
       background-color: #5c2d91;
       color: white;
-      padding: 12px 24px;
-      border-radius: 12px;
+      border-radius: 14px;
       text-decoration: none;
       font-weight: bold;
-      display: inline-block;
+      font-size: 1.5rem;
+      padding: 14px 28px;
     }
     .btn-inapoi:hover {
       background-color: #45217c;
+    }
+    .btn-ghiceste {
+      font-size: 2rem;
+      padding: 40px 50px;
+    }
+    .btn-unitati {
+      font-size: 1.6rem;
+      padding: 40px 40px;
     }
   </style>
 </head>
 <body>
 
-  <h2>La curs</h2>
-  <p>Conținutul acestei pagini va fi disponibil în curând.</p>
+  <h2>📘 Alege un exercițiu de la curs</h2>
+
+  <div class="subtab-container">
+
+    <!-- TAB: Ghiceste numarul -->
+    <a class="subtab btn-ghiceste" href="#" onclick="afiseazaSetari('ghiceste')">📋 Ghiceste numărul</a>
+
+    <!-- Setări: Ghiceste numarul -->
+    <div id="setari-ghiceste" style="display: none; margin-top: 30px;">
+      <h3 style="font-style: italic; color: #4b0082;">Alege opțiunile exercițiului!</h3>
+      <select id="minute-ghiceste" style="margin: 10px 0; width: 100%; max-width: 450px; font-size: 1.8rem; padding: 16px;">
+        <option selected disabled>Câte minute lucrezi?</option>
+        <script>
+          for (let i = 1; i <= 59; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select>
+      <br />
+      <a href="ghiceste_numarul.html">
+        <button style="background-color: #4b0082; color: white; font-size: 1.8rem; padding: 18px 36px; border-radius: 18px; border: none; cursor: pointer;">
+          Exercițiu nou!
+        </button>
+      </a>
+    </div>
+
+    <!-- TAB: Adunare si scadere -->
+    <a class="subtab btn-unitati" href="#" onclick="afiseazaSetari('adunare')">➕➖ Adunarea și scăderea - Unități</a>
+
+    <!-- Setări: Adunare și scădere -->
+    <div id="setari-adunare" style="display: none; margin-top: 30px;">
+      <h3 style="font-style: italic; color: #4b0082;">Alege opțiunile exercițiului!</h3>
+      <select id="minute-adunare" style="margin: 10px 0; width: 100%; max-width: 450px; font-size: 1.8rem; padding: 16px;">
+        <option selected disabled>Câte minute lucrezi?</option>
+        <script>
+          for (let i = 1; i <= 59; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select>
+      <br />
+      <select id="calcule-adunare" style="margin-bottom: 15px; width: 100%; max-width: 450px; font-size: 1.5rem; padding: 20px; line-height: 1.4;">
+        <option selected disabled>Alege câte calcule va avea exercițiul</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select>
+      <br />
+      <button onclick="startAdunareUnitati()">Exercițiu nou!</button>
+    </div>
+
+  </div>
 
   <a class="btn-inapoi" href="../platforma.html">⬅ Înapoi la platformă</a>
+
+  <script>
+    function afiseazaSetari(tab) {
+      document.getElementById("setari-ghiceste").style.display = (tab === "ghiceste") ? "block" : "none";
+      document.getElementById("setari-adunare").style.display = (tab === "adunare") ? "block" : "none";
+    }
+
+    function startAdunareUnitati() {
+      const minute = document.getElementById("minute-adunare").value;
+      const calcule = document.getElementById("calcule-adunare").value;
+
+      if (!minute || !calcule) {
+        alert("Te rog selectează timpul și numărul de calcule!");
+        return;
+      }
+
+      localStorage.setItem("timpSelectat", minute);
+      localStorage.setItem("numarCalcule", calcule);
+      window.location.href = "adunare_unitati.html";
+    }
+  </script>
 
 </body>
 </html>
