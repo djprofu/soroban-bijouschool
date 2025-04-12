@@ -192,39 +192,52 @@
     }
 
     function verificaRaspuns() {
-      const raspuns = parseInt(document.getElementById("raspuns-user").value);
-      const feedback = document.getElementById("feedback");
-      const audioCorect = document.getElementById("sunet-corect");
-      const audioGresit = document.getElementById("sunet-gresit");
+  const raspuns = parseInt(document.getElementById("raspuns-user").value);
+  const feedback = document.getElementById("feedback");
+  const audioCorect = document.getElementById("sunet-corect");
+  const audioGresit = document.getElementById("sunet-gresit");
 
-      audioCorect.volume = 0.8;
-      audioGresit.volume = 0.8;
-      document.getElementById("gif-corect").style.display = 'none';
-      document.getElementById("gif-gresit").style.display = 'none';
-      document.body.classList.remove("blur-background");
+  audioCorect.volume = 0.8;
+  audioGresit.volume = 0.8;
+  document.getElementById("gif-corect").style.display = 'none';
+  document.getElementById("gif-gresit").style.display = 'none';
+  document.body.classList.remove("blur-background");
 
-      if (raspuns === numarCorect) {
-        feedback.textContent = "Bravo! Ai ghicit corect!";
-        feedback.className = 'correct';
-        document.getElementById("gif-corect").style.display = 'block';
-        audioCorect.currentTime = 0;
-        audioCorect.play();
-        document.getElementById("btn-nou").disabled = false; // permite exercițiu nou
-      } else {
-        feedback.textContent = `Mai încearcă! Răspunsul corect era ${numarCorect}.`;
-        feedback.className = 'wrong';
-        document.getElementById("gif-gresit").style.display = 'block';
-        audioGresit.currentTime = 0;
-        audioGresit.play();
-        document.getElementById("btn-nou").disabled = false; // permite exercițiu nou chiar și greșit
+  const esteCorect = raspuns === numarCorect;
 
-        if (window.matchMedia("(max-width: 480px) and (orientation: portrait)").matches) {
-          document.getElementById("gif-gresit").classList.add("mobil-popup");
-          document.body.classList.add("blur-background");
-        }
-      }
+  if (esteCorect) {
+    feedback.textContent = "Bravo! Ai ghicit corect!";
+    feedback.className = 'correct';
+    document.getElementById("gif-corect").style.display = 'block';
+    audioCorect.currentTime = 0;
+    audioCorect.play();
+  } else {
+    feedback.textContent = `Mai încearcă! Răspunsul corect era ${numarCorect}.`;
+    feedback.className = 'wrong';
+    document.getElementById("gif-gresit").style.display = 'block';
+    audioGresit.currentTime = 0;
+    audioGresit.play();
+
+    if (window.matchMedia("(max-width: 480px) and (orientation: portrait)").matches) {
+      document.getElementById("gif-gresit").classList.add("mobil-popup");
+      document.body.classList.add("blur-background");
     }
+  }
 
+  // 🔒 Salvare rezultat în localStorage
+  const numeElev = localStorage.getItem("elev_curent") || "elev_neidentificat";
+  const tipExercitiu = "ghiceste";
+  let toateRezultatele = JSON.parse(localStorage.getItem("rezultateBijou")) || {};
+
+  if (!toateRezultatele[numeElev]) {
+    toateRezultatele[numeElev] = { ghiceste: [], adunari: [] };
+  }
+
+  toateRezultatele[numeElev][tipExercitiu].push(esteCorect ? "corect" : "gresit");
+  localStorage.setItem("rezultateBijou", JSON.stringify(toateRezultatele));
+
+  document.getElementById("btn-nou").disabled = false;
+}
     window.addEventListener("DOMContentLoaded", () => {
       startGlobalTimer();
       genereazaExercitiu();

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Rezultate elevi – Profesor</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; background-color: #f5f5f5; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 12px; text-align: left; border: 1px solid #ddd; }
+    button { font-size: 16px; padding: 8px 12px; margin: 5px; }
+  </style>
+</head>
+<body>
+
+<h2>🔐 Acces Profesor – Rezultatele elevilor</h2>
+
+<div id="rezultate"></div>
+<button onclick="exportaPDF()">Exportă PDF</button>
+<button onclick="stergeToate()">Șterge toate rezultatele</button>
+
+<script>
+  // Funcție pentru încărcarea rezultatelor
+  async function incarcaRezultate() {
+    const response = await fetch('http://127.0.0.1:5000/toate_rezultatele?parola=1986');
+    const date = await response.json();
+    afiseazaRezultate(date);
+  }
+
+  // Funcție pentru a afișa rezultatele
+  function afiseazaRezultate(date) {
+    let html = `<table><tr><th>Nume</th><th>Rezultate</th></tr>`;
+    date.forEach((rezultat) => {
+      html += `<tr><td>${rezultat.nume}</td><td>${rezultat.corect ? "Corect" : "Greșit"}</td></tr>`;
+    });
+    html += `</table>`;
+    document.getElementById('rezultate').innerHTML = html;
+  }
+
+  // Funcție pentru a exporta PDF
+  function exportaPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.text("Rezultate elevi", 10, 10);
+    doc.save('rezultate_elevi.pdf');
+  }
+
+  // Funcție pentru a șterge toate rezultatele
+  async function stergeToate() {
+    const response = await fetch('http://127.0.0.1:5000/sterge_rezultate', { method: 'DELETE' });
+    if (response.ok) {
+      alert('Toate rezultatele au fost șterse!');
+    } else {
+      alert('Eroare la ștergerea rezultatelor!');
+    }
+  }
+
+  // Încarcă rezultatele la încărcarea paginii
+  incarcaRezultate();
+</script>
+
+</body>
+</html>

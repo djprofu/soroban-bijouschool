@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Profesor – Gestionare elevi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .elev {
+            margin: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .elev h3 {
+            margin: 0;
+            color: #333;
+        }
+        .feedback {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gestionare Elevi</h2>
+    <p>Aici poți vizualiza și gestiona elevii tăi.</p>
+
+    {% for elev in elevi %}
+        <div class="elev">
+            <h3>{{ elev.nume }}</h3>
+            <p>Prezență: {{ elev.prezenta }}</p>
+            <p>Contract: {{ elev.contract }}</p>
+            <div class="feedback">
+                <label for="feedback_{{ elev.id }}">Feedback:</label>
+                <textarea id="feedback_{{ elev.id }}" rows="3">{{ elev.feedback }}</textarea>
+                <form method="POST" action="{{ url_for('profesor_1986') }}">
+                    <input type="hidden" name="elev_id" value="{{ elev.id }}">
+                    <button type="submit">Salvează Feedback</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>

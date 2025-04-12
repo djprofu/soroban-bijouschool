@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Platforma de rezultate</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; }
+    h2 { color: #333; }
+    input, button { font-size: 16px; padding: 8px 12px; margin: 5px; }
+  </style>
+</head>
+<body>
+
+<h2>🔐 Autentificare Profesor</h2>
+<p>Introduceți parola pentru acces:</p>
+<input type="password" id="parola" placeholder="Parola profesorului">
+<button onclick="autentificare()">Autentifică-te</button>
+
+<script>
+  function autentificare() {
+    const parola = document.getElementById("parola").value;
+    if(parola === "1986") {
+      window.location.href = "/rezultate_profesor";  // Redirecționare la pagina rezultatelor
+    } else {
+      alert("Parola greșită!");
+    }
+  }
+</script>
+
+</body>
+</html>

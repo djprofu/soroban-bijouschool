@@ -2,147 +2,320 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La curs</title>
-  <link rel="stylesheet" href="../stil.css">
+  <title>La curs – Situația exercițiilor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f3fa;
-      padding: 40px 20px;
-      text-align: center;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #eef2f7;
     }
-    h2 {
-      color: #5c2d91;
-      margin-bottom: 40px;
-      font-size: 2.4rem;
+    #login-form, #continut-profesor, #continut-elev {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
     }
-    .subtab-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .subtab {
-      background-color: #fff;
-      border-radius: 20px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      text-decoration: none;
-      color: #5c2d91;
-      font-weight: bold;
-      transition: transform 0.3s;
+    input, button {
+      font-size: 16px;
+      padding: 10px;
+      margin-top: 10px;
       width: 100%;
-      max-width: 600px;
+      box-sizing: border-box;
     }
-    .subtab:hover {
-      background-color: #e6e1fa;
-      transform: translateY(-3px);
-    }
-    .btn-inapoi {
-      margin-top: 40px;
-      display: inline-block;
-      background-color: #5c2d91;
+    button {
+      background-color: #4CAF50;
       color: white;
-      border-radius: 14px;
-      text-decoration: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #taburi-profesor button {
+      margin: 5px 10px 10px 0;
+      background-color: #2196F3;
+    }
+    .corect { border-left: 5px solid #4CAF50; background: #eaffea; padding: 8px; margin: 4px 0; }
+    .gresit { border-left: 5px solid #f44336; background: #ffecec; padding: 8px; margin: 4px 0; }
+    .bloc-saptamana {
+      border-top: 2px solid #bbb;
+      margin-top: 30px;
+      padding-top: 10px;
+    }
+    .progres-bar {
+      height: 20px;
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    .progres-inner {
+      height: 100%;
+      background: linear-gradient(to right, #4CAF50, #81C784);
+      width: 0%;
+      text-align: center;
+      color: white;
       font-weight: bold;
-      font-size: 1.5rem;
-      padding: 14px 28px;
     }
-    .btn-inapoi:hover {
-      background-color: #45217c;
-    }
-    .btn-ghiceste {
-      font-size: 2rem;
-      padding: 40px 50px;
-    }
-    .btn-unitati {
-      font-size: 1.6rem;
-      padding: 40px 40px;
+    .top-elevi {
+      background: #fff;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
 <body>
 
-  <h2>📘 Alege un exercițiu de la curs</h2>
+<div id="login-form">
+  <h2>Acces „La curs”</h2>
+  <input type="text" id="nume-elev" placeholder="Numele elevului">
+  <input type="password" id="parola" placeholder="Parola">
+  <button onclick="autentificare()">Autentificare</button>
+</div>
 
-  <div class="subtab-container">
-
-    <!-- TAB: Ghiceste numarul -->
-    <a class="subtab btn-ghiceste" href="#" onclick="afiseazaSetari('ghiceste')">📋 Ghiceste numărul</a>
-
-    <!-- Setări: Ghiceste numarul -->
-    <div id="setari-ghiceste" style="display: none; margin-top: 30px;">
-      <h3 style="font-style: italic; color: #4b0082;">Alege opțiunile exercițiului!</h3>
-      <select id="minute-ghiceste" style="margin: 10px 0; width: 100%; max-width: 450px; font-size: 1.8rem; padding: 16px;">
-        <option selected disabled>Câte minute lucrezi?</option>
-        <script>
-          for (let i = 1; i <= 59; i++) {
-            document.write(`<option value="${i}">${i}</option>`);
-          }
-        </script>
-      </select>
-      <br />
-      <a href="ghiceste_numarul.html">
-        <button style="background-color: #4b0082; color: white; font-size: 1.8rem; padding: 18px 36px; border-radius: 18px; border: none; cursor: pointer;">
-          Exercițiu nou!
-        </button>
-      </a>
-    </div>
-
-    <!-- TAB: Adunare si scadere -->
-    <a class="subtab btn-unitati" href="#" onclick="afiseazaSetari('adunare')">➕➖ Adunarea și scăderea - Unități</a>
-
-    <!-- Setări: Adunare și scădere -->
-    <div id="setari-adunare" style="display: none; margin-top: 30px;">
-      <h3 style="font-style: italic; color: #4b0082;">Alege opțiunile exercițiului!</h3>
-      <select id="minute-adunare" style="margin: 10px 0; width: 100%; max-width: 450px; font-size: 1.8rem; padding: 16px;">
-        <option selected disabled>Câte minute lucrezi?</option>
-        <script>
-          for (let i = 1; i <= 59; i++) {
-            document.write(`<option value="${i}">${i}</option>`);
-          }
-        </script>
-      </select>
-      <br />
-      <select id="calcule-adunare" style="margin-bottom: 15px; width: 100%; max-width: 450px; font-size: 1.5rem; padding: 20px; line-height: 1.4;">
-        <option selected disabled>Alege câte calcule va avea exercițiul</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-      </select>
-      <br />
-      <button onclick="startAdunareUnitati()">Exercițiu nou!</button>
-    </div>
-
+<div id="continut-profesor" style="display:none;">
+  <h3>Autentificat ca profesor</h3>
+  <div id="taburi-profesor">
+    <button onclick="window.location.href='ghiceste_numarul.html'">Ghiceste numărul</button>
+    <button onclick="window.location.href='adunare_unitati.html'">Adunări și scăderi – Unități</button>
+    <button onclick="genereazaDateTest()">Generează date test</button>
+    <button onclick="exportPDFProfesor()">Exportă PDF profesor</button>
   </div>
+  <div id="rezultate-toti-elevii"></div>
+  <div class="top-elevi" id="clasament-elevi"></div>
+</div>
 
-  <a class="btn-inapoi" href="../platforma.html">⬅ Înapoi la platformă</a>
+<div id="continut-elev" style="display:none;">
+  <h3 id="elev-autentificat"></h3>
+  <div class="progres-bar"><div id="progres" class="progres-inner">0%</div></div>
+  <button onclick="exportPDFElev()">Exportă PDF elev</button>
+  <div id="rezultate-elev"></div>
+</div>
+<script>
+  const paroleElevi = {
+    "Mihai": "4321",
+    "Andreea": "8765",
+    "Ioana": "9988"
+  };
+  let elevCurent = "";
 
-  <script>
-    function afiseazaSetari(tab) {
-      document.getElementById("setari-ghiceste").style.display = (tab === "ghiceste") ? "block" : "none";
-      document.getElementById("setari-adunare").style.display = (tab === "adunare") ? "block" : "none";
+  function autentificare() {
+    const nume = document.getElementById("nume-elev").value.trim();
+    const parola = document.getElementById("parola").value.trim();
+
+    if (parola === "2212") {
+      document.getElementById("login-form").style.display = "none";
+      document.getElementById("continut-profesor").style.display = "block";
+      afiseazaTot();
+    } else if (paroleElevi[nume] === parola) {
+      elevCurent = nume;
+      document.getElementById("login-form").style.display = "none";
+      document.getElementById("continut-elev").style.display = "block";
+      document.getElementById("elev-autentificat").innerText = `Autentificat ca ${nume}`;
+      afiseazaElev(nume);
+    } else {
+      alert("Parolă sau nume incorect.");
     }
+  }
 
-    function startAdunareUnitati() {
-      const minute = document.getElementById("minute-adunare").value;
-      const calcule = document.getElementById("calcule-adunare").value;
+  function getSaptamana(dataStr) {
+    const d = new Date(dataStr);
+    const luni = new Date(d);
+    luni.setDate(d.getDate() - d.getDay() + 1);
+    const duminica = new Date(luni);
+    duminica.setDate(luni.getDate() + 6);
+    return `Săptămâna ${luni.toLocaleDateString()} – ${duminica.toLocaleDateString()}`;
+  }
 
-      if (!minute || !calcule) {
-        alert("Te rog selectează timpul și numărul de calcule!");
-        return;
+  function grupeazaPeSaptamani(rezultate) {
+    const grup = {};
+    rezultate.forEach(r => {
+      const sap = getSaptamana(r.data);
+      if (!grup[sap]) grup[sap] = [];
+      grup[sap].push(r);
+    });
+    return grup;
+  }
+
+  function afiseazaElev(numeElev) {
+    const container = document.getElementById("rezultate-elev");
+    container.innerHTML = "";
+
+    const rezultate = [];
+    for (let cheie in localStorage) {
+      if (cheie.startsWith("rezultat_")) {
+        try {
+          const r = JSON.parse(localStorage.getItem(cheie));
+          if (r.nume === numeElev) rezultate.push(r);
+        } catch {}
       }
-
-      localStorage.setItem("timpSelectat", minute);
-      localStorage.setItem("numarCalcule", calcule);
-      window.location.href = "adunare_unitati.html";
     }
-  </script>
 
+    const grupate = grupeazaPeSaptamani(rezultate);
+    let totalPuncte = 0;
+    let totalCorecte = 0;
+
+    Object.keys(grupate).reverse().forEach(sapt => {
+      const bloc = document.createElement("div");
+      bloc.className = "bloc-saptamana";
+      bloc.innerHTML = `<h4>${sapt}</h4>`;
+      let puncte = 0;
+
+      grupate[sapt].forEach(r => {
+        const div = document.createElement("div");
+        div.className = r.corect ? "corect" : "gresit";
+        div.innerHTML = `${r.data} – ${r.tip}: ${r.corect ? "✔️ Corect" : "❌ Greșit"}`;
+        bloc.appendChild(div);
+        if (r.corect) {
+          puncte++;
+          totalCorecte++;
+        }
+      });
+
+      totalPuncte += puncte;
+      const medalie = puncte >= 5 ? "🥇" : puncte >= 3 ? "🥈" : "🏅";
+      bloc.innerHTML += `<p><b>Puncte săptămână:</b> ${puncte} ${medalie}</p>`;
+      container.appendChild(bloc);
+    });
+
+    // Bară de progres
+    let progres = Math.min(100, totalCorecte * 10);
+    const bar = document.getElementById("progres");
+    bar.style.width = progres + "%";
+    bar.innerText = progres + "%";
+
+    container.innerHTML += `<p><b>Total puncte:</b> ${totalPuncte}</p>`;
+  }
+
+  function afiseazaTot() {
+    const container = document.getElementById("rezultate-toti-elevii");
+    const clasamentDiv = document.getElementById("clasament-elevi");
+    container.innerHTML = "";
+    clasamentDiv.innerHTML = "";
+
+    const rezultate = [];
+    for (let cheie in localStorage) {
+      if (cheie.startsWith("rezultat_")) {
+        try {
+          const r = JSON.parse(localStorage.getItem(cheie));
+          rezultate.push(r);
+        } catch {}
+      }
+    }
+
+    const grupate = grupeazaPeSaptamani(rezultate);
+    const puncteTotale = {};
+
+    Object.keys(grupate).reverse().forEach(sapt => {
+      const bloc = document.createElement("div");
+      bloc.className = "bloc-saptamana";
+      bloc.innerHTML = `<h4>${sapt}</h4>`;
+      const punctePerElev = {};
+
+      grupate[sapt].forEach(r => {
+        const div = document.createElement("div");
+        div.className = r.corect ? "corect" : "gresit";
+        div.innerHTML = `${r.data} – <b>${r.nume}</b>: ${r.tip} – ${r.corect ? "✔️ Corect" : "❌ Greșit"}`;
+        bloc.appendChild(div);
+
+        if (!punctePerElev[r.nume]) punctePerElev[r.nume] = 0;
+        if (!puncteTotale[r.nume]) puncteTotale[r.nume] = 0;
+        if (r.corect) {
+          punctePerElev[r.nume]++;
+          puncteTotale[r.nume]++;
+        }
+      });
+
+      Object.keys(punctePerElev).forEach(nume => {
+        const p = punctePerElev[nume];
+        const medalie = p >= 5 ? "🥇" : p >= 3 ? "🥈" : "🏅";
+        bloc.innerHTML += `<p><b>${nume}:</b> ${p}p ${medalie}</p>`;
+      });
+
+      container.appendChild(bloc);
+    });
+
+    // Clasament
+    let clasament = Object.entries(puncteTotale)
+      .sort((a, b) => b[1] - a[1])
+      .map(([nume, p], i) => `${i + 1}. ${nume} – ${p}p`).join("<br>");
+
+    clasamentDiv.innerHTML = `<h4>🏆 Clasament top elevi</h4><p>${clasament}</p>`;
+  }
+
+  function salveazaPeServer(rezultat) {
+    fetch('/salveaza_rezultat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(rezultat)
+    }).catch(err => console.warn("Eroare salvare server:", err));
+  }
+
+  function genereazaDateTest() {
+    const exemple = [
+      { nume: "Mihai", tip: "Ghiceste", corect: true, data: "2025-04-08" },
+      { nume: "Mihai", tip: "Adunări", corect: false, data: "2025-04-09" },
+      { nume: "Ioana", tip: "Scăderi", corect: true, data: "2025-04-11" },
+      { nume: "Andreea", tip: "Ghiceste", corect: true, data: "2025-04-10" }
+    ];
+    let i = 0;
+    for (let ex of exemple) {
+      const key = `rezultat_${ex.nume}_${i++}`;
+      localStorage.setItem(key, JSON.stringify(ex));
+      salveazaPeServer(ex);
+    }
+    alert("Date test salvate.");
+    afiseazaTot();
+  }
+
+  async function exportPDFElev() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 10;
+    doc.text(`Raport ${elevCurent}`, 10, y); y += 10;
+    const rezultate = [];
+    for (let k in localStorage) {
+      if (k.startsWith("rezultat_")) {
+        const r = JSON.parse(localStorage.getItem(k));
+        if (r.nume === elevCurent) rezultate.push(r);
+      }
+    }
+    const grup = grupeazaPeSaptamani(rezultate);
+    for (let sapt of Object.keys(grup)) {
+      doc.text(sapt, 10, y); y += 7;
+      grup[sapt].forEach(r => {
+        doc.text(`${r.data} – ${r.tip} – ${r.corect ? "Corect" : "Greșit"}`, 12, y); y += 6;
+      });
+      y += 5;
+    }
+    doc.save(`Raport_${elevCurent}.pdf`);
+  }
+
+  async function exportPDFProfesor() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 10;
+    doc.text(`Situație generală`, 10, y); y += 10;
+    const rezultate = [];
+    for (let k in localStorage) {
+      if (k.startsWith("rezultat_")) {
+        const r = JSON.parse(localStorage.getItem(k));
+        rezultate.push(r);
+      }
+    }
+    const grup = grupeazaPeSaptamani(rezultate);
+    for (let sapt of Object.keys(grup)) {
+      doc.text(sapt, 10, y); y += 7;
+      grup[sapt].forEach(r => {
+        doc.text(`${r.data} – ${r.nume} – ${r.tip} – ${r.corect ? "✔️" : "❌"}`, 12, y); y += 6;
+      });
+      y += 5;
+    }
+    doc.save(`Situatie_generala.pdf`);
+  }
+</script>
 </body>
 </html>

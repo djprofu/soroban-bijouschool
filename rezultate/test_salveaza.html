@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Salvare Rezultat</title>
+</head>
+<body>
+
+<h2>Testare salvare rezultat</h2>
+
+<form id="form">
+  <label for="nume">Nume:</label>
+  <input type="text" id="nume" name="nume" required>
+  <label for="rezultat">Rezultatul:</label>
+  <select id="rezultat" name="rezultat">
+    <option value="corect">Corect</option>
+    <option value="gresit">Greșit</option>
+  </select>
+  <button type="submit">Salvează</button>
+</form>
+
+<script>
+  document.getElementById('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const nume = document.getElementById('nume').value;
+    const rezultat = document.getElementById('rezultat').value;
+
+    fetch('http://127.0.0.1:5000/salveaza_rezultat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nume, rezultat })
+    })
+    .then(response => response.json())
+    .then(data => alert(data.mesaj))
+    .catch(err => console.error('Eroare:', err));
+  });
+</script>
+
+</body>
+</html>

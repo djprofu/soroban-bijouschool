@@ -11,9 +11,15 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   const mesaj = document.getElementById("mesaj");
 
   if (nume.toLowerCase() === "profesor" && cod === "1986") {
+    // Acces către profesor.html (administrare)
     window.location.href = "profesor.html";
+  } else if (nume.toLowerCase() === "profesor" && cod === "2212") {
+    // Acces complet pe platforma.html
+    localStorage.setItem("elev_nume", "profesor");
+    window.location.href = "platforma.html";
   } else if (coduriElevi[nume] === cod) {
-    localStorage.setItem("elev_nume", nume); // salvăm pentru platforma.html
+    // Acces pentru elevi
+    localStorage.setItem("elev_nume", nume);
     window.location.href = "platforma.html";
   } else {
     mesaj.textContent = "Date incorecte. Încearcă din nou.";

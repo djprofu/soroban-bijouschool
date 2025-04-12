@@ -13,59 +13,6 @@
     @keyframes fadeInMain {
       to { opacity: 1; }
     }
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: white;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: none;
-      z-index: 10000;
-    }
-    .dropdown.open .dropdown-menu {
-      display: block;
-    }
-    .popup-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(6px);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-    }
-    .popup-overlay.show {
-      display: flex;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .popup-box {
-      background: white;
-      color: #1f2937;
-      font-size: 1.6rem;
-      font-weight: bold;
-      padding: 30px 40px;
-      border-radius: 20px;
-      text-align: center;
-      max-width: 90%;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      animation: popupScale 0.4s ease-in-out;
-    }
-    @keyframes popupScale {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .btn-ghiceste {
-      display: inline-block;
-      margin: 30px auto;
-      padding: 18px 32px;
-      font-size: 2rem;
-      font-weight: bold;
-      background-color: #6a2bc9;
-      color: white;
-      border-radius: 14px;
-      text-decoration: none;
-    }
   </style>
 </head>
 <body>
@@ -85,16 +32,16 @@
           </div>
         </div>
         <div class="dropdown">
-          <button class="dropdown-toggle special-tab">Înscrieri <span class="arrow">▼</span></button>
+          <button class="dropdown-toggle special-tab">Încrieri <span class="arrow">▼</span></button>
           <div class="dropdown-menu">
-            <a href="#">Formular înscriere</a>
+            <a href="#">Formular încriere</a>
             <a href="#">Taxe și tarife</a>
           </div>
         </div>
         <a href="#">Articole</a>
         <a href="#">Galerie</a>
         <a href="#">Contact</a>
-        <a href="login.html" class="platform-tab">🔒 Platforma</a>
+        <a href="login.html" class="platform-tab">🔐 Platforma</a>
       </div>
     </div>
   </header>
@@ -105,53 +52,51 @@
       <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
     </div>
   </section>
-  <div class="grid-container" style="margin-top: 40px;">
-    <a class="tab" href="platforma_pages/exercitiu_usor.html">
-      <img src="imagini/panda_exercitiu.gif" alt="Exercițiu ușor" />
-      <p>Exercițiu ușor</p>
-    </a>
-  </div>  
 
+  <!-- SLIDESHOW VERTICAL STÂNGA -->
   <div class="slider-vertical left desktop-only">
     <div class="slider-vertical-track">
-      <img src="imagini/soroban1.jpg" alt="" />
-      <img src="imagini/soroban2.jpg" alt="" />
-      <img src="imagini/soroban3.jpg" alt="" />
-      <img src="imagini/soroban4.jpg" alt="" />
-      <img src="imagini/soroban5.jpg" alt="" />
-      <img src="imagini/soroban6.jpg" alt="" />
-      <img src="imagini/soroban7.jpg" alt="" />
-      <img src="imagini/soroban8.jpg" alt="" />
-      <img src="imagini/soroban9.jpg" alt="" />
-      <img src="imagini/soroban10.jpg" alt="" />
-      <img src="imagini/soroban11.jpg" alt="" />
-    </div>
-  </div>
-  <div class="slider-vertical right desktop-only">
-    <div class="slider-vertical-track">
-      <img src="imagini/soroban12.jpg" alt="" />
-      <img src="imagini/soroban13.jpg" alt="" />
-      <img src="imagini/soroban14.jpg" alt="" />
-      <img src="imagini/soroban15.jpg" alt="" />
-      <img src="imagini/soroban16.jpg" alt="" />
-      <img src="imagini/soroban17.jpg" alt="" />
-      <img src="imagini/soroban18.jpg" alt="" />
-      <img src="imagini/soroban19.jpg" alt="" />
-      <img src="imagini/soroban20.jpg" alt="" />
-      <img src="imagini/soroban21.jpg" alt="" />
-      <img src="imagini/soroban22.jpg" alt="" />
+      <img src="imagini/soroban1.jpg" />
+      <img src="imagini/soroban2.jpg" />
+      <img src="imagini/soroban3.jpg" />
+      <img src="imagini/soroban4.jpg" />
+      <img src="imagini/soroban5.jpg" />
+      <img src="imagini/soroban6.jpg" />
+      <img src="imagini/soroban7.jpg" />
+      <img src="imagini/soroban8.jpg" />
+      <img src="imagini/soroban9.jpg" />
+      <img src="imagini/soroban10.jpg" />
+      <img src="imagini/soroban11.jpg" />
     </div>
   </div>
 
+  <!-- SLIDESHOW VERTICAL DREAPTA -->
+  <div class="slider-vertical right desktop-only">
+    <div class="slider-vertical-track">
+      <img src="imagini/soroban12.jpg" />
+      <img src="imagini/soroban13.jpg" />
+      <img src="imagini/soroban14.jpg" />
+      <img src="imagini/soroban15.jpg" />
+      <img src="imagini/soroban16.jpg" />
+      <img src="imagini/soroban17.jpg" />
+      <img src="imagini/soroban18.jpg" />
+      <img src="imagini/soroban19.jpg" />
+      <img src="imagini/soroban20.jpg" />
+      <img src="imagini/soroban21.jpg" />
+      <img src="imagini/soroban22.jpg" />
+    </div>
+  </div>
+  
+    <!-- MOTIVAȚIONAL -->
   <div class="motivation-area">
     <p id="instruction-text">👇 Apasă pe o poză pentru un mesaj motivațional!</p>
   </div>
 
+  <!-- SLIDESHOW ORIZONTAL -->
   <div class="slideshow-container">
     <div class="slider-track">
       <img src="imagini/soroban1.jpg" alt="" />
       <img src="imagini/soroban2.jpg" alt="" />
-      <img src="imagini/soroban3.jpg" alt="" />
       <img src="imagini/soroban4.jpg" alt="" />
       <img src="imagini/soroban5.jpg" alt="" />
       <img src="imagini/soroban6.jpg" alt="" />
@@ -174,6 +119,7 @@
     </div>
   </div>
 
+  <!-- POPUP -->
   <div id="popupMotivational" class="popup-overlay">
     <div class="popup-box" id="popupText"></div>
   </div>
@@ -185,7 +131,7 @@
     const motivationalMessages = [
       "Crede în tine și în puterea ta!",
       "Fiecare zi este o nouă șansă să strălucești!",
-      "Ai tot ce îți trebuie ca să reușești!",
+      "Ai tot ce îti trebuie ca să reușești!",
       "Micii pași duc la mari succese!",
       "Zâmbește – e primul pas spre o zi minunată!",
       "Fii curajos, chiar și când îți este frică!",
@@ -193,7 +139,7 @@
       "Răbdarea este cheia progresului!",
       "Astăzi poți învăța ceva uimitor!",
       "Ai încredere în mintea ta strălucită!",
-      "Încearcă din nou – vei reuși!",
+      "Înearcă din nou – vei reuși!",
       "Fii mândru de fiecare efort făcut!",
       "Fiecare problemă are o soluție!",
       "Ești mai puternic decât crezi!",
@@ -202,14 +148,11 @@
       "Curajul înseamnă să mergi mai departe!",
       "Fii curios – ești pe drumul cel bun!",
       "Ai făcut deja progrese mari!",
-      "Bravo! Continuă să înveți cu bucurie!",
-      "Îți antrenezi mintea, devii mai înțelept!",
+      "Bravo! Continuă să învăți cu bucurie!",
       "În fiecare zi devii mai bun!"
     ];
 
-    const images = document.querySelectorAll(".slideshow-container .slider-track img");
-
-    images.forEach((img, index) => {
+    document.querySelectorAll(".slider-track img").forEach((img, index) => {
       img.addEventListener("click", () => {
         popupText.textContent = motivationalMessages[index] || "Ești minunat!";
         popup.classList.add("show");
@@ -220,6 +163,7 @@
       popup.classList.remove("show");
     });
   </script>
+
   <script>
     document.querySelectorAll('.dropdown-toggle').forEach(button => {
       button.addEventListener('click', function(e) {
@@ -232,10 +176,12 @@
         }
       });
     });
+
     window.addEventListener('click', () => {
       document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
     });
   </script>
+
   <audio id="mainSound" src="sunete/sunet_principal_fadein.mp3" autoplay loop></audio>
   <script>
     window.addEventListener("DOMContentLoaded", () => {

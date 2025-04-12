@@ -199,29 +199,33 @@ body {
 /* === SLIDESHOW ORIZONTAL === */
 .slideshow-container {
   overflow: hidden;
-  background-color: #e6f4ff;
-  padding: 20px 0;
-  display: flex;
-  justify-content: center;
-  z-index: 1;
+  background-color: #f2f2ff;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .slider-track {
   display: flex;
-  gap: 0;
-  animation: slide-horizontal 30s linear infinite;
+  gap: 20px;
+  animation: scrollSlider 40s linear infinite;
   width: max-content;
 }
 
 .slider-track img {
-  height: 120px;
-  width: auto;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  flex-shrink: 0;
+  height: 140px;
+  border-radius: 14px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-@keyframes slide-horizontal {
+.slider-track img:hover {
+  transform: scale(1.1);
+}
+
+@keyframes scrollSlider {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
@@ -689,4 +693,53 @@ body {
   padding: 8px 14px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+/* === SLIDESHOW ORIZONTAL – BIJOU SCHOOL === */
+.slideshow-container {
+  overflow: hidden;
+  background-color: #e6f4ff;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  z-index: 5;
+  margin-top: 20px;
+}
+
+.slider-track {
+  display: flex;
+  gap: 10px;
+  animation: scroll 30s linear infinite;
+}
+
+.slideshow-container:hover .slider-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.slider-track img {
+  height: 120px;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.slider-track img:hover {
+  transform: scale(1.1);
+}
+
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

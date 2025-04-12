@@ -1,0 +1,6 @@
+{
+  "nume": "Ana Popescu",
+  "corect": true,
+  "tip": "Ghiceste numărul",
+  "data": "2025-04-11 10:46"
+}
