@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bijou School – Soroban</title>
+  <link rel="stylesheet" href="stil.css" />
+  <style>
+    body {
+      opacity: 0;
+      animation: fadeInMain 1.5s ease forwards;
+    }
+    @keyframes fadeInMain {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="logo-container">
+        <img src="imagini/logo-bijouschool.png" alt="Logo" class="logo" />
+      </div>
+      <div class="navbar">
+        <a href="#">Acasă</a>
+        <a href="#">Despre noi</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle special-tab">Cursuri <span class="arrow">▼</span></button>
+          <div class="dropdown-menu">
+            <a href="#">Soroban copii</a>
+            <a href="#">Citire rapidă</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropdown-toggle special-tab">Încrieri <span class="arrow">▼</span></button>
+          <div class="dropdown-menu">
+            <a href="#">Formular încriere</a>
+            <a href="#">Taxe și tarife</a>
+          </div>
+        </div>
+        <a href="#">Articole</a>
+        <a href="#">Galerie</a>
+        <a href="#">Contact</a>
+        <a href="login.html" class="platform-tab">🔐 Platforma</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="overlay">
+      <h1>🎉 Bun venit la Bijou School!</h1>
+      <p>🧠 Antrenează-ți mintea cu zâmbet și distracție! ✨</p>
+    </div>
+  </section>
+
+  <!-- SLIDESHOW VERTICAL STÂNGA -->
+  <div class="slider-vertical left desktop-only">
+    <div class="slider-vertical-track">
+      <img src="imagini/soroban1.jpg" />
+      <img src="imagini/soroban2.jpg" />
+      <img src="imagini/soroban3.jpg" />
+      <img src="imagini/soroban4.jpg" />
+      <img src="imagini/soroban5.jpg" />
+      <img src="imagini/soroban6.jpg" />
+      <img src="imagini/soroban7.jpg" />
+      <img src="imagini/soroban8.jpg" />
+      <img src="imagini/soroban9.jpg" />
+      <img src="imagini/soroban10.jpg" />
+      <img src="imagini/soroban11.jpg" />
+    </div>
+  </div>
+
+  <!-- SLIDESHOW VERTICAL DREAPTA -->
+  <div class="slider-vertical right desktop-only">
+    <div class="slider-vertical-track">
+      <img src="imagini/soroban12.jpg" />
+      <img src="imagini/soroban13.jpg" />
+      <img src="imagini/soroban14.jpg" />
+      <img src="imagini/soroban15.jpg" />
+      <img src="imagini/soroban16.jpg" />
+      <img src="imagini/soroban17.jpg" />
+      <img src="imagini/soroban18.jpg" />
+      <img src="imagini/soroban19.jpg" />
+      <img src="imagini/soroban20.jpg" />
+      <img src="imagini/soroban21.jpg" />
+      <img src="imagini/soroban22.jpg" />
+    </div>
+  </div>
+  
+    <!-- MOTIVAȚIONAL -->
+  <div class="motivation-area">
+    <p id="instruction-text">👇 Apasă pe o poză pentru un mesaj motivațional!</p>
+  </div>
+
+  <!-- SLIDESHOW ORIZONTAL -->
+  <div class="slideshow-container">
+    <div class="slider-track">
+      <img src="imagini/soroban1.jpg" alt="" />
+      <img src="imagini/soroban2.jpg" alt="" />
+      <img src="imagini/soroban4.jpg" alt="" />
+      <img src="imagini/soroban5.jpg" alt="" />
+      <img src="imagini/soroban6.jpg" alt="" />
+      <img src="imagini/soroban7.jpg" alt="" />
+      <img src="imagini/soroban8.jpg" alt="" />
+      <img src="imagini/soroban9.jpg" alt="" />
+      <img src="imagini/soroban10.jpg" alt="" />
+      <img src="imagini/soroban11.jpg" alt="" />
+      <img src="imagini/soroban12.jpg" alt="" />
+      <img src="imagini/soroban13.jpg" alt="" />
+      <img src="imagini/soroban14.jpg" alt="" />
+      <img src="imagini/soroban15.jpg" alt="" />
+      <img src="imagini/soroban16.jpg" alt="" />
+      <img src="imagini/soroban17.jpg" alt="" />
+      <img src="imagini/soroban18.jpg" alt="" />
+      <img src="imagini/soroban19.jpg" alt="" />
+      <img src="imagini/soroban20.jpg" alt="" />
+      <img src="imagini/soroban21.jpg" alt="" />
+      <img src="imagini/soroban22.jpg" alt="" />
+    </div>
+  </div>
+
+  <!-- POPUP -->
+  <div id="popupMotivational" class="popup-overlay">
+    <div class="popup-box" id="popupText"></div>
+  </div>
+
+  <script>
+    const popup = document.getElementById("popupMotivational");
+    const popupText = document.getElementById("popupText");
+
+    const motivationalMessages = [
+      "Crede în tine și în puterea ta!",
+      "Fiecare zi este o nouă șansă să strălucești!",
+      "Ai tot ce îti trebuie ca să reușești!",
+      "Micii pași duc la mari succese!",
+      "Zâmbește – e primul pas spre o zi minunată!",
+      "Fii curajos, chiar și când îți este frică!",
+      "Cunoștințele cresc cu fiecare exercițiu!",
+      "Răbdarea este cheia progresului!",
+      "Astăzi poți învăța ceva uimitor!",
+      "Ai încredere în mintea ta strălucită!",
+      "Înearcă din nou – vei reuși!",
+      "Fii mândru de fiecare efort făcut!",
+      "Fiecare problemă are o soluție!",
+      "Ești mai puternic decât crezi!",
+      "Mintea ta este un super-erou în antrenament!",
+      "Succesul începe cu un pas mic!",
+      "Curajul înseamnă să mergi mai departe!",
+      "Fii curios – ești pe drumul cel bun!",
+      "Ai făcut deja progrese mari!",
+      "Bravo! Continuă să învăți cu bucurie!",
+      "În fiecare zi devii mai bun!"
+    ];
+
+    document.querySelectorAll(".slider-track img").forEach((img, index) => {
+      img.addEventListener("click", () => {
+        popupText.textContent = motivationalMessages[index] || "Ești minunat!";
+        popup.classList.add("show");
+      });
+    });
+
+    popup.addEventListener("click", () => {
+      popup.classList.remove("show");
+    });
+  </script>
+
+  <script>
+    document.querySelectorAll('.dropdown-toggle').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const dropdown = this.parentElement;
+        const alreadyOpen = dropdown.classList.contains('open');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+        if (!alreadyOpen) {
+          dropdown.classList.add('open');
+        }
+      });
+    });
+
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+    });
+  </script>
+
+  <audio id="mainSound" src="sunete/sunet_principal_fadein.mp3" autoplay loop></audio>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("mainSound");
+      audio.volume = 0.3;
+    });
+  </script>
+</body>
+</html>

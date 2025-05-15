@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Modul 1 - Bine ai venit</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f3fa;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 { color: #512da8; }
+    h2 { color: #333; margin-top: 40px; }
+    .tab-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .tab {
+      background-color: #9575cd;
+      color: white;
+      padding: 20px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s;
+      position: relative;
+    }
+    .tab:hover {
+      background-color: #7e57c2;
+    }
+    .badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 50%;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
+    }
+    .badge.green {
+      background: green;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .back-button {
+      margin-top: 40px;
+      padding: 10px 20px;
+      background-color: #512da8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .toast {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #4a148c;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      z-index: 9999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Modul 1</h1>
+  <p id="statusProfesor" style="font-size: 16px; color: #333; margin-bottom: 10px;"></p>
+
+  <h2>✅ Mă antrenez</h2>
+  <div class="tab-container">
+    <a class="tab" href="./ma_antrenez/modul1_ghiceste.html">📋 Ghiceste numărul</a>
+    <a class="tab" href="./ma_antrenez/adunari_scaderi_unitati.html">➕ Adunări și scăderi – Unități</a>
+  </div>
+
+  <h2>🏫 La curs</h2>
+  <div class="tab-container">
+    <a class="tab" href="#" onclick="verificaAccesLaCurs()" id="butonCurs">
+      🏫 La curs <span id="badgeCerere" style="display:none" class="badge">!</span>
+    </a>
+  </div>
+
+  <button class="back-button" onclick="window.location.href = '/platforma.html'">⏪ Înapoi</button>
+
+  <script>
+    const badge = document.getElementById("badgeCerere");
+    const status = document.getElementById("statusProfesor");
+    const user = JSON.parse(sessionStorage.getItem("userCurent") || "{}");
+
+    if (!user || !user.username || !user.rol) {
+      alert("❌ Trebuie să fii autentificat.");
+      window.location.href = "/login.html";
+    }
+
+    const username = user.username;
+    const rol = user.rol;
+
+    // Afișare inițială rol
+    if (rol === "profesor") {
+      status.textContent = `🔑 Logat ca: profesor (${username})`;
+    } else if (rol === "elev") {
+      status.textContent = `👦 Logat ca: ${username}`;
+    }
+
+    // Funcție acces curs
+    function verificaAccesLaCurs() {
+      if (!username) {
+        alert("❌ Trebuie să fii autentificat.");
+        return;
+      }
+
+      if (rol === "profesor") {
+        window.location.href = "la_curs/modul1_la_curs.html";
+        return;
+      }
+
+      const accesLaCurs = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+      if (!accesLaCurs[username]) {
+        const confirmare = confirm("Nu ai acces la curs. Vrei să trimiți o cerere de participare?");
+        if (confirmare) trimiteCerere();
+        return;
+      }
+
+      window.location.href = "la_curs/modul1_la_curs.html";
+    }
+
+    function trimiteCerere() {
+      let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+      if (!cereri.includes(username)) {
+        cereri.push(username);
+        localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+        showToast("✅ Cererea a fost trimisă profesorului.");
+        badge.style.display = "inline-block";
+        badge.classList.remove("green");
+        badge.textContent = "!";
+      } else {
+        alert("⛔ Ai trimis deja o cerere.");
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // ✅ ACTUALIZARE AUTOMATĂ BADGE LA PROFESOR
+    function actualizeazaBadgeLive() {
+      const cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+
+      if (rol === "profesor") {
+        if (cereri.length > 0) {
+          badge.textContent = cereri.length;
+          badge.style.display = "inline-block";
+          badge.classList.remove("green");
+        } else {
+          badge.style.display = "none";
+        }
+      }
+
+      if (rol === "elev") {
+        const acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+        if (acces[username]) {
+          badge.textContent = "✔";
+          badge.classList.add("green");
+          badge.style.display = "inline-block";
+        } else if (cereri.includes(username)) {
+          badge.textContent = "!";
+          badge.classList.remove("green");
+          badge.style.display = "inline-block";
+        } else {
+          badge.style.display = "none";
+        }
+      }
+    }
+
+    // Pornește imediat și rulează la 3 secunde
+    actualizeazaBadgeLive();
+    setInterval(actualizeazaBadgeLive, 3000);
+  </script>
+</body>
+</html>

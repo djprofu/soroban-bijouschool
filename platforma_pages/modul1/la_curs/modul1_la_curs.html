@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Modul 1 – La curs</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f0ff;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 32px;
+      color: #4a148c;
+    }
+    h2 {
+      margin-top: 30px;
+      color: #333;
+    }
+    .buton {
+      display: inline-block;
+      background-color: #7e57c2;
+      color: white;
+      padding: 15px 30px;
+      margin: 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .buton:hover {
+      background-color: #673ab7;
+    }
+    .buton-back {
+      display: inline-block;
+      background-color: #42a5f5;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .buton-back:hover {
+      background-color: #1e88e5;
+    }
+    .statusLogare {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="statusUtilizator" class="statusLogare">Verific autentificarea...</div>
+<div id="tabelCereriContainer" style="margin: 30px auto; text-align:left; max-width: 600px;"></div>
+<div id="listaAprobati" style="margin-top: 40px; text-align:left; max-width:600px; margin-left:auto; margin-right:auto;"></div>
+
+<h1>📘 Modul 1 – La curs</h1>
+<h2>Selectează o secțiune pentru a vizualiza rezultatele:</h2>
+
+<a href="modul1_ghiceste.html" class="buton">Ghiceste numărul</a>
+<a href="adunari_scaderi_unitati.html" class="buton">Adunări și scăderi – Unități</a>
+
+<br>
+<a href="../modul1.html" class="buton-back">← Înapoi la modul 1</a>
+<audio id="sunetIesire" src="../../audio/iesire.mp3" preload="auto"></audio>
+
+<script>
+const user = JSON.parse(sessionStorage.getItem("userCurent") || "{}");
+const status = document.getElementById("statusUtilizator");
+
+if (!user || !user.username || !user.rol) {
+  alert("❌ Trebuie să fii autentificat.");
+  window.location.href = "/login.html";
+} else {
+  if (user.rol === "profesor") {
+    status.textContent = `🔑 Logat ca: profesor (${user.username})`;
+    afiseazaCereri();
+    afiseazaEleviAprobati();
+    setInterval(() => {
+      afiseazaCereri();
+      afiseazaEleviAprobati();
+      verificaIesiri();
+    }, 3000);
+  } else {
+    status.textContent = `👦 Logat ca: ${user.username}`;
+  }
+}
+
+function afiseazaCereri() {
+  if (user.rol !== "profesor") return;
+
+  const container = document.getElementById("tabelCereriContainer");
+  const cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+
+  if (cereri.length === 0) {
+    container.innerHTML = "<p style='color: gray;'>Nu există cereri în așteptare.</p>";
+    return;
+  }
+
+  let html = "<h3>📩 Cereri de acces în curs:</h3><ul style='padding-left: 0'>";
+  cereri.forEach((username) => {
+    html += `
+      <li style="margin-bottom: 10px; list-style: none;">
+        🔹 <b>${username}</b>
+        <button onclick="aprobaCerere('${username}')" style="margin-left:10px;">Aprobă</button>
+        <button onclick="refuzaCerere('${username}')">Refuză</button>
+      </li>`;
+  });
+  html += "</ul><button onclick='stergeCereri()'>🗑️ Șterge cererile procesate</button>";
+  container.innerHTML = html;
+}
+
+function aprobaCerere(username) {
+  let acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+  acces[username] = true;
+  localStorage.setItem("accesLaCurs", JSON.stringify(acces));
+
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri = cereri.filter(n => n !== username); // scoate din cereri
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+
+  // memorează ora aprobării
+  let aprobatRecent = JSON.parse(localStorage.getItem("aprobatiRecent") || "{}");
+  aprobatRecent[username] = Date.now();
+  localStorage.setItem("aprobatiRecent", JSON.stringify(aprobatRecent));
+
+  afiseazaToast(`✅ Cerere aprobată pentru ${username}`);
+  actualizeazaCereriLive();
+}
+
+
+function refuzaCerere(username) {
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri = cereri.filter(u => u !== username);
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+
+  alert("❌ Cererea a fost refuzată.");
+  afiseazaCereri();
+}
+
+function stergeCereri() {
+  localStorage.removeItem("cereriCurs");
+  afiseazaCereri();
+}
+
+// ✅ Elevii aprobați
+function afiseazaEleviAprobati() {
+  const acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+  const container = document.getElementById("listaAprobati");
+
+  const aprobati = Object.keys(acces).filter(k => acces[k]);
+  if (aprobati.length === 0) {
+    container.innerHTML = "<p style='color: gray;'>Niciun elev aprobat momentan.</p>";
+    return;
+  }
+
+  let html = "<h3>✅ Elevi aprobați în curs:</h3><ul>";
+  aprobati.forEach(elev => {
+    html += `<li style="margin-bottom: 6px;">👦 ${elev}</li>`;
+  });
+  html += "</ul>";
+  container.innerHTML = html;
+}
+
+// 🔔 Notificări elevi ieșiți
+let iesiriAfisate = [];
+
+function verificaIesiri() {
+  const iesiri = JSON.parse(localStorage.getItem("iesiri_curs") || "[]");
+  const noi = iesiri.filter(msg => !iesiriAfisate.includes(msg));
+  noi.forEach(msg => {
+    iesiriAfisate.push(msg);
+    afiseazaToast(`ℹ️ ${msg}`);
+  });
+}
+
+function afiseazaToast(msg, clickCallback = null) {
+  const toast = document.createElement("div");
+  toast.textContent = msg;
+  toast.style.position = "fixed";
+  toast.style.bottom = "20px";
+  toast.style.right = "20px";
+  toast.style.background = "#6a1b9a";
+  toast.style.color = "white";
+  toast.style.padding = "12px 20px";
+  toast.style.borderRadius = "10px";
+  toast.style.zIndex = "9999";
+  toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+  toast.style.cursor = clickCallback ? "pointer" : "default";
+
+  if (clickCallback) {
+    toast.addEventListener("click", () => {
+      clickCallback();
+      toast.remove(); // închide toast-ul după click
+    });
+  }
+
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 5000);
+}
+
+
+// 🧹 La ieșirea elevului
+window.addEventListener("beforeunload", () => {
+  if (user.rol !== "elev") return;
+
+  let acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+  delete acces[user.username];
+  localStorage.setItem("accesLaCurs", JSON.stringify(acces));
+
+  let aprobati = JSON.parse(localStorage.getItem("elevi_aprobati_la_curs") || "[]");
+  aprobati = aprobati.filter(n => n !== user.username);
+  localStorage.setItem("elevi_aprobati_la_curs", JSON.stringify(aprobati));
+
+  let iesiri = JSON.parse(localStorage.getItem("iesiri_curs") || "[]");
+  iesiri.push(`${user.username} a ieșit din curs`);
+  localStorage.setItem("iesiri_curs", JSON.stringify(iesiri));
+});
+</script>
+
+
+</body>
+</html>

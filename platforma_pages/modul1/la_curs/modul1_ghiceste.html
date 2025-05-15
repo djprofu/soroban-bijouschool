@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghiceste numarul!</title>
+  <link rel="stylesheet" href="../../componente/chat_nou.css">
+  <style>
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f5f7ff, #e0e7ff);
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      color: #5b21b6;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .controls {
+      margin: 20px 0;
+    }
+    select, input, button {
+      font-size: 18px;
+      padding: 8px 16px;
+      margin: 6px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+    }
+    button {
+      background-color: #5b21b6;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4c1d95;
+    }
+    .layout {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .soroban-svg {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #ccc;
+      padding: 10px;
+    }
+    .feedback-zone {
+      max-width: 300px;
+      font-size: 20px;
+    }
+    .corect { color: green; font-weight: bold; }
+    .gresit { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  
+    <div id="statusUtilizator" class="statusLogare">Verific autentificarea...</div>
+   <div id="badgeCereriLive" style="display:none; background: red; color: white; font-weight: bold; border-radius: 50%; padding: 4px 8px; position: absolute; top: 20px; right: 20px;">
+    !
+  </div>
+  <h1>🔢 Ghiceste numarul!</h1>
+  <div id="cereriLive" style="margin: 20px auto; max-width: 600px; text-align: left;"></div>
+  <div id="badgeCereriLive"></div>
+  <div id="tabelCereriContainer"></div>
+  <div class="controls">
+    <label>Minute:
+      <select id="minuteSelect">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </label>
+    <label>Tije:
+      <select id="tijeSelect">
+        <option value="1">1 tija</option>
+        <option value="2">2 tije</option>
+        <option value="3">3 tije</option>
+        <option value="4" selected>4 tije</option>
+      </select>
+    </label>
+    <button onclick="genereazaExercitiu()">Exercitiu nou</button>
+  </div>
+
+  <div class="layout">
+    <div id="sorobanContainer" class="soroban-svg"></div>
+    <div id="feedback" class="feedback-zone"></div>
+  </div>
+
+  <div class="controls">
+    <h2 id="intrebare">Numar format cu tije</h2>
+    <input id="raspunsInput" type="text" placeholder="Raspunsul tau">
+    <button onclick="verificaRaspuns()">Verifica</button>
+    <button onclick="window.history.back()">← Inapoi</button>
+  </div>
+
+  <!-- Chat integrat -->
+  <div id="chat-popup" class="chat-popup">
+    <div class="chat-header" id="chat-header">
+      <span class="chat-title">💬 Chat Bijou</span>
+      <button class="chat-close" onclick="toggleChat()">&times;</button>
+    </div>
+    <div id="chat-messages" class="chat-messages"></div>
+    <div class="chat-input-area">
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Scrie un mesaj...">
+        <div class="chat-actions-row">
+          <button onclick="trimiteMesaj()">📤</button>
+          <button onclick="toggleEmojiPanel()">😊</button>
+        </div>
+      </div>
+      <div id="emoji-panel" class="emoji-panel hidden">
+        <span>😀</span><span>😂</span><span>😊</span><span>😎</span><span>😍</span>
+        <span>😢</span><span>😡</span><span>😱</span><span>👍</span><span>🙏</span>
+      </div>
+    </div>
+  </div>
+  <button id="chat-toggle-btn" class="chat-toggle" onclick="toggleChat()">💬 Deschide Chat</button>
+
+  <script src="../../componente/chat_nou.js" defer></script>
+  <script>
+    const URL = "http://192.168.1.137:5000";
+    
+
+    let numarCorect = 0;
+    let ultimaTija = 4;
+
+    function genereazaSVG(tije, numar, cuCifre = false) {
+      const latimeTija = 60;
+      const spatiu = 20;
+      const latimeTotala = tije * latimeTija + (tije - 1) * spatiu;
+      const inaltime = 270;
+      let svg = `<svg width="${latimeTotala}" height="${inaltime}">`;
+      const cifre = numar.toString().padStart(tije, '0').split('').map(Number);
+      for (let i = 0; i < tije; i++) {
+        const x = i * (latimeTija + spatiu) + latimeTija / 2;
+        if (cuCifre) svg += `<text x="${x}" y="25" text-anchor="middle" font-size="18" fill="#5b21b6">${cifre[i]}</text>`;
+        svg += `<line x1="${x}" y1="40" x2="${x}" y2="240" stroke="#8b5e3c" stroke-width="6"/>`;
+        svg += `<line x1="${x - 25}" y1="120" x2="${x + 25}" y2="120" stroke="#5d4037" stroke-width="5"/>`;
+        const cifra = cifre[i];
+        if (cifra >= 5) svg += `<circle cx="${x}" cy="100" r="12" fill="brown" stroke="black" stroke-width="1"/>`;
+        const bileJos = cifra % 5;
+        let cy_start = 130;
+        let bileAfisate = 0;
+        for (let j = 1; j <= 4; j++) {
+          let activa = (j <= bileJos);
+          let cy = activa ? cy_start + bileAfisate * 22 : 220 - (4 - j) * 20;
+          let culoare = activa ? "blue" : "#c4a484";
+          svg += `<circle cx="${x}" cy="${cy}" r="12" fill="${culoare}" stroke="black" stroke-width="1"/>`;
+          if (activa) bileAfisate++;
+        }
+      }
+      svg += `</svg>`;
+      return svg;
+    }
+
+    function genereazaExercitiu() {
+      const tije = parseInt(document.getElementById('tijeSelect').value);
+      ultimaTija = tije;
+      const numarMax = Math.pow(10, tije) - 1;
+      const numar = Math.floor(Math.random() * numarMax) + 1;
+      numarCorect = numar;
+      const svgContent = genereazaSVG(tije, numar);
+      document.getElementById("sorobanContainer").innerHTML = svgContent;
+      document.getElementById("intrebare").textContent = `Numar format cu ${tije} tije`;
+      document.getElementById("raspunsInput").value = "";
+      document.getElementById("feedback").innerHTML = "";
+    }
+
+    function verificaRaspuns() {
+      const rasp = parseInt(document.getElementById("raspunsInput").value);
+      const feedback = document.getElementById("feedback");
+      if (rasp === numarCorect) {
+        feedback.innerHTML = `<div class="corect">✔️ Bravo! Ai raspuns corect.</div>`;
+      } else {
+        const svgCuCifre = genereazaSVG(ultimaTija, numarCorect, true);
+        feedback.innerHTML = `<div class="gresit">❌ Mai incearca!<br>Raspunsul corect era:</div>${svgCuCifre}`;
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      genereazaExercitiu(); // auto-generare la pornire
+
+  </script>
+  <script>
+const user = JSON.parse(sessionStorage.getItem("userCurent") || "{}");
+
+// 🔹 Trimite cerere (elev)
+function trimiteCerere() {
+  const username = user.username;
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  const acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+
+  if (acces[username]) {
+    afiseazaToast("🟢 Ai deja acces la curs.");
+    return;
+  }
+
+  if (!cereri.includes(username)) {
+    cereri.push(username);
+    localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+    afiseazaToast("📩 Cererea ta a fost trimisă.");
+  } else {
+    afiseazaToast("⏳ Cererea ta este deja în așteptare.");
+  }
+}
+
+// 🔹 Aprobare / Refuzare cerere (profesor)
+function aprobaCerere(username) {
+  const acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+  acces[username] = true;
+  localStorage.setItem("accesLaCurs", JSON.stringify(acces));
+
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri = cereri.filter(n => n !== username);
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+
+  let aprobatRecent = JSON.parse(localStorage.getItem("aprobatiRecent") || "{}");
+  aprobatRecent[username] = Date.now();
+  localStorage.setItem("aprobatiRecent", JSON.stringify(aprobatRecent));
+
+  afiseazaToast(`✅ Cerere aprobată pentru ${username}`);
+  actualizeazaCereriLive();
+}
+
+function refuzaCerere(username) {
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri = cereri.filter(n => n !== username);
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+
+  afiseazaToast(`❌ Cerere refuzată pentru ${username}`);
+  actualizeazaCereriLive();
+}
+
+// 🔹 Toast general
+function afiseazaToast(msg, clickCallback = null) {
+  const toast = document.createElement("div");
+  toast.textContent = msg;
+  toast.style.position = "fixed";
+  toast.style.bottom = "20px";
+  toast.style.right = "20px";
+  toast.style.background = "#6a1b9a";
+  toast.style.color = "white";
+  toast.style.padding = "12px 20px";
+  toast.style.borderRadius = "10px";
+  toast.style.zIndex = "9999";
+  toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+  toast.style.cursor = clickCallback ? "pointer" : "default";
+
+  if (clickCallback) {
+    toast.addEventListener("click", () => {
+      clickCallback();
+      toast.remove();
+    });
+  }
+
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 5000);
+}
+
+// 🔹 Actualizare vizuală cereri (tabel + badge)
+function actualizeazaCereriLive() {
+  if (user.rol !== "profesor") return;
+
+  const cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  const badge = document.getElementById("badgeCereriLive");
+  const container = document.getElementById("tabelCereriContainer");
+
+  if (badge) {
+    badge.textContent = cereri.length;
+    badge.style.display = cereri.length > 0 ? "inline-block" : "none";
+  }
+
+  if (!container) return;
+
+  if (cereri.length === 0) {
+    container.innerHTML = "<p style='color:gray'>Nicio cerere în curs.</p>";
+    return;
+  }
+
+  let html = "<h3>📩 Cereri de participare la curs:</h3><ul style='padding-left: 0;'>";
+  cereri.forEach(nume => {
+    html += `<li style="list-style: none; margin-bottom: 10px;">
+      👤 <b>${nume}</b>
+      <button onclick="aprobaCerere('${nume}')">✅ Aprobă</button>
+      <button onclick="refuzaCerere('${nume}')">❌ Refuză</button>
+    </li>`;
+  });
+  html += "</ul>";
+  container.innerHTML = html;
+}
+
+// 🔹 Toast pentru cereri noi
+let cereriAfisate = [];
+
+if (user.rol === "profesor") {
+  setInterval(() => {
+    const cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+    const noi = cereri.filter(n => !cereriAfisate.includes(n));
+
+    if (noi.length > 0) {
+      noi.forEach(nume => {
+        afiseazaToast(`📩 Cerere nouă de la ${nume}`, () => {
+          const tabel = document.getElementById("tabelCereriContainer");
+          if (tabel) {
+            tabel.scrollIntoView({ behavior: "smooth" });
+            tabel.style.border = "2px solid orange";
+            setTimeout(() => {
+              tabel.style.border = "none";
+            }, 2000);
+          }
+        });
+      });
+      cereriAfisate = [...cereri];
+    }
+
+    actualizeazaCereriLive();
+  }, 2000);
+}
+
+// 🔹 Elevi conectați (ping la 3 secunde)
+setInterval(() => {
+  if (user.rol === "elev") {
+    let conectati = JSON.parse(localStorage.getItem("eleviConectati") || "[]");
+    if (!conectati.includes(user.username)) {
+      conectati.push(user.username);
+      localStorage.setItem("eleviConectati", JSON.stringify(conectati));
+    }
+  }
+}, 2000);
+
+// 🔹 Elev închide pagina → șterge din cereri și conectati
+window.addEventListener("beforeunload", () => {
+  if (user.rol === "elev") {
+    let conectati = JSON.parse(localStorage.getItem("eleviConectati") || "[]");
+    conectati = conectati.filter(n => n !== user.username);
+    localStorage.setItem("eleviConectati", JSON.stringify(conectati));
+
+    let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+    cereri = cereri.filter(n => n !== user.username);
+    localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+  }
+});
+
+// 🔹 Verificare elevi ieșiți (profesor)
+function verificaEleviIesiti() {
+  const acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+  const conectati = JSON.parse(localStorage.getItem("eleviConectati") || "[]");
+  const aprobatRecent = JSON.parse(localStorage.getItem("aprobatiRecent") || "{}");
+  const acum = Date.now();
+
+  for (const nume in acces) {
+    const aFostAprobatRecent = aprobatRecent[nume] && (acum - aprobatRecent[nume] < 3000);
+    if (acces[nume] && !conectati.includes(nume) && !aFostAprobatRecent) {
+      afiseazaToast(`🚪 ${nume} a ieșit de la curs.`);
+      acces[nume] = false;
+    }
+  }
+
+  localStorage.setItem("accesLaCurs", JSON.stringify(acces));
+}
+
+if (user.rol === "profesor") {
+  setInterval(verificaEleviIesiti, 2000);
+}
+</script>
+
+
+
+</body>
+</html>

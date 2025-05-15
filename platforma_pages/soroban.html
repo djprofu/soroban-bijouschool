@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soroban Online</title>
+  <style>
+    body {
+      margin: 10;
+      padding: 20;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('../imagini/fundal_japonia.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .taburi {
+      display: flex;
+      gap: 15px;
+      margin: 15x auto;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 15px 16px;
+      border-radius: 18px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .taburi button {
+      background-color: #ff7043;
+      border: none;
+      padding: 23px 44px;
+      border-radius: 16px;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .taburi button:hover {
+      background-color: #f4511e;
+      transform: scale(1.05);
+    }
+
+    .soroban {
+      margin-top: 90px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 10px;
+      padding: 40px 20px;
+      display: flex;
+      position: relative;
+      overflow-x: auto;
+    }
+
+    .coloana {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-height: 300px;
+      margin: 0 10px;
+    }
+
+    .bila {
+      width: 60px;
+      height: 34px;
+      background-color: #d27f40;
+      margin: 10px 0;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      transition: transform 0.2s, background-color 0.3s;
+      cursor: pointer;
+      box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
+    }
+
+    .bila.activ {
+      background-color: #2196f3;
+    }
+
+    .bila-sus {
+      transform: translateY(0);
+    }
+
+    .bila-sus.activ {
+      transform: translateY(30px);
+      background-color: red;
+    }
+    .bila-sus.activata {
+  top: 47%;  /* ajustează mai jos dacă e nevoie */
+  background-color: red;
+}
+    .bila-jos {
+      transform: translateY(0);
+    }
+
+    .bila-jos.activ {
+      transform: translateY(-20px);
+      background-color: #2196f3;
+    }
+
+    .separator {
+      height: 10px;
+      width: 100%;
+      background-color: black;
+      margin: 20px 0;
+    }
+
+    .tija {
+      width: 4px;
+      height: 100%;
+      background-color: black;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .valori {
+      display: none;
+      justify-content: center;
+      font-size: 146px;
+      color: hsl(258, 85%, 47%);
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* === DESKTOP === */
+    @media screen and (min-width: 1025px) {
+      .soroban {
+        justify-content: center;
+        gap: 78px;
+      }
+
+      .valori {
+        display: flex;
+        justify-content: center;
+        gap: 90px;
+        font-size: 56px;
+      }
+    }
+
+    /* === PORTRET === */
+    @media screen and (orientation: portrait) {
+  .bara-butoane {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 13px;
+    padding: 8px 90px;
+  }
+
+  .bara-butoane button {
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 16px;
+    min-width: 90px;
+    white-space: nowrap;
+  }
+}
+    @media screen and (orientation: portrait) and (max-width: 768px) {
+      .soroban {
+        overflow-x: auto;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 30px 40px;
+      }
+
+      .coloana {
+        min-width: 95px;
+      }
+
+      .valori {
+        display: flex;
+        justify-content: flex-end;
+        gap: 85px;
+        font-size: 19vw;
+        overflow-x: auto;
+        padding: 10px 10px;
+      }
+    }
+
+    /* === LANDSCAPE === */
+    @media screen and (orientation: landscape) and (max-height: 500px) {
+      .soroban {
+        justify-content: center;
+        gap: 10px;
+        padding:20px;
+      }
+
+      .valori {
+        display: flex;
+        justify-content: center;
+        font-size: 5vw;
+        gap: 8.5vw;
+      }
+    }
+    @media screen and (orientation: landscape) {
+  #valoriAfisate {
+    display: flex;
+    justify-content: space-around;
+    gap: 8vw;
+    font-size: 6vw;
+    padding: 0 0vw;
+    margin-bottom: -90px; /* 🔹 Distanță între cifre și soroban */
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="taburi">
+    <button onclick="location.href='platforma.html'">Prima pagină</button>
+    <button onclick="reseteazaSoroban()">Resetează</button>
+    <button onclick="toggleTextBox()">Tabla albă</button>
+    <button onclick="toggleNumere()">Afișează numerele!</button>
+  </div>
+
+  <div class="valori" id="valoriAfisate"></div>
+  <div class="soroban" id="soroban"></div>
+  <div class="text-box" id="textBox" contenteditable="true">text</div>
+
+  <audio id="audioStart" src="../audio/sunet_start_soroban_online.mp3" autoplay muted></audio>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const sunet = document.getElementById("audioStart");
+      sunet.muted = false;
+      sunet.volume = 0.6;
+      sunet.play().catch((e) => console.warn("Autoplay blocat de browser:", e));
+    });
+
+    const soroban = document.getElementById("soroban");
+    const valoriAfisate = document.getElementById("valoriAfisate");
+    let afisareActivata = false;
+
+    function creeazaColoana(index) {
+      const col = document.createElement("div");
+      col.className = "coloana";
+
+      const tija = document.createElement("div");
+      tija.className = "tija";
+      col.appendChild(tija);
+
+      const bilaSus = document.createElement("div");
+      bilaSus.className = "bila bila-sus";
+      bilaSus.onclick = () => {
+        bilaSus.classList.toggle("activ");
+        actualizeazaValori();
+      };
+      col.appendChild(bilaSus);
+
+      const separator = document.createElement("div");
+      separator.className = "separator";
+      col.appendChild(separator);
+
+      const jos = document.createElement("div");
+      const bileJos = [];
+      for (let i = 0; i < 4; i++) {
+        const bila = document.createElement("div");
+        bila.className = "bila bila-jos";
+        jos.appendChild(bila);
+        bileJos.push(bila);
+      }
+      col.appendChild(jos);
+
+      bileJos.forEach((bila, idx) => {
+        bila.onclick = () => {
+          const esteActiva = bila.classList.contains("activ");
+          if (esteActiva) {
+            for (let i = idx; i < bileJos.length; i++) {
+              bileJos[i].classList.remove("activ");
+            }
+          } else {
+            for (let i = 0; i <= idx; i++) {
+              bileJos[i].classList.add("activ");
+            }
+          }
+          actualizeazaValori();
+        };
+      });
+
+      return col;
+    }
+
+    function reseteazaSoroban() {
+      document.querySelectorAll(".bila").forEach(b => b.classList.remove("activ"));
+      valoriAfisate.innerHTML = "";
+      valoriAfisate.style.display = "none";
+      afisareActivata = false;
+    }
+
+    function toggleTextBox() {
+      const box = document.getElementById("textBox");
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+
+    function toggleNumere() {
+      afisareActivata = !afisareActivata;
+      valoriAfisate.style.display = afisareActivata ? "flex" : "none";
+      if (afisareActivata) afiseazaNumere();
+    }
+
+    function afiseazaNumere() {
+      if (!afisareActivata) return;
+      const colVals = [];
+      const coloane = soroban.children;
+      for (let col of coloane) {
+        let val = 0;
+        const sus = col.children[1];
+        const jos = col.children[3].children;
+        if (sus.classList.contains("activ")) val += 5;
+        for (let i = 0; i < jos.length; i++) {
+          if (jos[i].classList.contains("activ")) val += 1;
+        }
+        colVals.push(val);
+      }
+      valoriAfisate.innerHTML = colVals.map(v => `<span>${v}</span>`).join("");
+    }
+
+    function actualizeazaValori() {
+      afiseazaNumere();
+    }
+
+    for (let i = 0; i < 9; i++) {
+      soroban.appendChild(creeazaColoana(i));
+    }
+  </script>
+</body>
+</html>

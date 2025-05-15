@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Panou Administrare Profesori și Elevi</title>
+  <link rel="stylesheet" href="../static/componente/login-style.css">
+  <script defer src="panou_profesor.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Panou Administrare Profesori și Elevi</h1>
+
+    <h2>👤 Adaugă utilizator</h2>
+    <select id="tipUtilizator">
+      <option value="elev">Elev</option>
+      <option value="profesor">Profesor</option>
+    </select>
+    <input id="numeComplet" placeholder="Nume Prenume">
+    <input id="userGenerat" placeholder="Username generat" readonly>
+    <input id="parolaGenerata" placeholder="Parolă generată" readonly>
+    <button onclick="genereazaUserParola()">Generează</button>
+    <button onclick="salveazaUtilizator()">Salvează</button>
+    <select id="tipUtilizator">
+      <option>Elev</option>
+      <option>Profesor</option>
+    </select>
+    
+    <input id="numeUtilizator" placeholder="Nume complet">
+    <input id="usernameUtilizator" placeholder="Username generat">
+    <input id="parolaUtilizator" placeholder="Parolă">
+    <button onclick="salveazaUtilizator()">Salvează</button>
+    
+    <h2>📋 Filtrare & Export</h2>
+    <input placeholder="Caută după nume...">
+    <button>📄 Export PDF</button>
+
+    <h2>📘 Elevi</h2>
+    <table id="tabelElevi">
+      <thead>
+        <tr><th>Username</th><th>Parolă</th><th>Acțiuni</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>🧑‍🏫 Profesori</h2>
+    <table id="tabelProfesori">
+      <thead>
+        <tr><th>Username</th><th>Parolă</th><th>Acțiuni</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</body>
+</html>

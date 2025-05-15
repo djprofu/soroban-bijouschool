@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghiceste numărul!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f5f7ff, #e0e7ff);
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      color: #5b21b6;
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .layout {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .soroban-svg {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #ccc;
+      padding: 10px;
+    }
+    .feedback-zone {
+      max-width: 300px;
+      font-size: 20px;
+    }
+    .corect {
+      color: green;
+      font-weight: bold;
+    }
+    .gresit {
+      color: red;
+      font-weight: bold;
+    }
+    .controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+    select, input, button {
+      font-size: 18px;
+      padding: 8px 16px;
+      margin: 6px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+    }
+    button {
+      background-color: #5b21b6;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4c1d95;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔢 Ghiceste numărul!</h1>
+
+  <div class="controls">
+    <label>⏱ Minute:
+      <select id="minuteSelect">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </label>
+
+    <label>📘 Tije:
+      <select id="tijeSelect">
+        <option value="1">1 tija</option>
+        <option value="2">2 tije</option>
+        <option value="3">3 tije</option>
+        <option value="4" selected>4 tije</option>
+        <option value="5">5 tije</option>
+        <option value="6">6 tije</option>
+      </select>
+    </label>
+
+    <button onclick="genereazaExercitiu()">Exercițiu nou</button>
+  </div>
+
+  <div class="layout">
+    <div id="sorobanContainer" class="soroban-svg"></div>
+    <div id="feedback" class="feedback-zone"></div>
+  </div>
+
+  <div class="controls">
+    <h2 id="intrebare">Număr format cu tije</h2>
+    <input id="raspunsInput" type="text" placeholder="Răspunsul tău">
+    <button onclick="verificaRaspuns()">Verifică</button>
+    <button onclick="window.history.back()">← Înapoi</button>
+  </div>
+
+  <!-- Sunete -->
+  <audio id="sunetCorect" src="../audio/correct.mp3" preload="auto"></audio>
+  <audio id="sunetGresit" src="../audio/wrong.mp3" preload="auto"></audio>
+
+  <script>
+    let numarCorect = 0;
+    let ultimaTija = 4;
+
+    function getParam(param) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(param);
+    }
+
+    function genereazaSVG(tije, numar, cuCifre = false) {
+      const latimeTija = 60;
+      const spatiu = 20;
+      const latimeTotala = tije * latimeTija + (tije - 1) * spatiu;
+      const inaltime = 270;
+      let svg = `<svg width="${latimeTotala}" height="${inaltime}">`;
+
+      const cifre = numar.toString().padStart(tije, '0').split('').map(Number);
+
+      for (let i = 0; i < tije; i++) {
+        const x = i * (latimeTija + spatiu) + latimeTija / 2;
+
+        if (cuCifre) {
+          svg += `<text x="${x}" y="25" text-anchor="middle" font-size="18" fill="#5b21b6">${cifre[i]}</text>`;
+        }
+
+        svg += `<line x1="${x}" y1="40" x2="${x}" y2="240" stroke="#8b5e3c" stroke-width="6"/>`;
+        svg += `<line x1="${x - 25}" y1="120" x2="${x + 25}" y2="120" stroke="#5d4037" stroke-width="5"/>`;
+
+        const cifra = cifre[i];
+
+        if (cifra >= 5) {
+          svg += `<circle cx="${x}" cy="100" r="12" fill="brown" stroke="black" stroke-width="1"/>`;
+        } else {
+          svg += `<circle cx="${x}" cy="60" r="12" fill="#c4a484" stroke="black" stroke-width="1"/>`;
+        }
+
+        const bileJos = cifra % 5;
+        let cy_start = 130;
+        let bileAfisate = 0;
+
+        for (let j = 1; j <= 4; j++) {
+          let activa = (j <= bileJos);
+          let cy = activa ? cy_start + bileAfisate * 22 : 220 - (4 - j) * 20;
+          let culoare = activa ? "blue" : "#c4a484";
+          svg += `<circle cx="${x}" cy="${cy}" r="12" fill="${culoare}" stroke="black" stroke-width="1"/>`;
+          if (activa) bileAfisate++;
+        }
+      }
+
+      svg += `</svg>`;
+      return svg;
+    }
+
+    function genereazaExercitiu() {
+      const tije = parseInt(document.getElementById('tijeSelect').value);
+      ultimaTija = tije;
+      const numarMax = Math.pow(10, tije) - 1;
+      const numar = Math.floor(Math.random() * numarMax) + 1;
+      numarCorect = numar;
+
+      const svgContent = genereazaSVG(tije, numar);
+      document.getElementById("sorobanContainer").innerHTML = svgContent;
+      document.getElementById("intrebare").textContent = `Număr format cu ${tije} tije`;
+      document.getElementById("raspunsInput").value = "";
+      document.getElementById("feedback").innerHTML = "";
+    }
+
+    function verificaRaspuns() {
+  const rasp = parseInt(document.getElementById("raspunsInput").value);
+  const feedback = document.getElementById("feedback");
+  const audioCorect = document.getElementById("sunetCorect");
+  const audioGresit = document.getElementById("sunetGresit");
+
+  audioCorect.volume = 0.8;
+  audioGresit.volume = 0.8;
+
+  if (rasp === numarCorect) {
+    audioCorect.play().catch(() => {});
+    feedback.innerHTML = `<div class="corect">✔️ Bravo! Ai răspuns corect.</div>`;
+  } else {
+    audioGresit.play().catch(() => {});
+    const svgCuCifre = genereazaSVG(ultimaTija, numarCorect, true);
+    feedback.innerHTML = `<div class="gresit">❌ Mai încearcă!<br>Răspunsul corect era:</div>${svgCuCifre}`;
+  }
+}
+
+    window.onload = () => {
+      const minute = getParam("minute");
+      const tije = getParam("tije");
+
+      if (minute) document.getElementById("minuteSelect").value = minute;
+      if (tije) document.getElementById("tijeSelect").value = tije;
+
+      genereazaExercitiu();
+    };
+  </script>
+
+</body>
+</html>

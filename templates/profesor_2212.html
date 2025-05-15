@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profesor 2212</title>
+</head>
+<body>
+    <h1>Rezultate elevi</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nume</th>
+            <th>Prezență</th>
+            <th>Contract</th>
+            <th>Feedback</th>
+        </tr>
+        {% for elev in elevi %}
+        <tr>
+            <td>{{ elev.id }}</td>
+            <td>{{ elev.nume }}</td>
+            <td>{{ elev.prezenta }}</td>
+            <td>{{ elev.contract }}</td>
+            <td>{{ elev.feedback }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

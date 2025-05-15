@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Modul 1 – La curs</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6fb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      display: flex;
+      flex-direction: row;
+      padding: 40px;
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .panel {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      width: 300px;
+    }
+    .exercise-area {
+      flex: 1;
+    }
+    h1 {
+      color: #4a148c;
+      font-size: 28px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 15px 0 5px;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #5e35b1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .exercitiu {
+      background: #f1f0ff;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      min-height: 100px;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+    .tija {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+    .bila {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      margin: 6px 0;
+      transition: all 0.3s ease;
+    }
+    .bila-inactiva-jos { background: #a1887f; transform: translateY(0); }
+    .bila-activ-jos    { background: #2196f3; transform: translateY(-13px); }
+    .bila-inactiva-sus { background: #a1887f; transform: translateY(0); }
+    .bila-activ-sus    { background: #e53935; transform: translateY(13px); }
+    .bara {
+      width: 30px;
+      height: 6px;
+      background: black;
+      margin: 5px 0;
+    }
+    #zonaSoroban {
+      display: flex;
+      flex-direction: row;
+      gap: 60px;
+      align-items: flex-start;
+    }
+    #soroban {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+    #feedbackCol {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="panel">
+      <label>🕒 Câte minute lucrezi?</label>
+      <select id="minute"></select>
+
+      <label>📋 Câte tije alegi?</label>
+      <select id="tije"></select>
+
+      <label>➕ Număr de calcule:</label>
+      <select id="calcule"></select>
+
+      <button onclick="incepeExercitiul()">Începe exercițiul</button>
+      <button onclick="toggleSoroban()">Activează Sorobanul</button>
+      <button onclick="location.href='exercitiu_usor.html'">← Înapoi</button>
+    </div>
+
+    <div class="exercise-area">
+      <h1>📘 Modul 1 – La curs</h1>
+      <div class="exercitiu" id="exercitiu">Aici va apărea exercițiul...</div>
+
+      <input id="raspuns" placeholder="Răspunsul tău">
+      <button onclick="verifica()">Verifică</button>
+
+      <div id="zonaSoroban">
+        <div id="soroban"></div>
+        <div id="feedbackCol">
+          <div id="feedback"></div>
+          <div id="raspunsSoroban"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const minute = document.getElementById("minute");
+      const tije = document.getElementById("tije");
+      const calcule = document.getElementById("calcule");
+
+      for (let i = 1; i <= 59; i++) {
+        minute.innerHTML += `<option value="${i}">${i} minut${i === 1 ? '' : 'e'}</option>`;
+      }
+      for (let i = 1; i <= 6; i++) {
+        tije.innerHTML += `<option value="${i}">${i} tij${i === 1 ? 'ă' : 'e'}</option>`;
+      }
+      for (let i = 2; i <= 15; i++) {
+        calcule.innerHTML += `<option value="${i}">${i} calcule</option>`;
+      }
+    }
+
+    function playSound(src) {
+      const audio = new Audio(src);
+      audio.play().catch((e) => {
+        console.warn("Sunetul nu poate fi redat:", e);
+      });
+    }
+
+    function incepeExercitiul() {
+      document.getElementById("raspuns").value = "";
+      document.getElementById("feedback").innerHTML = "";
+      document.getElementById("raspunsSoroban").innerHTML = "";
+      const nrTije = parseInt(document.getElementById("tije").value);
+      const nrCalcule = parseInt(document.getElementById("calcule").value);
+
+      let rezultat = [];
+      for (let i = 0; i < nrTije; i++) {
+        rezultat.push(Math.floor(Math.random() * 10));
+      }
+
+      const operatii = [rezultat.join('')];
+
+      for (let i = 0; i < nrCalcule - 1; i++) {
+        const op = Math.random() < 0.5 ? '+' : '-';
+        const nou = [];
+
+        for (let j = 0; j < nrTije; j++) {
+          const cifra = rezultat[j];
+          let cifraNoua = op === '+' ? Math.floor(Math.random() * (10 - cifra)) : Math.floor(Math.random() * (cifra + 1));
+          nou.push(cifraNoua);
+        }
+
+        operatii.push(`${op} ${nou.join('')}`);
+        rezultat = rezultat.map((c, idx) => op === '+' ? c + nou[idx] : c - nou[idx]);
+      }
+
+      const rezultatFinal = rezultat.join('');
+      document.getElementById("exercitiu").textContent = operatii.join("\n") + "\n\n= ?";
+      document.getElementById("exercitiu").dataset.raspuns = rezultatFinal;
+      document.getElementById("feedback").innerHTML = '';
+      document.getElementById("raspunsSoroban").innerHTML = '';
+    }
+
+    function verifica() {
+      const corect = document.getElementById("exercitiu").dataset.raspuns;
+      const rasp = document.getElementById("raspuns").value.trim();
+      const feedbackDiv = document.getElementById("feedback");
+      const raspunsContainer = document.getElementById("raspunsSoroban");
+
+      feedbackDiv.innerHTML = '';
+      raspunsContainer.innerHTML = '';
+
+      if (rasp === corect) {
+        feedbackDiv.innerHTML = `<span style="color: green; font-weight: bold;">✔️ Bravo! Ai răspuns corect.</span>`;
+        playSound("../audio/correct.mp3");
+      } else {
+        feedbackDiv.innerHTML = `<span style="color: red; font-weight: bold;">❌ Mai încearcă! Răspunsul corect era <strong>${corect}</strong></span>`;
+        playSound("../audio/wrong.mp3");
+      }
+
+      const tije = corect.length;
+      const sorobanCorect = document.createElement("div");
+      sorobanCorect.style.display = "flex";
+      sorobanCorect.style.flexDirection = "row";
+      sorobanCorect.style.gap = "10px";
+
+      for (let i = 0; i < tije; i++) {
+        const cifra = parseInt(corect[i]);
+        const tija = document.createElement("div");
+        tija.className = "tija";
+
+        const cifraEl = document.createElement("div");
+        cifraEl.textContent = cifra;
+        cifraEl.style.fontSize = "20px";
+        cifraEl.style.fontWeight = "bold";
+        cifraEl.style.marginBottom = "8px";
+        tija.appendChild(cifraEl);
+
+        const bilaSus = document.createElement("div");
+        bilaSus.className = "bila " + (cifra >= 5 ? "bila-activ-sus" : "bila-inactiva-sus");
+        tija.appendChild(bilaSus);
+
+        const bara = document.createElement("div");
+        bara.className = "bara";
+        tija.appendChild(bara);
+
+        const nrJos = cifra % 5;
+        for (let j = 0; j < 4; j++) {
+          const bilaJos = document.createElement("div");
+          bilaJos.className = "bila " + (j < nrJos ? "bila-activ-jos" : "bila-inactiva-jos");
+          tija.appendChild(bilaJos);
+        }
+
+        sorobanCorect.appendChild(tija);
+      }
+
+      raspunsContainer.appendChild(sorobanCorect);
+    }
+
+    function deseneazaSoroban(nrTije) {
+      const soroban = document.getElementById("soroban");
+      soroban.innerHTML = '';
+      for (let i = 0; i < nrTije; i++) {
+        const tija = document.createElement("div");
+        tija.className = "tija";
+
+        const bilaSus = document.createElement("div");
+        bilaSus.className = "bila bila-inactiva-sus";
+        bilaSus.onclick = (e) => {
+          bilaSus.classList.toggle("bila-inactiva-sus");
+          bilaSus.classList.toggle("bila-activ-sus");
+          e.stopPropagation();
+        };
+        tija.appendChild(bilaSus);
+
+        const bara = document.createElement("div");
+        bara.className = "bara";
+        tija.appendChild(bara);
+
+        const bileJos = [];
+        for (let j = 0; j < 4; j++) {
+          const bilaJos = document.createElement("div");
+          bilaJos.className = "bila bila-inactiva-jos";
+
+          bilaJos.onclick = (e) => {
+            const esteActiva = bilaJos.classList.contains("bila-activ-jos");
+
+            if (!esteActiva) {
+              for (let k = 0; k <= j; k++) {
+                bileJos[k].classList.add("bila-activ-jos");
+                bileJos[k].classList.remove("bila-inactiva-jos");
+              }
+              for (let k = j + 1; k < 4; k++) {
+                bileJos[k].classList.remove("bila-activ-jos");
+                bileJos[k].classList.add("bila-inactiva-jos");
+              }
+            } else {
+              for (let k = j; k < 4; k++) {
+                bileJos[k].classList.remove("bila-activ-jos");
+                bileJos[k].classList.add("bila-inactiva-jos");
+              }
+            }
+            e.stopPropagation();
+          };
+
+          bileJos.push(bilaJos);
+          tija.appendChild(bilaJos);
+        }
+
+        soroban.appendChild(tija);
+      }
+    }
+
+    let sorobanActiv = false;
+    function toggleSoroban() {
+      const nrTije = parseInt(document.getElementById("tije").value);
+      if (!sorobanActiv) deseneazaSoroban(nrTije);
+      else document.getElementById("soroban").innerHTML = '';
+      sorobanActiv = !sorobanActiv;
+    }
+  </script>
+</body>
+</html>

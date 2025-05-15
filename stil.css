@@ -1,0 +1,745 @@
+/* === RESET === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f6fc;
+  overflow-x: hidden;
+}
+
+/* === HEADER === */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* 🔁 adăugă asta */
+  padding: 10px 20px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow: visible; /* deja ai corectat asta anterior */
+}
+
+.logo-container img.logo {
+  height: 50px;
+  max-width: 100%;
+}
+
+.navbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #f1f1f1;
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+/* === TABURI CU CULOARE PERMANENTĂ === */
+.tab-cursuri {
+  background-color: #e0d4fc !important; /* mov deschis */
+  color: #3a1170 !important;
+  font-weight: bold;
+}
+
+.tab-inscrieri {
+  background-color: #d1ecf2 !important; /* albastru deschis */
+  color: #004d66 !important;
+  font-weight: bold;
+}
+
+.platform-tab {
+  background-color: #ffe599 !important; /* galben cald */
+  color: #664d00 !important;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* === TABURI EVIDENȚIATE === */
+.special-tab {
+  background-color: #d8ccf1; /* lavandă deschis */
+  color: #3d246c;
+  font-weight: bold;
+}
+
+.special-tab:hover {
+  background-color: #c2b2e2;
+  color: #2b174f;
+}
+
+.platform-tab {
+  background-color: #ffd966; /* galben pastel */
+  color: #664d00;
+  font-weight: bold;
+}
+
+.platform-tab:hover {
+  background-color: #ffcd38;
+  color: #4d3900;
+}
+
+.navbar a:hover {
+  background-color: #d0d0ff;
+}
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 10px 0;
+  border-radius: 6px;
+  min-width: 180px;
+  z-index: 9999; /* foarte important */
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 8px 16px;
+  color: #1f2937;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+  background-color: #e0e0ff;
+}
+
+.dropdown-toggle {
+  background: #f1f1f1;
+  border: none;
+  padding: 8px 14px;
+  font-weight: 600;
+  color: #1f2937;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-right: 20px;
+}
+
+
+.dropdown-toggle .arrow {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.dropdown.open .arrow {
+  transform: rotate(180deg);
+}
+
+/* === HERO SECTION === */
+.hero {
+  position: relative;
+  width: 58%;
+  max-width: 1100px;
+  margin: 40px auto;
+  background-image: url("imagini/fundal-bijou.jpg");
+  background-position: center 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 300px 20px;
+  border-radius: 8px;
+  z-index: 2;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px 10px;
+  border-radius: 20px;
+  text-shadow: 0 0 5px black;
+  max-width: 100%;
+  text-align: center;
+}
+
+.overlay h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.overlay p {
+  font-size: 1.2rem;
+}
+
+/* === SLIDESHOW ORIZONTAL === */
+.slideshow-container {
+  overflow: hidden;
+  background-color: #f2f2ff;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.slider-track {
+  display: flex;
+  gap: 20px;
+  animation: scrollSlider 40s linear infinite;
+  width: max-content;
+}
+
+.slider-track img {
+  height: 140px;
+  border-radius: 14px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.slider-track img:hover {
+  transform: scale(1.1);
+}
+
+@keyframes scrollSlider {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === SLIDESHOW VERTICAL === */
+.slider-vertical {
+  position: fixed;
+  top: 0;
+  width: 100px;
+  height: calc(100vh - 160px); /* ✅ ajustăm să nu acopere slideshow-ul orizontal */
+  overflow: hidden;
+  z-index: 1;
+}
+
+.slider-vertical.left {
+  left: 0;
+}
+
+.slider-vertical.right {
+  right: 0;
+}
+
+.slider-vertical-track {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-vertical 30s linear infinite;
+}
+
+.slider-vertical img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes scroll-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Doar pe desktop afișăm coloanele verticale */
+.desktop-only {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .slider-vertical {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) and (orientation: portrait) {
+    .hero {
+      background-image: url("imagini/fundal-bijou.jpg");
+      background-size: 100% auto !important;
+      background-position: top center !important;
+      background-repeat: no-repeat !important;
+      background-attachment: scroll !important;
+      padding: 220px 10px;
+      margin: 10px auto;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0;
+    }
+  } 
+   
+  .overlay h1 {
+    font-size: 0.8rem;
+    text-align: center;
+    white-space: normal;
+    animation: pulseText 2.5s ease-in-out infinite;
+  }
+
+  .overlay h1::before {
+    content: "";
+  }
+
+  .overlay p {
+    font-size: 0.5rem;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .slideshow-container {
+    padding: 10px 0;
+  }
+
+  .slider-track {
+    gap: 10px;
+    animation: slide-horizontal 20s linear infinite;
+  }
+
+  .slider-track img {
+    height: 80px;
+  }
+}
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+  .motivational-box {
+    font-size: 0.7rem;
+    padding: 20px;
+  }
+
+  #instruction-text {
+    font-size: 1rem;
+  }
+
+  .overlay h1 {
+    font-size: 1.0rem;
+  }
+
+  .overlay p {
+    font-size: 1rem;
+  }
+}
+
+@keyframes pulseText {
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.05); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* Slideshow vertical stânga */
+.slider-vertical {
+  position: fixed;
+  top: 0;
+  width: 100px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.slider-vertical.left {
+  left: 0;
+}
+
+.slider-vertical.right {
+  right: 0;
+}
+
+.slider-vertical-track {
+  display: flex;
+  flex-direction: column;
+  animation: slide-vertical 20s linear infinite;
+}
+
+.slider-vertical img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+@keyframes slide-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Ascunde în mobil */
+.desktop-only {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+}
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+  .logo-container {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-container img.logo {
+    height: 60px;
+    max-width: 130px;
+  }
+}
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+  .slider-vertical {
+    bottom: 180px; /* ajustează după înălțimea slideshow-ului orizontal */
+  }
+}
+@media (min-width: 769px) {
+  .slider-vertical {
+    bottom: 180px;
+  }
+}
+@media only screen and (orientation: landscape) {
+  .mesaj {
+    font-size: 1.5rem; /* Sau orice dimensiune dorești */
+  }
+}
+@media only screen and (orientation: landscape) {
+  .overlay h1, .overlay p {
+    font-size: 1.0rem; /* Ajustează dimensiunea dorită */
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .overlay h1 {
+    font-size: 2.5rem; /* Ajustează dimensiunea dorită */
+  }
+
+  .overlay p {
+    font-size: 1.2rem; /* Ajustează dimensiunea dorită */
+  }
+}
+.dropdown {
+  z-index: 10000;
+}
+@media only screen and (max-width: 1024px) and (orientation: landscape) {
+  .logo-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .logo-container img.logo {
+    height: 45px;
+  }
+
+  .navbar {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+.motivation-area {
+  text-align: center;
+  margin: 20px auto 0;
+}
+
+#instruction-text {
+  font-size: 1.3rem;
+  color: #1f2937;
+  font-weight: bold;
+  animation: pulseText 2s infinite;
+}
+
+@keyframes pulseText {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.fullscreen-motivational {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #a0e0ff, #4090d0);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.fullscreen-motivational.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+/* Zona de instrucțiune */
+.motivation-area {
+  text-align: center;
+  margin: 20px auto;
+  animation: pulseText 2.5s infinite;
+}
+
+#instruction-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+/* Fullscreen container */
+.fullscreen-motivational {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(145deg, #a3d5ff, #f5faff);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.fullscreen-motivational.show {
+  display: flex;
+}
+
+/* Text motivațional */
+.motivational-box {
+  font-size: 2rem;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 90%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  animation: zoomIn 0.6s ease-in-out;
+}
+
+/* Animații */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+.fullscreen-motivational {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #6dd5ed, #2193b0);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 9999;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.fullscreen-motivational.show {
+  display: flex;
+}
+/* === POPUP MOTIVAȚIONAL === */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* fundal blurat */
+  backdrop-filter: blur(6px); /* efect de blur */
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-overlay.show {
+  display: flex;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.popup-box {
+  background: white;
+  color: #1f2937;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 90%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  animation: popupScale 0.4s ease-in-out;
+}
+
+@keyframes popupScale {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.top-buttons {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+.top-buttons a {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.btn-back {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-back:hover {
+  background-color: #0056b3;
+}
+
+.btn-exit {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-exit:hover {
+  background-color: #c82333;
+}
+
+.user-info {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 18px;
+  color: #5c2d91;
+  font-weight: bold;
+  background-color: #f3e5f5;
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+/* === SLIDESHOW ORIZONTAL – BIJOU SCHOOL === */
+.slideshow-container {
+  overflow: hidden;
+  background-color: #e6f4ff;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  z-index: 5;
+  margin-top: 20px;
+}
+
+.slider-track {
+  display: flex;
+  gap: 10px;
+  animation: scroll 30s linear infinite;
+}
+
+.slideshow-container:hover .slider-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.slider-track img {
+  height: 120px;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.slider-track img:hover {
+  transform: scale(1.1);
+}
+
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

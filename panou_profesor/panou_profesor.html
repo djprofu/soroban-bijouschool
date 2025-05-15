@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panou Profesor</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; background: white; border-radius: 10px; padding: 30px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #512da8; }
+    .sectiune { margin-bottom: 30px; }
+    input, button {
+      padding: 10px; margin-top: 5px; margin-right: 10px;
+      border-radius: 5px; border: 1px solid #ccc;
+    }
+    .btn-prof { background-color: #4caf50; color: white; }
+    .btn-elev { background-color: #4285f4; color: white; }
+    .btn-copy, .btn-delete { background-color: #eee; }
+    .btn-delete { color: red; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin: 10px 0; }
+    .badge { background: #eee; padding: 3px 5px; border-radius: 5px; margin: 0 3px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📀 Panou Administrare Profesori și Elevi</h1>
+
+    <div class="sectiune">
+      <h2>Adaugă Profesor</h2>
+      <input type="text" id="numeProfesor" placeholder="Nume Profesor">
+      <button class="btn-prof" onclick="genereazaProfesor()">Generează profesor</button>
+      <ul id="listaProfesori"></ul>
+    </div>
+
+    <div class="sectiune">
+      <h2>Adaugă Elev</h2>
+      <input type="text" id="numeElev" placeholder="Nume Elev">
+      <button class="btn-elev" onclick="genereazaElev()">Generează elev</button>
+      <ul id="listaElevi"></ul>
+    </div>
+
+    <div class="sectiune">
+      <h2>📩 Cereri de Acces la Curs</h2>
+      <ul id="listaCereri"></ul>
+    </div>
+
+    <div class="sectiune">
+      <h2>🔁 Resetare Date</h2>
+      <button class="btn-delete" onclick="stergeDateLocalStorage()">Șterge toate datele locale</button>
+    </div>
+  </div>
+
+<script>
+function genCod(lungime = 6) {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  return Array.from({length: lungime}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
+
+function genereazaProfesor() {
+  const nume = document.getElementById("numeProfesor").value.trim();
+  if (!nume) return alert("Completează numele!");
+
+  const username = `prof-${genCod(4)}`;
+  const parola = genCod(6);
+  const profesor = { nume, username, parola, rol: "profesor" };
+
+  let lista = JSON.parse(localStorage.getItem("profesori")) || [];
+  lista.push(profesor);
+  localStorage.setItem("profesori", JSON.stringify(lista));
+  afiseazaProfesori();
+}
+
+function genereazaElev() {
+  const nume = document.getElementById("numeElev").value.trim();
+  if (!nume) return alert("Completează numele!");
+
+  const username = `elev-${genCod(3)}`;
+  const parola = genCod(6);
+  const elev = { nume, username, parola, rol: "elev" };
+
+  let lista = JSON.parse(localStorage.getItem("elevi")) || [];
+  lista.push(elev);
+  localStorage.setItem("elevi", JSON.stringify(lista));
+  afiseazaElevi();
+}
+
+function afiseazaProfesori() {
+  const lista = JSON.parse(localStorage.getItem("profesori")) || [];
+  const container = document.getElementById("listaProfesori");
+  container.innerHTML = "";
+  lista.forEach((p, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `👩‍🏫 <span class="badge">${p.nume}</span> (<span class="badge">${p.username}</span>) – <span class="badge">${p.parola}</span>
+      <button class="btn-copy" onclick="copyToClipboard('${p.username}')">User</button>
+      <button class="btn-copy" onclick="copyToClipboard('${p.parola}')">Parolă</button>
+      <button class="btn-delete" onclick="stergeProfesor(${i})">Șterge</button>`;
+    container.appendChild(li);
+  });
+}
+
+function afiseazaElevi() {
+  const lista = JSON.parse(localStorage.getItem("elevi")) || [];
+  const container = document.getElementById("listaElevi");
+  container.innerHTML = "";
+  lista.forEach((e, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `🧒 <span class="badge">${e.nume}</span> (<span class="badge">${e.username}</span>) – <span class="badge">${e.parola}</span>
+      <button class="btn-copy" onclick="copyToClipboard('${e.username}')">User</button>
+      <button class="btn-copy" onclick="copyToClipboard('${e.parola}')">Parolă</button>
+      <button class="btn-delete" onclick="stergeElev(${i})">Șterge</button>`;
+    container.appendChild(li);
+  });
+}
+
+function stergeProfesor(index) {
+  if (confirm("Sigur vrei să ștergi profesorul?")) {
+    let lista = JSON.parse(localStorage.getItem("profesori")) || [];
+    lista.splice(index, 1);
+    localStorage.setItem("profesori", JSON.stringify(lista));
+    afiseazaProfesori();
+  }
+}
+
+function stergeElev(index) {
+  if (confirm("Sigur vrei să ștergi elevul?")) {
+    let lista = JSON.parse(localStorage.getItem("elevi")) || [];
+    lista.splice(index, 1);
+    localStorage.setItem("elevi", JSON.stringify(lista));
+    afiseazaElevi();
+  }
+}
+
+function stergeDateLocalStorage() {
+  if (confirm("Ștergi toate datele locale?")) {
+    localStorage.clear();
+    location.reload();
+  }
+}
+
+function afiseazaCereriCurs() {
+  const cereri = JSON.parse(localStorage.getItem("cereriCurs")) || [];
+  const container = document.getElementById("listaCereri");
+  container.innerHTML = "";
+
+  cereri.forEach((user, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${user} 
+      <button onclick="aprobaCerere('${user}', ${i})">Aprobă</button> 
+      <button onclick="refuzaCerere(${i})">Refuză</button>`;
+    container.appendChild(li);
+  });
+}
+
+function aprobaCerere(user, index) {
+  alert(`${user} a fost aprobat.`);
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri.splice(index, 1);
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+
+  let acces = JSON.parse(localStorage.getItem("accesLaCurs")) || {};
+  acces[user] = true;
+  localStorage.setItem("accesLaCurs", JSON.stringify(acces));
+
+  afiseazaCereriCurs();
+}
+
+function refuzaCerere(index) {
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri.splice(index, 1);
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+  afiseazaCereriCurs();
+}
+
+// ✅ FUNCȚIE DE COPIERE UNIFICATĂ
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert(`✅ "${text}" a fost copiat în clipboard!`);
+  }).catch(err => {
+    alert("❌ Nu s-a putut copia!");
+    console.error(err);
+  });
+}
+
+afiseazaProfesori();
+afiseazaElevi();
+afiseazaCereriCurs();
+</script>
+<script>
+function copyToClipboard(text) {
+  // Creează un input invizibil
+  const input = document.createElement("input");
+  input.setAttribute("value", text);
+  document.body.appendChild(input);
+
+  input.select();
+  input.setSelectionRange(0, 99999); // pentru mobile
+
+  try {
+    const success = document.execCommand("copy");
+    if (success) {
+      alert(`✅ "${text}" a fost copiat în clipboard!`);
+    } else {
+      alert("❌ Nu s-a putut copia!");
+    }
+  } catch (err) {
+    alert("❌ Eroare la copiere.");
+    console.error(err);
+  }
+
+  document.body.removeChild(input);
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>La curs – Situația exercițiilor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f4f6fc, #e0e7ff);
+      margin: 0; padding: 40px;
+    }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    h2, h3, h4 {
+      color: #4a148c;
+    }
+    input, button {
+      width: 100%;
+      font-size: 16px;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #673ab7;
+      color: white;
+      border: none;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #5e35b1;
+    }
+    .taburi button {
+      margin: 5px;
+      background-color: #42a5f5;
+    }
+    .corect, .gresit {
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 8px;
+    }
+    .corect {
+      background: #e8f5e9;
+      border-left: 5px solid #4caf50;
+    }
+    .gresit {
+      background: #ffebee;
+      border-left: 5px solid #f44336;
+    }
+    .progres-bar {
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .progres-inner {
+      height: 22px;
+      background: linear-gradient(to right, #4caf50, #81c784);
+      width: 0%;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+    }
+    .top-elevi {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 30px;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="login-form">
+  <h2>Acces „La curs”</h2>
+  <input id="nume-elev" placeholder="Nume utilizator">
+  <input id="parola" type="password" placeholder="Parola">
+  <button onclick="autentificare()">Autentificare</button>
+</div>
+
+<div class="card" id="continut-profesor" style="display:none;">
+  <h3>Autentificat ca profesor</h3>
+  <div class="taburi">
+    <button onclick="window.location.href='ghiceste_numarul.html'">Ghiceste numărul</button>
+    <button onclick="window.location.href='adunare_unitati.html'">Adunări și scăderi</button>
+    <button onclick="genereazaDateTest()">Generează date test</button>
+    <button onclick="exportPDFProfesor()">Exportă PDF profesor</button>
+  </div>
+  <div id="rezultate-toti-elevii"></div>
+  <div id="clasament-elevi" class="top-elevi"></div>
+</div>
+
+<div class="card" id="continut-elev" style="display:none;">
+  <h3 id="elev-autentificat"></h3>
+  <div class="progres-bar"><div id="progres" class="progres-inner">0%</div></div>
+  <button onclick="exportPDFElev()">Exportă PDF elev</button>
+  <div id="rezultate-elev"></div>
+</div>
+
+<script>
+const paroleElevi = { Mihai: "4321", Andreea: "8765", Ioana: "9988" };
+let elevCurent = "";
+
+function autentificare() {
+  const nume = document.getElementById("nume-elev").value.trim();
+  const parola = document.getElementById("parola").value.trim();
+
+  if (parola === "2212") {
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("continut-profesor").style.display = "block";
+    afiseazaTot();
+  } else if (paroleElevi[nume] === parola) {
+    elevCurent = nume;
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("continut-elev").style.display = "block";
+    document.getElementById("elev-autentificat").innerText = `Autentificat ca ${nume}`;
+    afiseazaElev(nume);
+  } else alert("Parolă sau nume incorect.");
+}
+
+function getSaptamana(dataStr) {
+  const d = new Date(dataStr);
+  const luni = new Date(d.setDate(d.getDate() - d.getDay() + 1));
+  const duminica = new Date(luni);
+  duminica.setDate(luni.getDate() + 6);
+  return `Săptămâna ${luni.toLocaleDateString()} – ${duminica.toLocaleDateString()}`;
+}
+
+function grupeazaPeSaptamani(rez) {
+  const grup = {};
+  rez.forEach(r => {
+    const sap = getSaptamana(r.data);
+    if (!grup[sap]) grup[sap] = [];
+    grup[sap].push(r);
+  });
+  return grup;
+}
+
+function afiseazaElev(nume) {
+  const cont = document.getElementById("rezultate-elev");
+  cont.innerHTML = "";
+  let rez = [], total = 0;
+  for (let k in localStorage) {
+    if (k.startsWith("rezultat_")) {
+      try {
+        const r = JSON.parse(localStorage.getItem(k));
+        if (r.nume === nume) rez.push(r);
+      } catch {}
+    }
+  }
+  const grupate = grupeazaPeSaptamani(rez);
+  let corecte = 0;
+  Object.keys(grupate).reverse().forEach(sapt => {
+    const div = document.createElement("div");
+    div.innerHTML = `<h4>${sapt}</h4>`;
+    grupate[sapt].forEach(r => {
+      const el = document.createElement("div");
+      el.className = r.corect ? "corect" : "gresit";
+      el.innerText = `${r.data} – ${r.tip}: ${r.corect ? "✔️ Corect" : "❌ Greșit"}`;
+      div.appendChild(el);
+      if (r.corect) corecte++;
+    });
+    cont.appendChild(div);
+  });
+  const bar = document.getElementById("progres");
+  let prog = Math.min(100, corecte * 10);
+  bar.style.width = prog + "%";
+  bar.innerText = prog + "%";
+}
+
+function afiseazaTot() {
+  const cont = document.getElementById("rezultate-toti-elevii");
+  const clas = document.getElementById("clasament-elevi");
+  cont.innerHTML = "";
+  clas.innerHTML = "";
+  let rez = [], puncte = {};
+  for (let k in localStorage) {
+    if (k.startsWith("rezultat_")) {
+      try { rez.push(JSON.parse(localStorage.getItem(k))); } catch {}
+    }
+  }
+  const grup = grupeazaPeSaptamani(rez);
+  Object.keys(grup).reverse().forEach(s => {
+    const d = document.createElement("div");
+    d.innerHTML = `<h4>${s}</h4>`;
+    const pElev = {};
+    grup[s].forEach(r => {
+      const el = document.createElement("div");
+      el.className = r.corect ? "corect" : "gresit";
+      el.innerHTML = `${r.data} – <b>${r.nume}</b>: ${r.tip} – ${r.corect ? "✔️ Corect" : "❌ Greșit"}`;
+      d.appendChild(el);
+      if (!puncte[r.nume]) puncte[r.nume] = 0;
+      if (!pElev[r.nume]) pElev[r.nume] = 0;
+      if (r.corect) { puncte[r.nume]++; pElev[r.nume]++; }
+    });
+    Object.keys(pElev).forEach(n => {
+      const p = pElev[n];
+      d.innerHTML += `<p><b>${n}:</b> ${p}p ${p >= 5 ? "🥇" : p >= 3 ? "🥈" : "🏅"}</p>`;
+    });
+    cont.appendChild(d);
+  });
+  let clasament = Object.entries(puncte).sort((a,b) => b[1]-a[1]).map(([n,p],i)=>`${i+1}. ${n} – ${p}p`).join("<br>");
+  clas.innerHTML = `<h4>🏆 Clasament top elevi</h4><p>${clasament}</p>`;
+}
+
+function genereazaDateTest() {
+  const date = [
+    { nume: "Mihai", tip: "Ghiceste", corect: true, data: "2025-04-08" },
+    { nume: "Mihai", tip: "Adunări", corect: false, data: "2025-04-09" },
+    { nume: "Ioana", tip: "Scăderi", corect: true, data: "2025-04-11" },
+    { nume: "Andreea", tip: "Ghiceste", corect: true, data: "2025-04-10" }
+  ];
+  date.forEach((d,i) => localStorage.setItem(`rezultat_${d.nume}_${i}`, JSON.stringify(d)));
+  alert("Date test adăugate.");
+  afiseazaTot();
+}
+
+async function exportPDFProfesor() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 10;
+  doc.text("Situație generală", 10, y);
+  y += 10;
+  for (let k in localStorage) {
+    if (k.startsWith("rezultat_")) {
+      const r = JSON.parse(localStorage.getItem(k));
+      doc.text(`${r.data} – ${r.nume} – ${r.tip} – ${r.corect ? "✔️" : "❌"}`, 10, y);
+      y += 6;
+    }
+  }
+  doc.save("Situatie_generala.pdf");
+}
+
+async function exportPDFElev() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 10;
+  doc.text(`Raport ${elevCurent}`, 10, y); y += 10;
+  for (let k in localStorage) {
+    if (k.startsWith("rezultat_")) {
+      const r = JSON.parse(localStorage.getItem(k));
+      if (r.nume === elevCurent) {
+        doc.text(`${r.data} – ${r.tip} – ${r.corect ? "✔️" : "❌"}`, 10, y);
+        y += 6;
+      }
+    }
+  }
+  doc.save(`Raport_${elevCurent}.pdf`);
+}
+</script>
+</body>
+</html>

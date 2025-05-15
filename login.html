@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Autentificare Platformă</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #f1f0f9, #e4ddfb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      color: #4c2399;
+      font-size: 1.5rem;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 2px solid #d3c6f0;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .btn-intra {
+      background: #7d5fff;
+      color: white;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-intra:hover {
+      background: #593fd8;
+    }
+
+    #mesaj {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>🔐 Autentificare Platformă</h2>
+    <input type="text" id="username" placeholder="Nume elev sau 'profesor'">
+    <input type="password" id="parola" placeholder="Cod elev sau parolă">
+    <button class="btn-intra" onclick="autentificare(event)">Intră</button>
+    <p id="mesaj"></p>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>

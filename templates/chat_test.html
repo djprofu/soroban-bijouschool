@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Chat - Upload Fișiere</title>
+  <meta charset="UTF-8">
+  <script>
+    function trimiteFisier(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("fisier", file);
+
+      fetch("/upload_chat", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.text())
+      .then(link => {
+        const zona = document.getElementById("mesaje");
+        zona.innerHTML += `<div>📎 <a href="${link}" target="_blank">${file.name}</a></div>`;
+        zona.scrollTop = zona.scrollHeight;
+      });
+    }
+  </script>
+</head>
+<body style="font-family:sans-serif; padding:20px;">
+  <h2>📤 Test Chat - Upload Fișiere</h2>
+  <div id="mesaje" style="border:1px solid #ccc; height:200px; overflow:auto; padding:10px;"></div>
+  <br>
+  <input type="file" onchange="trimiteFisier(event)">
+  <button onclick="stergeFisiereVechi()">🗑️ Șterge fișiere vechi</button>
+
+<script>
+function stergeFisiereVechi() {
+  fetch("/sterge_fisiere_vechi")
+    .then(res => res.json())
+    .then(data => {
+      alert("Fișiere șterse: " + (data.sterse || []).join(", "));
+    });
+}
+</script>
+
+</body>
+</html>

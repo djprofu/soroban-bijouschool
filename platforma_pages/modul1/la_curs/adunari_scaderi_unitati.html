@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modul 1 – Adunări și scăderi – Unități</title>
+  <link rel="stylesheet" href="../../componente/chat_nou.css" />
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style>
+    #badgeCereri {
+      display: none;
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 6px 10px;
+      font-weight: bold;
+      font-family: sans-serif;
+      font-size: 14px;
+      z-index: 9999;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+  
+    @media (max-width: 600px) {
+      #badgeCereri {
+        top: 6px;
+        right: 6px;
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+    }
+  
+    .pulse {
+      animation: pulseBadge 1.2s infinite;
+    }
+  
+    @keyframes pulseBadge {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>  
+</head>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6fb;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .panel {
+      width: 300px;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    .exercise-area {
+      flex: 1;
+    }
+
+    h1 {
+      color: #4a148c;
+      font-size: 28px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #5e35b1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .exercitiu {
+      background: #f1f0ff;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      min-height: 100px;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+
+    .tija {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 8px;
+    }
+
+    .bila {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      margin: 6px 0;
+      transition: all 0.3s ease;
+    }
+
+    .bila-inactiva-jos { background: #a1887f; transform: translateY(0); }
+    .bila-activ-jos    { background: #2196f3; transform: translateY(-13px); }
+    .bila-inactiva-sus { background: #a1887f; transform: translateY(0); }
+    .bila-activ-sus    { background: #e53935; transform: translateY(13px); }
+
+    .bara {
+      width: 30px;
+      height: 6px;
+      background: black;
+      margin: 5px 0;
+    }
+
+    #zonaSoroban {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+    }
+
+    #soroban {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    #feedbackCol {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
+
+  <div class="container">
+    <div class="panel">
+      <label>🕒 Câte minute lucrezi?</label>
+      <select id="minute"></select>
+
+      <label>📋 Câte tije alegi?</label>
+      <select id="tije"></select>
+
+      <label>➕ Număr de calcule:</label>
+      <select id="calcule"></select>
+
+      <button onclick="incepeExercitiul()">Începe exercițiul</button>
+      <button onclick="toggleSoroban()">Activează Sorobanul</button>
+      <button onclick="location.href='../../modul1/modul1.html'">← Înapoi</button>
+    </div>
+
+    <div class="exercise-area">
+      <h1>➕ Modul 1 – Adunări și scăderi – Unități</h1>
+      <div id="statusUtilizator" class="statusLogare">Verific autentificarea...</div>
+   <div id="badgeCereriLive" style="display:none; background: red; color: white; font-weight: bold; border-radius: 50%; padding: 4px 8px; position: absolute; top: 20px; right: 20px;">
+    !
+  </div>
+  <div id="badgeCereriLive"></div>
+        <div id="tabelCereriContainer"></div>
+      <div class="exercitiu" id="exercitiu">Aici va apărea exercițiul...</div>
+
+      <input id="raspuns" placeholder="Răspunsul tău">
+      <button onclick="verifica()">Verifică</button>
+      <button id="butonCerereAcces" onclick="trimiteCerere()" style="display:none; background-color:#512da8; color:white; padding:14px 24px; border-radius:18px; font-size:20px; margin-top:20px;">
+      📩 Cereri acces curs
+      </button>
+
+      <div id="zonaSoroban">
+        <div id="soroban"></div>
+        <div id="feedbackCol">
+          <div id="feedback"></div>
+          <div id="raspunsSoroban"></div>
+        </div>
+      </div>
+    </div>
+    </div> <!-- linia 202: închide .exercise-area -->
+  
+  <!-- CHAT NOU -->
+  <div id="chat-popup" class="chat-popup hidden">
+    <div class="chat-header" id="chat-header">
+      <span class="chat-title">💬 Chat Bijou</span>
+      <button class="chat-close" onclick="toggleChat()">×</button>
+    </div>
+    <div id="chat-messages" class="chat-messages"></div>
+
+    <div class="chat-input-area">
+      <div style="display: flex; gap: 5px;">
+        <input type="text" id="chat-input" placeholder="Scrie un mesaj..." style="flex: 1;" />
+        <div class="chat-actions-row">
+          <button onclick="trimiteMesaj()">📤</button>
+          <button onclick="toggleEmojiPanel()">😊</button>
+          <!-- REZIZORI PENTRU REDIMENSIONARE -->
+          <div class="resizer resizer-t"></div>
+          <div class="resizer resizer-r"></div>
+          <div class="resizer resizer-b"></div>
+          <div class="resizer resizer-l"></div>
+          <div class="resizer resizer-br"></div>          
+        </div>        
+      </div>
+
+      <div id="emoji-panel" class="emoji-panel hidden">
+        <span>😀</span> <span>😁</span> <span>😂</span> <span>🤣</span>
+        <span>😍</span> <span>😎</span> <span>😢</span> <span>😡</span>
+        <span>😱</span> <span>🤔</span> <span>🙄</span> <span>🙈</span>
+        <span>🙉</span> <span>🙊</span> <span>👍</span> <span>👎</span>
+        <span>❤️</span>
+      </div>
+    </div>
+  </div>
+  <button id="chat-toggle-btn" class="chat-toggle" onclick="toggleChat()">💬 Deschide Chat</button>
+
+  <!-- Scripturi -->
+  <script src="../../componente/chat_nou.js" defer></script>
+  <script>
+    window.onload = () => {
+      const minute = document.getElementById("minute");
+      const tije = document.getElementById("tije");
+      const calcule = document.getElementById("calcule");
+
+      for (let i = 1; i <= 59; i++) {
+        minute.innerHTML += `<option value="${i}">${i} minut${i === 1 ? '' : 'e'}</option>`;
+      }
+      for (let i = 1; i <= 6; i++) {
+        tije.innerHTML += `<option value="${i}">${i} tij${i === 1 ? 'ă' : 'e'}</option>`;
+      }
+      for (let i = 2; i <= 15; i++) {
+        calcule.innerHTML += `<option value="${i}">${i} calcule</option>`;
+      }
+    };
+
+    function playSound(src) {
+      const audio = new Audio(src);
+      audio.play().catch(() => {});
+    }
+
+    function incepeExercitiul() {
+      const nrTije = parseInt(document.getElementById("tije").value);
+      const nrCalcule = parseInt(document.getElementById("calcule").value);
+
+      let rezultat = Array.from({length: nrTije}, () => Math.floor(Math.random() * 10));
+      const operatii = [rezultat.join('')];
+
+      for (let i = 0; i < nrCalcule - 1; i++) {
+        const op = Math.random() < 0.5 ? '+' : '-';
+        const nou = rezultat.map(c => op === '+' ? Math.floor(Math.random() * (10 - c)) : Math.floor(Math.random() * (c + 1)));
+        operatii.push(`${op} ${nou.join('')}`);
+        rezultat = rezultat.map((c, idx) => op === '+' ? c + nou[idx] : c - nou[idx]);
+      }
+
+      document.getElementById("exercitiu").textContent = operatii.join("\n") + "\n\n= ?";
+      document.getElementById("exercitiu").dataset.raspuns = rezultat.join('');
+      document.getElementById("feedback").innerHTML = '';
+      document.getElementById("raspunsSoroban").innerHTML = '';
+    }
+
+    function verifica() {
+      const corect = document.getElementById("exercitiu").dataset.raspuns;
+      const rasp = document.getElementById("raspuns").value.trim();
+      const feedback = document.getElementById("feedback");
+      const raspunsSoroban = document.getElementById("raspunsSoroban");
+
+      feedback.innerHTML = '';
+      raspunsSoroban.innerHTML = '';
+
+      if (rasp === corect) {
+        feedback.innerHTML = `<span style="color: green; font-weight: bold;">✔️ Bravo! Ai răspuns corect.</span>`;
+        playSound("../../audio/correct.mp3");
+      } else {
+        feedback.innerHTML = `<span style="color: red; font-weight: bold;">❌ Răspuns greșit. Corect: <strong>${corect}</strong></span>`;
+        playSound("../../audio/wrong.mp3");
+      }
+
+      const sorobanCorect = document.createElement("div");
+      sorobanCorect.style.display = "flex";
+      sorobanCorect.style.gap = "10px";
+
+      for (const cifra of corect) {
+        const c = parseInt(cifra);
+        const tija = document.createElement("div");
+        tija.className = "tija";
+
+        const cifraEl = document.createElement("div");
+        cifraEl.textContent = c;
+        cifraEl.style.fontWeight = "bold";
+        cifraEl.style.marginBottom = "6px";
+        tija.appendChild(cifraEl);
+
+        const bilaSus = document.createElement("div");
+        bilaSus.className = "bila " + (c >= 5 ? "bila-activ-sus" : "bila-inactiva-sus");
+        tija.appendChild(bilaSus);
+
+        const bara = document.createElement("div");
+        bara.className = "bara";
+        tija.appendChild(bara);
+
+        const nrJos = c % 5;
+        for (let i = 0; i < 4; i++) {
+          const bilaJos = document.createElement("div");
+          bilaJos.className = "bila " + (i < nrJos ? "bila-activ-jos" : "bila-inactiva-jos");
+          tija.appendChild(bilaJos);
+        }
+
+        sorobanCorect.appendChild(tija);
+      }
+
+      raspunsSoroban.appendChild(sorobanCorect);
+    }
+
+    let sorobanActiv = false;
+    function toggleSoroban() {
+      const nrTije = parseInt(document.getElementById("tije").value);
+      if (!sorobanActiv) deseneazaSoroban(nrTije);
+      else document.getElementById("soroban").innerHTML = '';
+      sorobanActiv = !sorobanActiv;
+    }
+
+    function deseneazaSoroban(nrTije) {
+      const soroban = document.getElementById("soroban");
+      soroban.innerHTML = '';
+      for (let i = 0; i < nrTije; i++) {
+        const tija = document.createElement("div");
+        tija.className = "tija";
+
+        const bilaSus = document.createElement("div");
+        bilaSus.className = "bila bila-inactiva-sus";
+        bilaSus.onclick = () => {
+          bilaSus.classList.toggle("bila-inactiva-sus");
+          bilaSus.classList.toggle("bila-activ-sus");
+        };
+        tija.appendChild(bilaSus);
+
+        const bara = document.createElement("div");
+        bara.className = "bara";
+        tija.appendChild(bara);
+
+        const bileJos = [];
+        for (let j = 0; j < 4; j++) {
+          const bila = document.createElement("div");
+          bila.className = "bila bila-inactiva-jos";
+          bila.onclick = () => {
+            const activa = bila.classList.contains("bila-activ-jos");
+            for (let k = 0; k < 4; k++) {
+              bileJos[k].className = "bila " + (k <= j && !activa ? "bila-activ-jos" : "bila-inactiva-jos");
+            }
+          };
+          bileJos.push(bila);
+          tija.appendChild(bila);
+        }
+
+        soroban.appendChild(tija);
+      }
+    }
+  </script>
+  <script>
+    // === LOGICĂ REDIMENSIONARE ===
+    let isResizing = false;
+    let currentResizer = null;
+    const chatPopup = document.getElementById('chat-popup');
+    
+    document.querySelectorAll('.resizer').forEach(resizer => {
+      resizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        currentResizer = resizer;
+        document.body.style.userSelect = 'none';
+      });
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      const rect = chatPopup.getBoundingClientRect();
+    
+      if (currentResizer.classList.contains('resizer-br')) {
+        chatPopup.style.width = e.clientX - rect.left + 'px';
+        chatPopup.style.height = e.clientY - rect.top + 'px';
+      } else if (currentResizer.classList.contains('resizer-r')) {
+        chatPopup.style.width = e.clientX - rect.left + 'px';
+      } else if (currentResizer.classList.contains('resizer-b')) {
+        chatPopup.style.height = e.clientY - rect.top + 'px';
+      } else if (currentResizer.classList.contains('resizer-l')) {
+        const newWidth = rect.right - e.clientX;
+        if (newWidth > 200) {
+          chatPopup.style.width = newWidth + 'px';
+          chatPopup.style.left = e.clientX + 'px';
+        }
+      }
+    });
+    
+    document.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        document.body.style.userSelect = '';
+      }
+    });
+    </script>    
+    <script>
+const user = JSON.parse(sessionStorage.getItem("userCurent") || "{}");
+
+// 1. Ping conectare
+setInterval(() => {
+  if (user.rol === "elev") {
+    let conectati = JSON.parse(localStorage.getItem("eleviConectati") || "[]");
+    if (!conectati.includes(user.username)) {
+      conectati.push(user.username);
+      localStorage.setItem("eleviConectati", JSON.stringify(conectati));
+    }
+  }
+}, 2000);
+
+// 2. Deconectare la închidere
+window.addEventListener("beforeunload", () => {
+  if (user.rol === "elev") {
+    let conectati = JSON.parse(localStorage.getItem("eleviConectati") || "[]");
+    conectati = conectati.filter(n => n !== user.username);
+    localStorage.setItem("eleviConectati", JSON.stringify(conectati));
+
+    let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+    cereri = cereri.filter(n => n !== user.username);
+    localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+  }
+});
+
+// 3. Verifică cereri noi și actualizează tabelul
+function actualizeazaCereriLive() {
+  if (user.rol !== "profesor") return;
+
+  const cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  const badge = document.getElementById("badgeCereriLive");
+  const container = document.getElementById("tabelCereriContainer");
+
+  if (!container || !badge) return;
+
+  if (cereri.length === 0) {
+    container.innerHTML = "<p style='color:gray'>Nicio cerere în curs.</p>";
+    badge.style.display = "none";
+    return;
+  }
+
+  badge.textContent = cereri.length;
+  badge.style.display = "inline-block";
+
+  let html = "<h3>📩 Cereri de participare la curs:</h3><ul style='padding-left: 0;'>";
+  cereri.forEach(nume => {
+    html += `
+      <li style="margin-bottom: 10px; list-style: none;">
+        🧑‍🎓 <b>${nume}</b>
+        <button onclick="aprobaCerere('${nume}')">✅ Aprobă</button>
+        <button onclick="refuzaCerere('${nume}')">❌ Refuză</button>
+      </li>`;
+  });
+  html += "</ul>";
+  container.innerHTML = html;
+}
+
+// 4. Aprobare și Refuz
+function aprobaCerere(username) {
+  let acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+  acces[username] = true;
+  localStorage.setItem("accesLaCurs", JSON.stringify(acces));
+
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri = cereri.filter(n => n !== username);
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+
+  let aprobatRecent = JSON.parse(localStorage.getItem("aprobatiRecent") || "{}");
+  aprobatRecent[username] = Date.now();
+  localStorage.setItem("aprobatiRecent", JSON.stringify(aprobatRecent));
+
+  afiseazaToast(`✅ Cerere aprobată pentru ${username}`);
+  actualizeazaCereriLive();
+}
+
+function refuzaCerere(username) {
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  cereri = cereri.filter(n => n !== username);
+  localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+
+  afiseazaToast(`❌ Cerere refuzată pentru ${username}`);
+  actualizeazaCereriLive();
+}
+
+// 5. Toast universal
+function afiseazaToast(msg, clickCallback = null) {
+  const toast = document.createElement("div");
+  toast.textContent = msg;
+  toast.style.position = "fixed";
+  toast.style.bottom = "20px";
+  toast.style.right = "20px";
+  toast.style.background = "#6a1b9a";
+  toast.style.color = "white";
+  toast.style.padding = "12px 20px";
+  toast.style.borderRadius = "10px";
+  toast.style.zIndex = "9999";
+  toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+  toast.style.cursor = clickCallback ? "pointer" : "default";
+
+  if (clickCallback) {
+    toast.addEventListener("click", () => {
+      clickCallback();
+      toast.remove();
+    });
+  }
+
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 5000);
+}
+
+// 6. Afișează toast la cerere nouă
+let cereriAfisate = [];
+setInterval(() => {
+  const cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  const noi = cereri.filter(c => !cereriAfisate.includes(c));
+  if (noi.length > 0) {
+    noi.forEach(c => {
+      afiseazaToast(`📩 Cerere nouă de la ${c}`, () => {
+        const tabel = document.getElementById("tabelCereriContainer");
+        if (tabel) {
+          tabel.scrollIntoView({ behavior: "smooth" });
+          tabel.style.border = "2px solid orange";
+          setTimeout(() => tabel.style.border = "none", 3000);
+        }
+      });
+    });
+    cereriAfisate = [...cereri];
+  }
+  actualizeazaCereriLive();
+}, 2000);
+
+// 7. Verifică elevi ieșiți
+function verificaEleviIesiti() {
+  const acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+  const conectati = JSON.parse(localStorage.getItem("eleviConectati") || "[]");
+  const aprobatRecent = JSON.parse(localStorage.getItem("aprobatiRecent") || "{}");
+  const acum = Date.now();
+
+  for (const nume in acces) {
+    const aFostAprobatRecent = aprobatRecent[nume] && (acum - aprobatRecent[nume] < 3000);
+    if (acces[nume] && !conectati.includes(nume) && !aFostAprobatRecent) {
+      afiseazaToast(`🚪 ${nume} a ieșit de la curs.`);
+      acces[nume] = false;
+    }
+  }
+
+  localStorage.setItem("accesLaCurs", JSON.stringify(acces));
+}
+setInterval(verificaEleviIesiti, 2000);
+
+// 8. Elevul trimite cerere
+function trimiteCerere() {
+  const username = user.username;
+  let cereri = JSON.parse(localStorage.getItem("cereriCurs") || "[]");
+  const acces = JSON.parse(localStorage.getItem("accesLaCurs") || "{}");
+
+  if (acces[username]) {
+    afiseazaToast("🟢 Ai deja acces la curs.");
+    return;
+  }
+
+  if (!cereri.includes(username)) {
+    cereri.push(username);
+    localStorage.setItem("cereriCurs", JSON.stringify(cereri));
+    afiseazaToast("📩 Cererea ta a fost trimisă.");
+  } else {
+    afiseazaToast("⏳ Cererea ta este deja în așteptare.");
+  }
+}
+</script>
+
+</body>
+</html>
