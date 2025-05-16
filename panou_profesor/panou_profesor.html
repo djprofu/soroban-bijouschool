@@ -148,6 +148,10 @@ function stergeDateLocalStorage() {
     location.reload();
   }
 }
+<div class="sectiune">
+  <h2>📤 Exportă Utilizatori</h2>
+  <button class="btn-prof" onclick="exportaUtilizatori()">Exportă utilizatori.js</button>
+</div>
 
 function afiseazaCereriCurs() {
   const cereri = JSON.parse(localStorage.getItem("cereriCurs")) || [];
@@ -196,7 +200,22 @@ function copyToClipboard(text) {
     alert("❌ Eroare la copiere.");
   }
   document.body.removeChild(input);
+  
+function exportaUtilizatori() {
+  const profesori = JSON.parse(localStorage.getItem("profesori") || "[]");
+  const elevi = JSON.parse(localStorage.getItem("elevi") || "[]");
+  const toti = profesori.concat(elevi);
+
+  const continut = `const utilizatori = ${JSON.stringify(toti, null, 2)};`;
+
+  const blob = new Blob([continut], { type: "application/javascript" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "utilizatori.js";
+  link.click();
 }
+}
+
 
 afiseazaProfesori();
 afiseazaElevi();
