@@ -32,7 +32,7 @@
       font-size: 1.5rem;
     }
 
-    .login-container input {
+    input {
       width: 100%;
       padding: 14px;
       margin: 10px 0;
@@ -41,7 +41,7 @@
       font-size: 1rem;
     }
 
-    .btn-intra {
+    button {
       background: #7d5fff;
       color: white;
       padding: 14px 30px;
@@ -50,15 +50,17 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background 0.3s;
+      width: 100%;
     }
 
-    .btn-intra:hover {
+    button:hover {
       background: #593fd8;
     }
 
     #mesaj {
       margin-top: 20px;
       font-weight: bold;
+      color: red;
     }
 
     @media (max-width: 480px) {
@@ -73,11 +75,14 @@
   </style>
 </head>
 <body>
+
   <div class="login-container">
     <h2>🔐 Autentificare Platformă</h2>
-    <input type="text" id="username" placeholder="Nume elev sau 'profesor'">
-    <input type="password" id="parola" placeholder="Cod elev sau parolă">
-    <button class="btn-intra" onclick="autentificare(event)">Intră</button>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="parola" placeholder="Parolă" required>
+      <button type="submit">Intră</button>
+    </form>
     <p id="mesaj"></p>
   </div>
 

@@ -23,34 +23,45 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📀 Panou Administrare Profesori și Elevi</h1>
 
-    <div class="sectiune">
-      <h2>Adaugă Profesor</h2>
-      <input type="text" id="numeProfesor" placeholder="Nume Profesor">
-      <button class="btn-prof" onclick="genereazaProfesor()">Generează profesor</button>
-      <ul id="listaProfesori"></ul>
-    </div>
+<!-- 🔐 PROTECȚIE ACCES -->
+<script>
+  const utilizator = JSON.parse(localStorage.getItem("utilizatorCurent"));
+  if (!utilizator || utilizator.rol !== "profesor") {
+    alert("⚠️ Acces interzis. Doar profesorii pot vedea această pagină.");
+    window.location.href = "/login.html"; // sau pagina ta principală
+  }
+</script>
 
-    <div class="sectiune">
-      <h2>Adaugă Elev</h2>
-      <input type="text" id="numeElev" placeholder="Nume Elev">
-      <button class="btn-elev" onclick="genereazaElev()">Generează elev</button>
-      <ul id="listaElevi"></ul>
-    </div>
+<div class="container">
+  <h1>📀 Panou Administrare Profesori și Elevi</h1>
 
-    <div class="sectiune">
-      <h2>📩 Cereri de Acces la Curs</h2>
-      <ul id="listaCereri"></ul>
-    </div>
-
-    <div class="sectiune">
-      <h2>🔁 Resetare Date</h2>
-      <button class="btn-delete" onclick="stergeDateLocalStorage()">Șterge toate datele locale</button>
-    </div>
+  <div class="sectiune">
+    <h2>Adaugă Profesor</h2>
+    <input type="text" id="numeProfesor" placeholder="Nume Profesor">
+    <button class="btn-prof" onclick="genereazaProfesor()">Generează profesor</button>
+    <ul id="listaProfesori"></ul>
   </div>
 
+  <div class="sectiune">
+    <h2>Adaugă Elev</h2>
+    <input type="text" id="numeElev" placeholder="Nume Elev">
+    <button class="btn-elev" onclick="genereazaElev()">Generează elev</button>
+    <ul id="listaElevi"></ul>
+  </div>
+
+  <div class="sectiune">
+    <h2>📩 Cereri de Acces la Curs</h2>
+    <ul id="listaCereri"></ul>
+  </div>
+
+  <div class="sectiune">
+    <h2>🔁 Resetare Date</h2>
+    <button class="btn-delete" onclick="stergeDateLocalStorage()">Șterge toate datele locale</button>
+  </div>
+</div>
+
+<!-- 🧠 SCRIPT LOGICĂ PANOU -->
 <script>
 function genCod(lungime = 6) {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -172,46 +183,25 @@ function refuzaCerere(index) {
   afiseazaCereriCurs();
 }
 
-// ✅ FUNCȚIE DE COPIERE UNIFICATĂ
 function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
+  const input = document.createElement("input");
+  input.setAttribute("value", text);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  try {
+    document.execCommand("copy");
     alert(`✅ "${text}" a fost copiat în clipboard!`);
-  }).catch(err => {
-    alert("❌ Nu s-a putut copia!");
-    console.error(err);
-  });
+  } catch (err) {
+    alert("❌ Eroare la copiere.");
+  }
+  document.body.removeChild(input);
 }
 
 afiseazaProfesori();
 afiseazaElevi();
 afiseazaCereriCurs();
 </script>
-<script>
-function copyToClipboard(text) {
-  // Creează un input invizibil
-  const input = document.createElement("input");
-  input.setAttribute("value", text);
-  document.body.appendChild(input);
-
-  input.select();
-  input.setSelectionRange(0, 99999); // pentru mobile
-
-  try {
-    const success = document.execCommand("copy");
-    if (success) {
-      alert(`✅ "${text}" a fost copiat în clipboard!`);
-    } else {
-      alert("❌ Nu s-a putut copia!");
-    }
-  } catch (err) {
-    alert("❌ Eroare la copiere.");
-    console.error(err);
-  }
-
-  document.body.removeChild(input);
-}
-</script>
-
 
 </body>
 </html>

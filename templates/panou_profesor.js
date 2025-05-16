@@ -19,13 +19,20 @@ function salveazaUtilizator() {
   }
 
   const key = tip === "elev" ? "elevi" : "profesori";
-  const utilizatori = JSON.parse(localStorage.getItem(key)) || [];
+  let utilizatori = JSON.parse(localStorage.getItem(key)) || [];
+
+  // Verifică dacă username-ul există deja
+  if (utilizatori.find(u => u.username === username)) {
+    alert("Acest username există deja!");
+    return;
+  }
 
   utilizatori.push({ username, parola, nume, tip });
   localStorage.setItem(key, JSON.stringify(utilizatori));
 
   alert(`${tip} salvat cu succes!`);
   afiseazaUtilizatori();
+  document.getElementById("formUtilizator").reset();
 }
 
 function stergeUtilizator(username, tip) {
@@ -43,6 +50,25 @@ function copiazaUserParola(username, parola) {
   });
 }
 
+function salveazaModificari(index, tip) {
+  const key = tip === "elev" ? "elevi" : "profesori";
+  let utilizatori = JSON.parse(localStorage.getItem(key)) || [];
+
+  const usernameNou = document.getElementById(`${tip}_username_${index}`).value.trim();
+  const parolaNoua = document.getElementById(`${tip}_parola_${index}`).value.trim();
+
+  if (!usernameNou || !parolaNoua) {
+    alert("Completează ambele câmpuri!");
+    return;
+  }
+
+  utilizatori[index].username = usernameNou;
+  utilizatori[index].parola = parolaNoua;
+  localStorage.setItem(key, JSON.stringify(utilizatori));
+  alert("Modificări salvate!");
+  afiseazaUtilizatori();
+}
+
 function afiseazaUtilizatori() {
   const elevi = JSON.parse(localStorage.getItem("elevi")) || [];
   const profesori = JSON.parse(localStorage.getItem("profesori")) || [];
@@ -53,22 +79,28 @@ function afiseazaUtilizatori() {
   containerElevi.innerHTML = "";
   containerProfesori.innerHTML = "";
 
-  profesori.forEach(p => {
+  profesori.forEach((p, i) => {
     const div = document.createElement("div");
     div.innerHTML = `
-      👨‍🏫 <strong>${p.nume || "undefined"}</strong> <code>(${p.username})</code> – <code>${p.parola}</code>
-      <button onclick="copiazaUserParola('${p.username}', '${p.parola}')">Copiază</button>
-      <button onclick="stergeUtilizator('${p.username}', 'profesor')">Șterge</button>
+      👨‍🏫 <strong>${p.nume}</strong>
+      <input type="text" id="profesor_username_${i}" value="${p.username}">
+      <input type="text" id="profesor_parola_${i}" value="${p.parola}">
+      <button onclick="salveazaModificari(${i}, 'profesor')">💾 Salvează</button>
+      <button onclick="copiazaUserParola('${p.username}', '${p.parola}')">📋 Copiază</button>
+      <button onclick="stergeUtilizator('${p.username}', 'profesor')">🗑️ Șterge</button>
     `;
     containerProfesori.appendChild(div);
   });
 
-  elevi.forEach(e => {
+  elevi.forEach((e, i) => {
     const div = document.createElement("div");
     div.innerHTML = `
-      👦 <strong>${e.nume}</strong> <code>(${e.username})</code> – <code>${e.parola}</code>
-      <button onclick="copiazaUserParola('${e.username}', '${e.parola}')">Copiază</button>
-      <button onclick="stergeUtilizator('${e.username}', 'elev')">Șterge</button>
+      👦 <strong>${e.nume}</strong>
+      <input type="text" id="elev_username_${i}" value="${e.username}">
+      <input type="text" id="elev_parola_${i}" value="${e.parola}">
+      <button onclick="salveazaModificari(${i}, 'elev')">💾 Salvează</button>
+      <button onclick="copiazaUserParola('${e.username}', '${e.parola}')">📋 Copiază</button>
+      <button onclick="stergeUtilizator('${e.username}', 'elev')">🗑️ Șterge</button>
     `;
     containerElevi.appendChild(div);
   });
