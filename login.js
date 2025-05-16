@@ -22,7 +22,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
       nume: utilizatorGasit.nume,
       rol: rol
     };
-    localStorage.setItem("utilizatorCurent", JSON.stringify(dateUtilizator));
+localStorage.setItem("utilizator", JSON.stringify(dateUtilizator));
 
     // Redirecționare în funcție de rol
     if (rol === "profesor") {
